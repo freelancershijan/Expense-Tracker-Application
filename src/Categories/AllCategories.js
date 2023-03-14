@@ -5,6 +5,25 @@ import Buttons from './Buttons';
 const AllCategories = () => {
     const { categories } = useContext(AuthContext);
     // console.log(categories);
+
+    // const { funds } = useContext(AuthContext);
+
+    // console.log(funds);
+
+
+    // const fund = funds.map(fnd => fnd?.category);
+    // const category = categories.map(ctg => ctg?.name);
+    // console.log(category);
+    // console.log(fund);
+
+    // if (category == fund) {
+    //     console.log('mil ache');
+    // }
+
+
+
+
+
     return (
         <div>
             <div className="divider my-20 text-3xl font-semibold">Categories</div>

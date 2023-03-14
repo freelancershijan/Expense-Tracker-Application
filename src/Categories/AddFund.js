@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
 import { AuthContext } from '../Context/AuthProvider';
 
 // 
 
 const AddFund = () => {
-    /*     const [category, setCategory] = useState('');
-        const [money, setMoney] = useState('');
-        const [date, setDate] = useState('');
-        const [time, setTime] = useState('');
-        const [notes, setNotes] = useState('');
-     */
-    const { categories } = useContext(AuthContext);
+    const { fundCategories } = useContext(AuthContext);
+
+
+    // console.log(fundCategories);
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,7 +17,7 @@ const AddFund = () => {
 
         const form = e.target;
         const category = form.category.value;
-        const money = form.money.value;
+        const money = parseInt(form.money.value);
         const date = form.date.value;
         const time = form.time.value;
         const notes = form.notes.value;
@@ -35,6 +34,69 @@ const AddFund = () => {
 
 
         console.log(fundDetails);
+
+
+        fetch('http://localhost:5000/funds', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(fundDetails)
+        })
+            .then(res => res.json())
+            .then(data => {
+
+                if (data.acknowledged) {
+                    toast.success('Congratulation!! Added Your Funds');
+                    // refetch();
+                    // navigate('/')
+                    window.location.href = '/';
+                }
+                else {
+                    toast.error(data.message)
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+
+        // update price
+
+
+
+        let updateCategory = fundCategories.filter(ctg => ctg?.name == category);
+
+        const prevValue = updateCategory[0].value;
+        const prevName = updateCategory[0].name;
+
+        console.log(prevName);
+
+
+
+        const updateValue = {
+            value: (prevValue + money),
+        }
+
+        console.log(updateValue);
+
+
+        fetch(`http://localhost:5000/categories/${prevName}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updateValue)
+        })
+            .then(res => res.json())
+            .then(data => {
+                toast.success("Price Updated Successfully");
+                console.log(data.message); // Output success message
+                // Perform any additional actions, such as updating the state of your component
+            })
+            .catch(err => console.error(err));
+
+
+
+
     };
 
     // update price value
@@ -74,7 +136,7 @@ const AddFund = () => {
                             onChange={(e) => setCategory(e.target.value)} */
                             >
                                 {
-                                    categories.map(ctg => <option key={ctg?._id} value={ctg?.name}>{ctg?.name}</option>)
+                                    fundCategories.map(ctg => <option key={ctg?._id} value={ctg?.name}>{ctg?.name}</option>)
                                 }
 
                             </select>

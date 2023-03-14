@@ -11,10 +11,25 @@ const AuthProvider = ({ children }) => {
             .then(data => setCategories(data))
     }, [])
 
+    const [funds, setFunds] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost:5000/costs')
+            .then(res => res.json())
+            .then(data => setFunds(data))
+    }, [])
+
+
+    const fundCategories = categories.filter(ctg => ctg?.type == 'fund');
+
+    const costCategories = categories.filter(ctg => ctg?.type == 'cost');
+
 
 
     const authInfo = {
-        categories
+        categories,
+        funds,
+        fundCategories,
+        costCategories
 
 
     }

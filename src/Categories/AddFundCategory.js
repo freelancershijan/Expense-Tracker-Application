@@ -2,7 +2,7 @@ import React from 'react';
 import { toast } from 'react-hot-toast';
 // import { useNavigate } from 'react-router-dom';
 
-const AddCategory = () => {
+const AddFundCategory = () => {
     // const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -11,7 +11,8 @@ const AddCategory = () => {
 
         const categories = {
             name,
-            value: 0
+            value: 0,
+            type: 'fund'
         }
 
         console.log(categories)
@@ -29,7 +30,7 @@ const AddCategory = () => {
             .then(data => {
 
                 if (data.acknowledged) {
-                    toast.success('We have recived Your Booking');
+                    toast.success('COngratulation!! Category Added');
                     // refetch();
                     // navigate('/')
                     window.location.href = '/';
@@ -61,7 +62,7 @@ const AddCategory = () => {
                     <label htmlFor="category-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
 
                     <form onSubmit={handleSubmit}>
-                        <h3 className='text-center text-3xl font-semibold mb-10'>Add Category</h3>
+                        <h3 className='text-center text-3xl font-semibold mb-10'>Add Fund Category</h3>
 
 
                         <div className="mb-4">
@@ -80,7 +81,7 @@ const AddCategory = () => {
 
 
                         <div className="modal-action">
-                            <button htmlFor="category-modal" className="btn">Add Category</button>
+                            <button htmlFor="category-modal" className="btn">Add Fund Category</button>
                         </div>
                     </form>
 
@@ -96,4 +97,4 @@ const AddCategory = () => {
     );
 };
 
-export default AddCategory;
+export default AddFundCategory;

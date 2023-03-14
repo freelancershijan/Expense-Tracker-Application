@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AddCategory from './AddCategory';
 import AddCost from './AddCost';
+import AddCostCategory from './AddCostCategory';
 import AddFund from './AddFund';
+import AddFundCategory from './AddFundCategory';
 
 const Buttons = () => {
     return (
         <div>
             <div className='text-center'>
-                <div className="md:grid md:gap-2 gap-2 md:grid-cols-2 justify-center lg:grid-cols-4  border-0 mb-10">
+                <div className="md:grid md:gap-2 gap-2 md:grid-cols-2 justify-center lg:grid-cols-5  border-0 mb-10">
 
                     <label className="btn my-1 md:my-0  bg-green-700 hover:bg-green-900 w-full" htmlFor="fund-modal" >Add Fund</label>
 
@@ -16,8 +17,11 @@ const Buttons = () => {
                     <label className="btn my-1 md:my-0  bg-red-700 hover:bg-red-600 w-full" htmlFor="cost-modal" >Add Cost</label>
 
 
-                    <label className="btn my-1 md:my-0  bg-zinc-900 w-full" htmlFor="category-modal" >
-                        Add Category</label>
+                    <label className="btn my-1 md:my-0  bg-sky-800 w-full" htmlFor="category-modal" >
+                        Add Fund Category</label>
+
+                    <label className="btn my-1 md:my-0  bg-pink-700 w-full" htmlFor="cost-category-modal" >
+                        Add Cost Category</label>
 
 
 
@@ -32,7 +36,8 @@ const Buttons = () => {
             </div>
             <AddFund></AddFund>
             <AddCost></AddCost>
-            <AddCategory></AddCategory>
+            <AddFundCategory></AddFundCategory>
+            <AddCostCategory></AddCostCategory>
 
         </div>
 
