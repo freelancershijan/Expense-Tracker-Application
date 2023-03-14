@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
 
 const DeleteCategory = () => {
     const { categories } = useContext(AuthContext);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const handleDelete = ctg => {
 
 
 
-        const url = `http://localhost:5000/categories/${ctg?._id}`;
+        const url = ` https://expense-tracker-application-server.vercel.app/categories/${ctg?._id}`;
         // console.log(url);
         fetch(url, {
             method: 'DELETE',
@@ -23,8 +23,8 @@ const DeleteCategory = () => {
 
                 if (data.acknowledged) {
                     toast.success('Category Deleted Successfully')
-                    // window.location.href = '/';
-                    navigate('/');
+                    window.location.href = '/';
+                    // navigate('/');
                 }
 
                 //   const remaining= myProducts.filter(product => product._id )
@@ -38,6 +38,10 @@ const DeleteCategory = () => {
 
 
         <div>
+
+            <Link to='/'>
+                <button className='btn bg-black'>Back</button>
+            </Link>
 
             <h3 className='text-center text-3xl font-semibold mb-10'>All Categories</h3>
 
