@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 
 const PieChart = () => {
     const [pieData, setPieData] = useState([]);
-
+    console.log(pieData);
     useEffect(() => {
 
-        axios.get('https://expense-tracker-application-server.vercel.app/categories/')
+        axios.get('https://expense-tracker-application-server.vercel.app/categories')
             .then(data => {
                 const categories = data.data;
                 const categoriesData = categories.map(category => {
@@ -31,17 +30,11 @@ const PieChart = () => {
 
 
     return (
-        <ResponsiveContainer width={1024} height="80%">
-            <BarChart data={pieData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="value" fill="#82ca9d" />
-            </BarChart>
-        </ResponsiveContainer >
+        <div>
+
+        </div>
     );
+
 };
 
 export default PieChart;

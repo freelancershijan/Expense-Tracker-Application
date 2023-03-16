@@ -8,7 +8,7 @@ function App() {
     <div>
 
 
-      <div className="w-3/4 mx-auto my-10">
+      <div className="lg:w-3/4 md:mx-10 mx-5 lg:mx-auto my-10">
         <RouterProvider router={routes}></RouterProvider>
         <Toaster></Toaster>
       </div>
