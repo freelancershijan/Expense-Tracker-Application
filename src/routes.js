@@ -32,12 +32,12 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/fund/:category',
-                loader: ({ params }) => fetch(`http://localhost:5000/funds/${params.category}`),
+                loader: ({ params }) => fetch(`https://expense-tracker-application-server.vercel.app/funds/${params.category}`),
                 element: <FundCategory></FundCategory>
             },
             {
                 path: '/cost/:category',
-                loader: ({ params }) => fetch(`http://localhost:5000/costs/${params.category}`),
+                loader: ({ params }) => fetch(`https://expense-tracker-application-server.vercel.app/costs/${params.category}`),
                 element: <CostCategories></CostCategories>
             }
 

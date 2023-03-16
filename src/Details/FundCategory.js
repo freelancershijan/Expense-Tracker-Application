@@ -22,7 +22,7 @@ const FundCategory = () => {
     // delete single fund
 
     const handleDelete = fnd => {
-        fetch(`http://localhost:5000/funds/${fnd._id}`, {
+        fetch(`https://expense-tracker-application-server.vercel.app/funds/${fnd._id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'
@@ -78,35 +78,46 @@ const FundCategory = () => {
             <Link to='/'>
                 <button className='btn bg-black mb-5'>Back</button>
             </Link>
-            <div className="overflow-x-auto">
-                <table className="table table-zebra w-full">
-                    <thead>
-                        <tr>
-                            <th>SL</th>
-                            <th>Name</th>
-                            <th>Money</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Notes</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            fundsCategories.map((fnd, i) => <tr className='hover' key={fnd?._id}>
-                                <th>{i + 1}</th>
-                                <td>{fnd?.category}</td>
-                                <td>{fnd?.money}</td>
-                                <td>{fnd?.date}</td>
-                                <td>{fnd?.time}</td>
-                                <td>{fnd?.notes}</td>
-                                <td><button onClick={() => handleDelete(fnd)} className='btn bg-red-700'>Delete</button></td>
-                            </tr>)
-                        }
-                    </tbody>
+            {
+                fundsCategories.length === 0 ? <div className="card my-20 w-1/2 mx-auto bg-gray-700 text-neutral-content">
 
-                </table>
-            </div>
+                    <div className="card-body items-center text-center">
+
+                        <h1 className='text-3xl font-semibold'>You have Not any Funds in this Fund</h1>
+
+                    </div>
+
+                </div> : <div className="overflow-x-auto">
+                    <table className="table table-zebra w-full">
+                        <thead>
+                            <tr>
+                                <th>SL</th>
+                                <th>Name</th>
+                                <th>Money</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Notes</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                fundsCategories.map((fnd, i) => <tr className='hover' key={fnd?._id}>
+                                    <th>{i + 1}</th>
+                                    <td>{fnd?.category}</td>
+                                    <td>{fnd?.money}</td>
+                                    <td>{fnd?.date}</td>
+                                    <td>{fnd?.time}</td>
+                                    <td>{fnd?.notes}</td>
+                                    <td><button onClick={() => handleDelete(fnd)} className='btn bg-red-700'>Delete</button></td>
+                                </tr>)
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+
+            }
         </div>
     );
 };

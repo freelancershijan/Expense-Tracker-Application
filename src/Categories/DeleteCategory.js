@@ -42,7 +42,7 @@ const DeleteCategory = () => {
 
 
 
-        fetch(`http://localhost:5000/funds/${ctg?.name}`, {
+        fetch(`https://expense-tracker-application-server.vercel.app/funds/${ctg?.name}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'
@@ -63,7 +63,7 @@ const DeleteCategory = () => {
 
 
 
-        fetch(`http://localhost:5000/costs/${ctg?.name}`, {
+        fetch(`https://expense-tracker-application-server.vercel.app/costs/${ctg?.name}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'

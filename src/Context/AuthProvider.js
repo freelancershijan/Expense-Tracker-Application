@@ -89,7 +89,7 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const getPreviousMonthEarnings = async () => {
-            const response = await axios.get('http://localhost:5000/funds');
+            const response = await axios.get('https://expense-tracker-application-server.vercel.app/funds');
             const earnings = response.data.filter((earning) => {
                 const earningMonth = new Date(earning.date).getMonth();
                 const currentMonth = new Date().getMonth();
@@ -112,7 +112,7 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const getPreviousMonthEarnings = async () => {
-            const response = await axios.get('http://localhost:5000/costs');
+            const response = await axios.get('https://expense-tracker-application-server.vercel.app/costs');
             const earnings = response.data.filter((earning) => {
                 const earningMonth = new Date(earning.date).getMonth();
                 const currentMonth = new Date().getMonth();
