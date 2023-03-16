@@ -5,6 +5,7 @@ import { AuthContext } from '../Context/AuthProvider';
 
 const DeleteCategory = () => {
     const { categories, funds } = useContext(AuthContext);
+    console.log(categories);
     // const navigate = useNavigate();
     const handleDelete = (ctg) => {
 
@@ -73,7 +74,7 @@ const DeleteCategory = () => {
             .then(data => {
 
                 if (data.acknowledged) {
-                    toast.success('Funds Deleted Successfully')
+                    toast.success('Costs Deleted Successfully')
                     window.location.href = '/';
                 }
 
