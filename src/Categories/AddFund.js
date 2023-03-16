@@ -36,7 +36,7 @@ const AddFund = () => {
         console.log(fundDetails);
 
 
-        fetch('http://localhost:5000/funds', {
+        fetch('https://expense-tracker-application-server.vercel.app/funds', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -48,9 +48,6 @@ const AddFund = () => {
 
                 if (data.acknowledged) {
                     toast.success('Congratulation!! Added Your Funds');
-                    // refetch();
-                    // navigate('/')
-                    window.location.href = '/';
                 }
                 else {
                     toast.error(data.message)
@@ -65,7 +62,7 @@ const AddFund = () => {
 
 
 
-        let updateCategory = fundCategories.filter(ctg => ctg?.name == category);
+        let updateCategory = fundCategories.filter(ctg => ctg?.name === category);
 
         const prevValue = updateCategory[0].value;
         const prevName = updateCategory[0].name;
@@ -81,7 +78,7 @@ const AddFund = () => {
         console.log(updateValue);
 
 
-        fetch(`http://localhost:5000/categories/${prevName}`, {
+        fetch(`https://expense-tracker-application-server.vercel.app/categories/${prevName}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateValue)
@@ -89,6 +86,7 @@ const AddFund = () => {
             .then(res => res.json())
             .then(data => {
                 toast.success("Price Updated Successfully");
+                window.location.href = '/';
                 console.log(data.message); // Output success message
                 // Perform any additional actions, such as updating the state of your component
             })
@@ -129,6 +127,7 @@ const AddFund = () => {
                             </label>
 
                             <select
+                                required
                                 id="category"
                                 name="category"
                                 className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
@@ -146,6 +145,7 @@ const AddFund = () => {
                                 Money
                             </label>
                             <input
+                                required
                                 id="money"
                                 name="money"
                                 type="number"
@@ -160,6 +160,7 @@ const AddFund = () => {
                                 Date
                             </label>
                             <input
+                                required
                                 id="date"
                                 name="date"
                                 type="date"
@@ -173,6 +174,7 @@ const AddFund = () => {
                                 Time
                             </label>
                             <input
+                                required
                                 id="time"
                                 name="time"
                                 type="time"
@@ -187,6 +189,7 @@ const AddFund = () => {
                                 Notes
                             </label>
                             <input
+                                required
                                 id="notes"
                                 name="notes"
                                 type="text"

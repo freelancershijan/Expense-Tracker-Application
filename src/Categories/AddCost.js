@@ -32,7 +32,7 @@ const AddCost = () => {
         // console.log(costDetails);
 
 
-        fetch('http://localhost:5000/costs', {
+        fetch('https://expense-tracker-application-server.vercel.app/costs', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -44,9 +44,6 @@ const AddCost = () => {
 
                 if (data.acknowledged) {
                     toast.success('Added Your Costs');
-                    // refetch();
-                    // navigate('/')
-                    window.location.href = '/';
                 }
                 else {
                     toast.error(data.message)
@@ -63,7 +60,7 @@ const AddCost = () => {
 
 
 
-        let updateCategory = costCategories.filter(ctg => ctg?.name == category);
+        let updateCategory = costCategories.filter(ctg => ctg?.name === category);
 
         const prevValue = updateCategory[0].value;
         const prevName = updateCategory[0].name;
@@ -79,7 +76,7 @@ const AddCost = () => {
         console.log(updateValue);
 
 
-        fetch(`http://localhost:5000/categories/${prevName}`, {
+        fetch(`https://expense-tracker-application-server.vercel.app/categories/${prevName}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateValue)
@@ -87,6 +84,7 @@ const AddCost = () => {
             .then(res => res.json())
             .then(data => {
                 toast.success("Price Updated Successfully");
+                window.location.href = '/';
                 console.log(data.message); // Output success message
                 // Perform any additional actions, such as updating the state of your component
             })

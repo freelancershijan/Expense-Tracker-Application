@@ -1,5 +1,6 @@
 import React from 'react';
 import AllCategories from './Categories/AllCategories';
+import PieChart from './Components/PieChart';
 import TotalCount from './TotalCount/TotalCount';
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
         <div>
             <TotalCount />
             <AllCategories />
+            <PieChart></PieChart>
         </div>
     );
 };

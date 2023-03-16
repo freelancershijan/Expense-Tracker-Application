@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
 
 const DeleteCategory = () => {
-    const { categories } = useContext(AuthContext);
+    const { categories, funds } = useContext(AuthContext);
     // const navigate = useNavigate();
-    const handleDelete = ctg => {
+    const handleDelete = (ctg) => {
 
 
 
-        const url = ` https://expense-tracker-application-server.vercel.app/categories/${ctg?._id}`;
+        const url = `https://expense-tracker-application-server.vercel.app/categories/${ctg?._id}`;
         // console.log(url);
         fetch(url, {
             method: 'DELETE',
@@ -29,6 +29,61 @@ const DeleteCategory = () => {
 
                 //   const remaining= myProducts.filter(product => product._id )
             })
+
+
+        console.log('from', ctg?.name);
+        // console.log(costs);
+        console.log(funds);
+
+        // const dltCost = costs.filter(cst => cst?.category === ctg?.name);
+        const dltFund = funds.filter(cst => cst?.category === ctg?.name);
+
+        console.log(dltFund);
+
+
+
+        fetch(`http://localhost:5000/funds/${ctg?.name}`, {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+
+                if (data.acknowledged) {
+                    toast.success('Funds Deleted Successfully')
+                    window.location.href = '/';
+                    // navigate('/');
+                }
+
+                //   const remaining= myProducts.filter(product => product._id )
+            })
+
+
+
+
+        fetch(`http://localhost:5000/costs/${ctg?.name}`, {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+
+                if (data.acknowledged) {
+                    toast.success('Funds Deleted Successfully')
+                    window.location.href = '/';
+                    // navigate('/');
+                }
+
+                //   const remaining= myProducts.filter(product => product._id )
+            })
+
+
+
+        // const filtr = 
 
     }
 
@@ -60,7 +115,7 @@ const DeleteCategory = () => {
                     <tbody>
 
                         {
-                            categories.map(ctg => <tr className='hover' key={ctg?._it}>
+                            categories.map(ctg => <tr className='hover' key={ctg?._id}>
                                 <th>*</th>
                                 <td>{ctg?.name}</td>
                                 <td>
