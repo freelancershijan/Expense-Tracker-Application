@@ -122,7 +122,7 @@ const AddFund = () => {
                         <div className="mb-4">
 
 
-                            <label className="block text-gray-700 font-bold mb-2" htmlFor="category">
+                            <label className="block text-gray-700 dark:text-white font-bold mb-2" htmlFor="category">
                                 Select Category
                             </label>
 
@@ -130,7 +130,7 @@ const AddFund = () => {
                                 required
                                 id="category"
                                 name="category"
-                                className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                                className="block appearance-none w-full dark:text-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
                             /* value={category}
                             onChange={(e) => setCategory(e.target.value)} */
                             >
@@ -141,7 +141,7 @@ const AddFund = () => {
                             </select>
                         </div>
                         <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2" htmlFor="money">
+                            <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="money">
                                 Money
                             </label>
                             <input
@@ -156,7 +156,7 @@ const AddFund = () => {
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2" htmlFor="date">
+                            <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="date">
                                 Date
                             </label>
                             <input
@@ -164,13 +164,13 @@ const AddFund = () => {
                                 id="date"
                                 name="date"
                                 type="date"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
                             /*  value={date}
                              onChange={(e) => setDate(e.target.value)} */
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2" htmlFor="time">
+                            <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="time">
                                 Time
                             </label>
                             <input
@@ -178,14 +178,14 @@ const AddFund = () => {
                                 id="time"
                                 name="time"
                                 type="time"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
                             /*  value={time}
                              onChange={(e) => setTime(e.target.value)} */
                             />
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2" htmlFor="notes">
+                            <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="notes">
                                 Notes
                             </label>
                             <input
@@ -193,7 +193,7 @@ const AddFund = () => {
                                 id="notes"
                                 name="notes"
                                 type="text"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
                             /* value={notes}
                             onChange={(e) => setNotes(e.target.value)} */
                             />

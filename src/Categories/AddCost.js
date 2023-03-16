@@ -113,14 +113,14 @@ const AddCost = () => {
                         <div className="mb-4">
 
 
-                            <label className="block text-gray-700 font-bold mb-2" htmlFor="category">
+                            <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="category">
                                 Select Category
                             </label>
 
                             <select
                                 id="category"
                                 name="category"
-                                className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                                className="block dark:text-white appearance-none w-full border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
 
                             >
                                 {
@@ -129,7 +129,7 @@ const AddCost = () => {
                             </select>
                         </div>
                         <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2" htmlFor="money">
+                            <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="money">
                                 Money
                             </label>
                             <input
@@ -137,44 +137,44 @@ const AddCost = () => {
                                 name="money"
                                 type="number"
                                 step="0.01"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="shadow dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2" htmlFor="date">
+                            <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="date">
                                 Date
                             </label>
                             <input
                                 id="date"
                                 name="date"
                                 type="date"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="shadow dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2" htmlFor="time">
+                            <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="time">
                                 Time
                             </label>
                             <input
                                 id="time"
                                 name="time"
                                 type="time"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="shadow dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 
                             />
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2" htmlFor="notes">
+                            <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="notes">
                                 Notes
                             </label>
                             <input
                                 id="notes"
                                 name="notes"
                                 type="text"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="shadow dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 
                             />
                         </div>

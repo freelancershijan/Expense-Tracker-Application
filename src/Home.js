@@ -5,36 +5,12 @@ import TotalCount from './TotalCount/TotalCount';
 
 
 const Home = () => {
-    /*     const [theme, setTheme] = useState("light");
-    
-        useEffect(() => {
-            if (theme === 'dark') {
-                document.documentElement.classList.add("dark");
-            }
-            else {
-                document.documentElement.classList.remove("dark");
-            }
-        }, [theme]);
-    
-        const handleThemeSwitch = () => {
-            setTheme(theme === "dark" ? "light" : "dark")
-        } */
+
 
     return (
         <div>
 
-
-            {/* <button
-                className="btn btn-primary"
-                onClick={handleThemeSwitch}
-                style={{
-                    backgroundColor: 'var(--color-primary)',
-                    color: 'var(--color-text)',
-                }}
-            >
-                Click me
-            </button> */}
-
+            <h2 className='text-center my-10 text-cyan-800 text-3xl font-semibold'>Welcome to Expense Tracking Software</h2>
 
             <TotalCount />
             <AllCategories />

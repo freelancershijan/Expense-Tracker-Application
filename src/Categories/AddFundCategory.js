@@ -66,14 +66,14 @@ const AddFundCategory = () => {
 
 
                         <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
+                            <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="name">
                                 Category Name
                             </label>
                             <input
                                 id="name"
                                 name="name"
                                 type="text"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="shadow dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 placeholder="Tution,Medical,Nasta etc"
                             />
                         </div>
