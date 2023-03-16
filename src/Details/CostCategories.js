@@ -5,7 +5,20 @@ import { AuthContext } from '../Context/AuthProvider';
 
 const CostCategories = () => {
     const costCategories = useLoaderData([]);
-    const { cost } = useContext(AuthContext);
+    const { categories } = useContext(AuthContext);
+
+
+    // console.log(fundsCategories);
+    console.log(categories);
+    let cstctgoris = costCategories.map(fctg => fctg?.category);
+    console.log(cstctgoris);
+
+
+    let ctgoris = categories.filter(ctg => ctg?.name === cstctgoris[0])
+
+
+
+
 
     // delete single fund
 
@@ -26,7 +39,7 @@ const CostCategories = () => {
                     const price = fnd?.money
 
                     const updateValue = {
-                        value: cost - price
+                        value: ctgoris[0].value - price
                     }
                     console.log(updateValue);
 

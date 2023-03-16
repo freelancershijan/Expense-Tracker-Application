@@ -36,7 +36,7 @@ const AuthProvider = ({ children }) => {
 
 
 
-    // cusrrent month funds value
+    // current month funds value
 
     const getCurrentMonthFundsTotal = () => {
         const currentDate = new Date();
@@ -128,10 +128,12 @@ const AuthProvider = ({ children }) => {
 
 
 
-    const fundss = fundCategories.map(fnd => fnd?.value);
-    const costss = costCategories.map(fnd => fnd?.value);
 
+    const fundss = fundCategories.map(fnd => fnd?.value);
     const sum = fundss.reduce((acc, val) => acc + val, 0);
+
+
+    const costss = costCategories.map(fnd => fnd?.value);
     const cost = costss.reduce((acc, val) => acc + val, 0);
     // console.log(sum);
 

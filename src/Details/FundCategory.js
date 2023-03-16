@@ -4,9 +4,19 @@ import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
 
 const FundCategory = () => {
-    const fundsCategories = useLoaderData();
-    const { sum } = useContext(AuthContext);
+    const fundsCategories = useLoaderData([]);
+    const { categories } = useContext(AuthContext);
 
+    console.log(fundsCategories);
+    console.log(categories);
+    let fndctgoris = fundsCategories.map(fctg => fctg?.category);
+    console.log(fndctgoris);
+
+
+    let ctgoris = categories.filter(ctg => ctg?.name === fndctgoris[0])
+
+    // console.log(ctgoris[0].value);
+    // console.log(ctgoris?.value);
 
 
     // delete single fund
@@ -24,11 +34,18 @@ const FundCategory = () => {
                 if (data.acknowledged) {
                     toast.success('Product Deleted Successfully');
 
+                    // const ctgoris = categories.filter(ctg => ctg.name === fnd?.category);
+
+                    // console.log(ctgoris?.value);
+
+
+
+
 
                     const price = fnd?.money
 
                     const updateValue = {
-                        value: sum - price
+                        value: ctgoris[0].value - price
                     }
                     console.log(updateValue);
 

@@ -75,15 +75,12 @@ const DeleteCategory = () => {
                 if (data.acknowledged) {
                     toast.success('Funds Deleted Successfully')
                     window.location.href = '/';
-                    // navigate('/');
                 }
 
-                //   const remaining= myProducts.filter(product => product._id )
             })
 
 
 
-        // const filtr = 
 
     }
 
