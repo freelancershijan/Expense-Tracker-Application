@@ -8,6 +8,13 @@ const CostCategories = () => {
     const { categories } = useContext(AuthContext);
 
 
+    const email = localStorage.getItem('userEmail');
+    console.log('email from categories', email);
+    const filtr = costCategories.filter(ctg => ctg?.user == email)
+    console.log('filtet from fudscartegories', filtr);
+
+
+
     // console.log(fundsCategories);
     console.log(categories);
     let cstctgoris = costCategories.map(fctg => fctg?.category);
@@ -74,7 +81,7 @@ const CostCategories = () => {
             </Link>
 
             {
-                costCategories.length === 0 ? <div className="card my-20 w-1/2 mx-auto bg-gray-700 text-neutral-content">
+                filtr.length === 0 ? <div className="card my-20 w-1/2 mx-auto bg-gray-700 text-neutral-content">
 
                     <div className="card-body items-center text-center">
 
@@ -97,7 +104,7 @@ const CostCategories = () => {
                         </thead>
                         <tbody>
                             {
-                                costCategories.map((fnd, i) => <tr className='hover' key={fnd?._id}>
+                                filtr.map((fnd, i) => <tr className='hover' key={fnd?._id}>
                                     <th>{i + 1}</th>
                                     <td>{fnd?.category}</td>
                                     <td>{fnd?.money}</td>

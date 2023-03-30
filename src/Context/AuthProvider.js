@@ -8,138 +8,8 @@ export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
-    const [categories, setCategories] = useState([]);
-    useEffect(() => {
-        fetch(' http://localhost:5000/categories')
-            .then(res => res.json())
-            .then(data => setCategories(data))
-    }, [])
 
-    const [costs, setCosts] = useState([]);
-
-    useEffect(() => {
-        fetch('http://localhost:5000/costs')
-            .then(res => res.json())
-            .then(data => setCosts(data))
-    }, [])
-
-
-    const [funds, setFunds] = useState([]);
-
-    useEffect(() => {
-        fetch('http://localhost:5000/funds')
-            .then(res => res.json())
-            .then(data => setFunds(data))
-    }, [])
-
-
-    const fundCategories = categories.filter(ctg => ctg?.type === 'fund');
-
-    const costCategories = categories.filter(ctg => ctg?.type === 'cost');
-
-
-
-
-    // current month funds value
-
-    const getCurrentMonthFundsTotal = () => {
-        const currentDate = new Date();
-        const currentMonth = currentDate.getMonth() + 1;
-        const currentYear = currentDate.getFullYear();
-
-        const currentMonthFunds = funds.filter(fund => {
-            const fundDate = new Date(fund.date);
-            const fundMonth = fundDate.getMonth() + 1;
-            const fundYear = fundDate.getFullYear();
-
-            return (fundMonth === currentMonth && fundYear === currentYear);
-        });
-
-        const total = currentMonthFunds.reduce((accumulator, fund) => {
-            return accumulator + fund.money;
-        }, 0);
-
-        return total;
-    }
-
-
-    // current month Costs value
-
-    const getCurrentMonthCostsTotal = () => {
-        const currentDate = new Date();
-        const currentMonth = currentDate.getMonth() + 1;
-        const currentYear = currentDate.getFullYear();
-
-        const currentMonthFunds = costs.filter(fund => {
-            const fundDate = new Date(fund.date);
-            const fundMonth = fundDate.getMonth() + 1;
-            const fundYear = fundDate.getFullYear();
-
-            return (fundMonth === currentMonth && fundYear === currentYear);
-        });
-
-        const total = currentMonthFunds.reduce((accumulator, fund) => {
-            return accumulator + fund.money;
-        }, 0);
-
-        return total;
-    }
-
-
-
-    // previous month fund value
-
-    const [totalEarnings, setTotalEarnings] = useState(0);
-
-    useEffect(() => {
-        const getPreviousMonthEarnings = async () => {
-            const response = await axios.get('http://localhost:5000/funds');
-            const earnings = response.data.filter((earning) => {
-                const earningMonth = new Date(earning.date).getMonth();
-                const currentMonth = new Date().getMonth();
-                const previousMonth = currentMonth === 0 ? 11 : currentMonth - 1; // January is month 0
-                return earningMonth === previousMonth;
-            });
-            const total = earnings.reduce((acc, curr) => acc + curr.money, 0);
-            setTotalEarnings(total);
-        };
-
-        getPreviousMonthEarnings();
-    }, []);
-
-
-
-
-    // previous month Cost value
-
-    const [totalCosts, setTotalCosts] = useState(0);
-
-    useEffect(() => {
-        const getPreviousMonthEarnings = async () => {
-            const response = await axios.get('http://localhost:5000/costs');
-            const earnings = response.data.filter((earning) => {
-                const earningMonth = new Date(earning.date).getMonth();
-                const currentMonth = new Date().getMonth();
-                const previousMonth = currentMonth === 0 ? 11 : currentMonth - 1; // January is month 0
-                return earningMonth === previousMonth;
-            });
-            const total = earnings.reduce((acc, curr) => acc + curr.money, 0);
-            setTotalCosts(total);
-        };
-
-        getPreviousMonthEarnings();
-    }, []);
-
-
-
-
-    const fundss = fundCategories.map(fnd => fnd?.value);
-    const sum = fundss.reduce((acc, val) => acc + val, 0);
-
-
-    const costss = costCategories.map(fnd => fnd?.value);
-    const cost = costss.reduce((acc, val) => acc + val, 0);
-    // console.log(sum);
+    const [user, setUser] = useState(null);
 
 
 
@@ -148,8 +18,7 @@ const AuthProvider = ({ children }) => {
 
     const googleProvider = new GoogleAuthProvider();
 
-    const [user, setUser] = useState(null);
-    console.log(user)
+
     const [loading, setLoading] = useState(true);
 
     console.log('authprovider', user)
@@ -212,6 +81,203 @@ const AuthProvider = ({ children }) => {
 
 
     }, [])
+
+
+
+    // ************************************************ //
+
+
+    const [categories, setCategories] = useState([]);
+    useEffect(() => {
+        fetch(' http://localhost:5000/categories')
+            .then(res => res.json())
+            .then(data => {
+                const email = localStorage.getItem('userEmail');
+                console.log('email from categories', email);
+                const filtr = data.filter(ctg => ctg?.user == email)
+                // console.log(filtr);
+                setCategories(filtr);
+            })
+    }, [])
+
+    const [costs, setCosts] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/costs')
+            .then(res => res.json())
+            .then(data => {
+                const email = localStorage.getItem('userEmail');
+                console.log('email from categories', email);
+                const filtr = data.filter(ctg => ctg?.user == email)
+                // console.log(filtr);
+                setCosts(filtr);
+            })
+    }, [])
+
+
+    const [funds, setFunds] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/funds')
+            .then(res => res.json())
+            .then(data => {
+                const email = localStorage.getItem('userEmail');
+                console.log('email from categories', email);
+                const filtr = data.filter(ctg => ctg?.user == email)
+                // console.log(filtr);
+                setFunds(filtr);
+            })
+    }, [])
+
+
+    const fundCategories = categories.filter(ctg => ctg?.type === 'fund');
+
+    const costCategories = categories.filter(ctg => ctg?.type === 'cost');
+
+
+
+
+    // current month funds value
+
+    const getCurrentMonthFundsTotal = () => {
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth() + 1;
+        const currentYear = currentDate.getFullYear();
+
+        const email = localStorage.getItem('userEmail');
+        console.log('email from categories', email);
+        const filtr = funds.filter(ctg => ctg?.user == email)
+
+        const currentMonthFunds = filtr.filter(fund => {
+            const fundDate = new Date(fund.date);
+            const fundMonth = fundDate.getMonth() + 1;
+            const fundYear = fundDate.getFullYear();
+
+            return (fundMonth === currentMonth && fundYear === currentYear);
+        });
+
+        const total = currentMonthFunds.reduce((accumulator, fund) => {
+            return accumulator + fund.money;
+        }, 0);
+
+        return total;
+    }
+
+
+    // current month Costs value
+
+    const getCurrentMonthCostsTotal = () => {
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth() + 1;
+        const currentYear = currentDate.getFullYear();
+
+        const email = localStorage.getItem('userEmail');
+        console.log('email from categories', email);
+        const filtr = costs.filter(ctg => ctg?.user == email)
+
+
+
+
+        const currentMonthFunds = filtr.filter(fund => {
+            const fundDate = new Date(fund.date);
+            const fundMonth = fundDate.getMonth() + 1;
+            const fundYear = fundDate.getFullYear();
+
+            return (fundMonth === currentMonth && fundYear === currentYear);
+        });
+
+        const total = currentMonthFunds.reduce((accumulator, fund) => {
+            return accumulator + fund.money;
+        }, 0);
+
+        return total;
+    }
+
+
+
+    // previous month fund value
+
+    const [totalEarnings, setTotalEarnings] = useState(0);
+
+    useEffect(() => {
+        const getPreviousMonthEarnings = async () => {
+            const response = await axios.get('http://localhost:5000/funds');
+            console.log('response', response.data);
+
+            const email = localStorage.getItem('userEmail');
+            console.log('email from categories', email);
+            const filtr = response?.data.filter(ctg => ctg?.user == email)
+
+
+
+
+
+            const earnings = filtr.filter((earning) => {
+                const earningMonth = new Date(earning.date).getMonth();
+                const currentMonth = new Date().getMonth();
+                const previousMonth = currentMonth === 0 ? 11 : currentMonth - 1; // January is month 0
+                return earningMonth === previousMonth;
+            });
+            const total = earnings.reduce((acc, curr) => acc + curr.money, 0);
+            setTotalEarnings(total);
+        };
+
+        getPreviousMonthEarnings();
+    }, []);
+
+
+
+
+    // previous month Cost value
+
+    const [totalCosts, setTotalCosts] = useState(0);
+
+    useEffect(() => {
+        const getPreviousMonthEarnings = async () => {
+            const response = await axios.get('http://localhost:5000/costs');
+
+            const email = localStorage.getItem('userEmail');
+            console.log('email from categories', email);
+            const filtr = response?.data.filter(ctg => ctg?.user == email)
+
+
+
+
+            const earnings = filtr.filter((earning) => {
+                const earningMonth = new Date(earning.date).getMonth();
+                const currentMonth = new Date().getMonth();
+                const previousMonth = currentMonth === 0 ? 11 : currentMonth - 1; // January is month 0
+                return earningMonth === previousMonth;
+            });
+            const total = earnings.reduce((acc, curr) => acc + curr.money, 0);
+            setTotalCosts(total);
+        };
+
+        getPreviousMonthEarnings();
+    }, []);
+
+
+    const email = localStorage.getItem('userEmail');
+    console.log('email from categories', email);
+    const filtr = fundCategories.filter(ctg => ctg?.user == email)
+
+
+    const fundss = filtr.map(fnd => fnd?.value);
+    const sum = fundss.reduce((acc, val) => acc + val, 0);
+
+
+
+    const filtrr = costCategories.filter(ctg => ctg?.user == email)
+
+
+
+    const costss = filtrr.map(fnd => fnd?.value);
+    const cost = costss.reduce((acc, val) => acc + val, 0);
+    // console.log(sum);
+
+
+
+
 
 
 

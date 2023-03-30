@@ -29,6 +29,8 @@ const DeleteCategory = () => {
                     toast.success('Category Deleted Successfully')
 
 
+
+
                     fetch(`http://localhost:5000/fund/${ctg?.name}`, {
                         method: 'DELETE',
                     })

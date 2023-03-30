@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const PieChart = () => {
     const [pieData, setPieData] = useState([]);
-    console.log(pieData);
+    // console.log(pieData);
     useEffect(() => {
 
         axios.get('http://localhost:5000/categories')

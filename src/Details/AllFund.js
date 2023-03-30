@@ -4,6 +4,15 @@ import { AuthContext } from '../Context/AuthProvider';
 
 const AllFund = () => {
     const { funds } = useContext(AuthContext);
+    console.log('funds from all fund', funds);
+
+    const email = localStorage.getItem('userEmail');
+    console.log('email from categories', email);
+    const filtr = funds.filter(ctg => ctg?.user == email)
+    console.log('filtet from fudscartegories', filtr);
+
+
+
     return (
         <div>
             <Link to='/dashboard'>
@@ -11,7 +20,7 @@ const AllFund = () => {
             </Link>
 
             {
-                funds.length === 0 ? <div className="card my-20 w-1/2 mx-auto bg-gray-700 text-neutral-content"> <div className="card-body items-center text-center">
+                filtr.length === 0 ? <div className="card my-20 w-1/2 mx-auto bg-gray-700 text-neutral-content"> <div className="card-body items-center text-center">
 
                     <h1 className='text-3xl font-semibold'>You have Not any Funds</h1>
 
@@ -31,7 +40,7 @@ const AllFund = () => {
                             </thead>
                             <tbody>
                                 {
-                                    funds.map((fnd, i) => <tr className='hover' key={fnd?._id}>
+                                    filtr.map((fnd, i) => <tr className='hover' key={fnd?._id}>
                                         <th>{i + 1}</th>
                                         <td>{fnd?.category}</td>
                                         <td>{fnd?.money}</td>

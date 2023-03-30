@@ -102,14 +102,10 @@ const Register = () => {
                         setAuthToken(result.user)
                         setError('');
                         updateUserProfile(name, imageData.data.url)
-                            .then(
-                                verifyEmail()
-                                    .then(() => {
-                                        toast.success('Please Check your email for verification');
-                                        navigate(from, { replace: true })
-
-                                    })
-                            )
+                            .then(result => {
+                                const user = result.user;
+                                localStorage.setItem("userEmail", user?.email)
+                            })
                             .catch(error => setError(error.message))
                     })
                     .catch(error => {
@@ -137,6 +133,7 @@ const Register = () => {
         signInGoogle()
             .then(result => {
                 const user = result.user;
+                localStorage.setItem("userEmail", user?.email);
                 setAuthToken(result.user)
                 console.log('New User From Google', user);
                 navigate(from, { replace: true })

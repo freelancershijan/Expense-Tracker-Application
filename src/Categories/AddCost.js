@@ -6,7 +6,7 @@ import { AuthContext } from '../Context/AuthProvider';
 
 const AddCost = () => {
 
-    const { costCategories } = useContext(AuthContext);
+    const { costCategories, user } = useContext(AuthContext);
 
 
     const handleSubmit = (e) => {
@@ -26,7 +26,8 @@ const AddCost = () => {
             money,
             date,
             time,
-            notes
+            notes,
+            user: user?.email
         }
 
         // console.log(costDetails);
@@ -60,7 +61,14 @@ const AddCost = () => {
 
 
 
-        let updateCategory = costCategories.filter(ctg => ctg?.name === category);
+        const email = localStorage.getItem('userEmail');
+        console.log('email from categories', email);
+        const filtr = costCategories.filter(ctg => ctg?.user == email)
+
+
+
+
+        let updateCategory = filtr.filter(ctg => ctg?.name === category);
 
         const prevValue = updateCategory[0].value;
         const prevName = updateCategory[0].name;

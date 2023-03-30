@@ -30,6 +30,7 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 const user = result.user;
+                localStorage.setItem("userEmail", user?.email);
                 form.reset();
                 setError('');
                 setAuthToken(result.user)
@@ -47,6 +48,7 @@ const Login = () => {
         signInGoogle()
             .then(result => {
                 const user = result.user;
+                localStorage.setItem("userEmail", user?.email);
                 setAuthToken(result.user)
                 console.log('New User From Google', user);
                 navigate('/dashboard')

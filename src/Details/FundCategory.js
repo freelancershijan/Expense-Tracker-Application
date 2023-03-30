@@ -5,18 +5,21 @@ import { AuthContext } from '../Context/AuthProvider';
 
 const FundCategory = () => {
     const fundsCategories = useLoaderData([]);
+    console.log('fundcategories', fundsCategories);
     const { categories } = useContext(AuthContext);
 
-    console.log(fundsCategories);
-    console.log(categories);
+    const email = localStorage.getItem('userEmail');
+    console.log('email from categories', email);
+    const filtr = fundsCategories.filter(ctg => ctg?.user == email)
+    console.log('filtet from fudscartegories', filtr);
+
+
     let fndctgoris = fundsCategories.map(fctg => fctg?.category);
     console.log(fndctgoris);
 
 
     let ctgoris = categories.filter(ctg => ctg?.name === fndctgoris[0])
 
-    // console.log(ctgoris[0].value);
-    // console.log(ctgoris?.value);
 
 
     // delete single fund
@@ -79,7 +82,7 @@ const FundCategory = () => {
                 <button className='btn bg-black mb-5'>Back</button>
             </Link>
             {
-                fundsCategories.length === 0 ? <div className="card my-20 w-1/2 mx-auto bg-gray-700 text-neutral-content">
+                filtr.length === 0 ? <div className="card my-20 w-1/2 mx-auto bg-gray-700 text-neutral-content">
 
                     <div className="card-body items-center text-center">
 
@@ -102,7 +105,7 @@ const FundCategory = () => {
                         </thead>
                         <tbody>
                             {
-                                fundsCategories.map((fnd, i) => <tr className='hover' key={fnd?._id}>
+                                filtr.map((fnd, i) => <tr className='hover' key={fnd?._id}>
                                     <th>{i + 1}</th>
                                     <td>{fnd?.category}</td>
                                     <td>{fnd?.money}</td>

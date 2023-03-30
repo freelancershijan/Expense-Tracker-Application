@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
-// import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../Context/AuthProvider';
 
 const AddFundCategory = () => {
-    // const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
+    console.log('user', user?.email)
     const handleSubmit = (e) => {
         e.preventDefault();
         const name = e.target.name.value;
@@ -12,7 +13,8 @@ const AddFundCategory = () => {
         const categories = {
             name,
             value: 0,
-            type: 'fund'
+            type: 'fund',
+            user: user?.email
         }
 
         console.log(categories)
