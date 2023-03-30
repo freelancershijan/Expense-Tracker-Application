@@ -19,7 +19,7 @@ const AddCostCategory = () => {
 
 
 
-        fetch(' https://expense-tracker-application-server.vercel.app/categories', {
+        fetch(' http://localhost:5000/categories', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -33,7 +33,7 @@ const AddCostCategory = () => {
                     toast.success('COngratulation!! Category Added');
                     // refetch();
                     // navigate('/')
-                    window.location.href = '/';
+                    window.location.href = '/dashboard';
                 }
                 else {
                     toast.error(data.message)
@@ -74,7 +74,7 @@ const AddCostCategory = () => {
                                 name="name"
                                 type="text"
                                 className="shadow dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                placeholder="Tution,Medical,Nasta etc"
+                                placeholder="Nasta,Medical,Bazar etc"
                             />
                         </div>
 

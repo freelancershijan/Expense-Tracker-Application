@@ -1,5 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import DeleteCategory from "./Categories/DeleteCategory";
+import ErrorPage from "./Components/ErrorPage/ErrorPage";
+import Login from "./Components/login/Login/Login";
+import Register from "./Components/login/Register/Register";
+import ResetPass from "./Components/login/ResetPass/ResetPass";
 import AllCost from "./Details/AllCost";
 import AllFund from "./Details/AllFund";
 import CostCategories from "./Details/CostCategories";
@@ -14,6 +18,10 @@ export const routes = createBrowserRouter([
         children: [
             {
                 path: '/',
+                element: <Login />
+            },
+            {
+                path: '/dashboard',
                 element: <Home />
             },
             {
@@ -32,15 +40,27 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/fund/:category',
-                loader: ({ params }) => fetch(`https://expense-tracker-application-server.vercel.app/funds/${params.category}`),
+                loader: ({ params }) => fetch(`http://localhost:5000/funds/${params.category}`),
                 element: <FundCategory></FundCategory>
             },
             {
                 path: '/cost/:category',
-                loader: ({ params }) => fetch(`https://expense-tracker-application-server.vercel.app/costs/${params.category}`),
+                loader: ({ params }) => fetch(`http://localhost:5000/costs/${params.category}`),
                 element: <CostCategories></CostCategories>
-            }
+            },
 
+            {
+                path: '/register',
+                element: <Register></Register>
+            },
+            {
+                path: '/reset-password',
+                element: <ResetPass></ResetPass>
+            },
+            {
+                path: '*',
+                element: <ErrorPage></ErrorPage>
+            },
 
         ]
     }

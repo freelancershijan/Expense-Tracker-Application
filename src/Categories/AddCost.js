@@ -32,7 +32,7 @@ const AddCost = () => {
         // console.log(costDetails);
 
 
-        fetch('https://expense-tracker-application-server.vercel.app/costs', {
+        fetch('http://localhost:5000/costs', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -76,7 +76,7 @@ const AddCost = () => {
         console.log(updateValue);
 
 
-        fetch(`https://expense-tracker-application-server.vercel.app/categories/${prevName}`, {
+        fetch(`http://localhost:5000/categories/${prevName}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateValue)
@@ -84,7 +84,7 @@ const AddCost = () => {
             .then(res => res.json())
             .then(data => {
                 toast.success("Price Updated Successfully");
-                window.location.href = '/';
+                window.location.href = '/dashboard';
                 console.log(data.message); // Output success message
                 // Perform any additional actions, such as updating the state of your component
             })

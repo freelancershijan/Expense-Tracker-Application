@@ -1,12 +1,16 @@
 import React, { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { createUserWithEmailAndPassword, getAuth, updateProfile, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, sendPasswordResetEmail, GoogleAuthProvider, sendEmailVerification } from "firebase/auth";
+import app from '../Firebase/firebase.config';
 
 export const AuthContext = createContext();
+
+const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
     const [categories, setCategories] = useState([]);
     useEffect(() => {
-        fetch(' https://expense-tracker-application-server.vercel.app/categories')
+        fetch(' http://localhost:5000/categories')
             .then(res => res.json())
             .then(data => setCategories(data))
     }, [])
@@ -14,7 +18,7 @@ const AuthProvider = ({ children }) => {
     const [costs, setCosts] = useState([]);
 
     useEffect(() => {
-        fetch('https://expense-tracker-application-server.vercel.app/costs')
+        fetch('http://localhost:5000/costs')
             .then(res => res.json())
             .then(data => setCosts(data))
     }, [])
@@ -23,7 +27,7 @@ const AuthProvider = ({ children }) => {
     const [funds, setFunds] = useState([]);
 
     useEffect(() => {
-        fetch('https://expense-tracker-application-server.vercel.app/funds')
+        fetch('http://localhost:5000/funds')
             .then(res => res.json())
             .then(data => setFunds(data))
     }, [])
@@ -89,7 +93,7 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const getPreviousMonthEarnings = async () => {
-            const response = await axios.get('https://expense-tracker-application-server.vercel.app/funds');
+            const response = await axios.get('http://localhost:5000/funds');
             const earnings = response.data.filter((earning) => {
                 const earningMonth = new Date(earning.date).getMonth();
                 const currentMonth = new Date().getMonth();
@@ -112,7 +116,7 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const getPreviousMonthEarnings = async () => {
-            const response = await axios.get('https://expense-tracker-application-server.vercel.app/costs');
+            const response = await axios.get('http://localhost:5000/costs');
             const earnings = response.data.filter((earning) => {
                 const earningMonth = new Date(earning.date).getMonth();
                 const currentMonth = new Date().getMonth();
@@ -139,6 +143,79 @@ const AuthProvider = ({ children }) => {
 
 
 
+    // login and registration functionality
+
+
+    const googleProvider = new GoogleAuthProvider();
+
+    const [user, setUser] = useState(null);
+    console.log(user)
+    const [loading, setLoading] = useState(true);
+
+    console.log('authprovider', user)
+
+    const createUser = (email, password) => {
+        setLoading(true);
+        return createUserWithEmailAndPassword(auth, email, password)
+    }
+
+    const signInGoogle = () => {
+        setLoading(true);
+        return signInWithPopup(auth, googleProvider)
+    }
+
+    const signIn = (email, password) => {
+        setLoading(true);
+        return signInWithEmailAndPassword(auth, email, password)
+    }
+
+    const updateUserProfile = (name, photo) => {
+        setLoading(true)
+        return updateProfile(auth.currentUser, {
+            displayName: name,
+            photoURL: photo,
+        })
+    }
+
+    const logOut = () => {
+        setLoading(true);
+        localStorage.removeItem('greenTechToken')
+        return signOut(auth);
+
+    }
+
+    const verifyEmail = () => {
+        setLoading(true)
+        return sendEmailVerification(auth.currentUser)
+    }
+
+    const passResetEmail = (email) => {
+        return sendPasswordResetEmail(auth, email)
+    }
+
+
+
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            console.log('inside changed', currentUser);
+            setUser(currentUser);
+
+
+            setLoading(false);
+
+        });
+        return () => {
+            unsubscribe();
+        }
+
+
+
+    }, [])
+
+
+
+
 
 
     const authInfo = {
@@ -153,6 +230,16 @@ const AuthProvider = ({ children }) => {
         getCurrentMonthCostsTotal,
         totalEarnings,
         totalCosts,
+        createUser,
+        signInGoogle,
+        user,
+        signIn,
+        logOut,
+        updateUserProfile,
+        loading,
+        setLoading,
+        passResetEmail,
+        verifyEmail
 
 
     }

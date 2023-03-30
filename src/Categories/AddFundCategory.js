@@ -19,7 +19,7 @@ const AddFundCategory = () => {
 
 
 
-        fetch(' https://expense-tracker-application-server.vercel.app/categories', {
+        fetch(' http://localhost:5000/categories', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -33,7 +33,7 @@ const AddFundCategory = () => {
                     toast.success('COngratulation!! Category Added');
                     // refetch();
                     // navigate('/')
-                    window.location.href = '/';
+                    window.location.href = '/dashboard';
                 }
                 else {
                     toast.error(data.message)

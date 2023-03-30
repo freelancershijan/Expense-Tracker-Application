@@ -10,75 +10,80 @@ const DeleteCategory = () => {
     const handleDelete = (ctg) => {
 
 
+        /*  const url = `http://localhost:5000/categories/${ctg?._id}`;
+ 
+         console.log(url);
+ 
+ 
+         fetch(url, {
+             method: 'DELETE',
+             headers: {
+                 'content-type': 'application/json'
+             }
+         })
+             .then(res => res.json())
+             .then(data => {
+ 
+                 if (data.acknowledged) {
+                     toast.success('Category Deleted Successfully')
+                     window.location.href = '/dashboard';
+                     // navigate('/');
+                 }
+ 
+                 //   const remaining= myProducts.filter(product => product._id )
+             }) */
 
-        const url = `https://expense-tracker-application-server.vercel.app/categories/${ctg?._id}`;
-        // console.log(url);
-        fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'content-type': 'application/json'
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
 
-                if (data.acknowledged) {
-                    toast.success('Category Deleted Successfully')
-                    window.location.href = '/';
-                    // navigate('/');
-                }
+        // console.log('from', ctg?.name);
 
-                //   const remaining= myProducts.filter(product => product._id )
-            })
+        // console.log(funds);
 
-
-        console.log('from', ctg?.name);
-        // console.log(costs);
-        console.log(funds);
-
-        // const dltCost = costs.filter(cst => cst?.category === ctg?.name);
         const dltFund = funds.filter(cst => cst?.category === ctg?.name);
 
-        console.log(dltFund);
+        console.log('from dlt', dltFund[0].category);
+
+        if (dltFund[0].category == ctg?.name) {
 
 
 
-        fetch(`https://expense-tracker-application-server.vercel.app/funds/${ctg?.name}`, {
-            method: 'DELETE',
-            headers: {
-                'content-type': 'application/json'
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-
-                if (data.acknowledged) {
-                    toast.success('Funds Deleted Successfully')
-                    window.location.href = '/';
-                    // navigate('/');
+            // const url = 
+            // console.log(url);
+            fetch(`http://localhost:5000/funds/${dltFund[0]?.category}`, {
+                method: 'DELETE',
+                headers: {
+                    'content-type': 'application/json'
                 }
-
-                //   const remaining= myProducts.filter(product => product._id )
             })
+                .then(res => res.json())
+                .then(data => {
+
+                    if (data.acknowledged) {
+                        toast.success('Funds Deleted Successfully')
+                        window.location.href = '/dashboard';
+
+                    }
 
 
+                })
 
+        }
 
-        fetch(`https://expense-tracker-application-server.vercel.app/costs/${ctg?.name}`, {
-            method: 'DELETE',
-            headers: {
-                'content-type': 'application/json'
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-
-                if (data.acknowledged) {
-                    toast.success('Costs Deleted Successfully')
-                    window.location.href = '/';
-                }
-
-            })
+        /* 
+                fetch(`http://localhost:5000/costs/${ctg?.name}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                })
+                    .then(res => res.json())
+                    .then(data => {
+        
+                        if (data.acknowledged) {
+                            toast.success('Costs Deleted Successfully')
+                            window.location.href = '/dashboard';
+                        }
+        
+                    }) */
 
 
 
@@ -92,7 +97,7 @@ const DeleteCategory = () => {
 
         <div>
 
-            <Link to='/'>
+            <Link to='/dashboard'>
                 <button className='btn bg-black'>Back</button>
             </Link>
 
@@ -113,8 +118,8 @@ const DeleteCategory = () => {
                     <tbody>
 
                         {
-                            categories.map(ctg => <tr className='hover' key={ctg?._id}>
-                                <th>*</th>
+                            categories.map((ctg, i) => <tr className='hover' key={ctg?._id}>
+                                <th>{i + 1}</th>
                                 <td>{ctg?.name}</td>
                                 <td>
                                     <button onClick={() => handleDelete(ctg)} className='btn bg-red-700'>

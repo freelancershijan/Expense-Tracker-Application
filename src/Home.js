@@ -1,4 +1,5 @@
 import React from 'react';
+import Login from './Components/login/Login/Login';
 import AllCategories from './Categories/AllCategories';
 import PieChart from './Components/PieChart';
 import TotalCount from './TotalCount/TotalCount';
@@ -15,6 +16,9 @@ const Home = () => {
             <TotalCount />
             <AllCategories />
             <PieChart></PieChart>
+
+
+            {/* <Login></Login> */}
 
         </div >
     );

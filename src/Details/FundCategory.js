@@ -22,7 +22,7 @@ const FundCategory = () => {
     // delete single fund
 
     const handleDelete = fnd => {
-        fetch(`https://expense-tracker-application-server.vercel.app/funds/${fnd._id}`, {
+        fetch(`http://localhost:5000/funds/${fnd._id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'
@@ -51,7 +51,7 @@ const FundCategory = () => {
 
 
 
-                    fetch(`https://expense-tracker-application-server.vercel.app/categories/${fnd?.category}`, {
+                    fetch(`http://localhost:5000/categories/${fnd?.category}`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(updateValue)
@@ -59,7 +59,7 @@ const FundCategory = () => {
                         .then(res => res.json())
                         .then(data => {
                             toast.success("Price Updated Successfully");
-                            window.location.href = '/';
+                            window.location.href = '/dashboard';
                             console.log(data.message); // Output success message
                             // Perform any additional actions, such as updating the state of your component
                         })
@@ -75,7 +75,7 @@ const FundCategory = () => {
 
     return (
         <div>
-            <Link to='/'>
+            <Link to='/dashboard'>
                 <button className='btn bg-black mb-5'>Back</button>
             </Link>
             {
