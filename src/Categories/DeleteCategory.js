@@ -4,86 +4,73 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
 
 const DeleteCategory = () => {
-    const { categories, funds } = useContext(AuthContext);
+    const { categories } = useContext(AuthContext);
     console.log(categories);
-    // const navigate = useNavigate();
+
+
     const handleDelete = (ctg) => {
 
 
-        /*  const url = `http://localhost:5000/categories/${ctg?._id}`;
- 
-         console.log(url);
- 
- 
-         fetch(url, {
-             method: 'DELETE',
-             headers: {
-                 'content-type': 'application/json'
-             }
-         })
-             .then(res => res.json())
-             .then(data => {
- 
-                 if (data.acknowledged) {
-                     toast.success('Category Deleted Successfully')
-                     window.location.href = '/dashboard';
-                     // navigate('/');
-                 }
- 
-                 //   const remaining= myProducts.filter(product => product._id )
-             }) */
+        const url = `http://localhost:5000/categories/${ctg?._id}`;
+
+        console.log(url);
 
 
-        // console.log('from', ctg?.name);
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
 
-        // console.log(funds);
-
-        const dltFund = funds.filter(cst => cst?.category === ctg?.name);
-
-        console.log('from dlt', dltFund[0].category);
-
-        if (dltFund[0].category == ctg?.name) {
+                if (data.acknowledged) {
+                    toast.success('Category Deleted Successfully')
 
 
+                    fetch(`http://localhost:5000/fund/${ctg?.name}`, {
+                        method: 'DELETE',
+                    })
+                        .then(res => res.json())
+                        .then(data => {
 
-            // const url = 
-            // console.log(url);
-            fetch(`http://localhost:5000/funds/${dltFund[0]?.category}`, {
-                method: 'DELETE',
-                headers: {
-                    'content-type': 'application/json'
+                            if (data.acknowledged) {
+                                toast.success('Funds Deleted Successfully')
+                                window.location.href = '/dashboard';
+
+                            }
+
+
+                        })
+                        .catch(error => console.error(error));
+
+
+
+                    fetch(`http://localhost:5000/cost/${ctg?.name}`, {
+                        method: 'DELETE',
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+
+                            if (data.acknowledged) {
+                                toast.success('Costs Deleted Successfully')
+                                window.location.href = '/dashboard';
+
+                            }
+
+
+                        })
+                        .catch(error => console.error(error));
+
+
+
+
+
                 }
+
+
             })
-                .then(res => res.json())
-                .then(data => {
-
-                    if (data.acknowledged) {
-                        toast.success('Funds Deleted Successfully')
-                        window.location.href = '/dashboard';
-
-                    }
-
-
-                })
-
-        }
-
-        /* 
-                fetch(`http://localhost:5000/costs/${ctg?.name}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'content-type': 'application/json'
-                    }
-                })
-                    .then(res => res.json())
-                    .then(data => {
-        
-                        if (data.acknowledged) {
-                            toast.success('Costs Deleted Successfully')
-                            window.location.href = '/dashboard';
-                        }
-        
-                    }) */
 
 
 
