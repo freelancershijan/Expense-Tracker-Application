@@ -33,7 +33,7 @@ const AddCost = () => {
         // console.log(costDetails);
 
 
-        fetch('http://localhost:5000/costs', {
+        fetch('https://expense-tracker-application-server.vercel.app/costs', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -61,17 +61,14 @@ const AddCost = () => {
 
 
 
-        const email = localStorage.getItem('userEmail');
-        console.log('email from categories', email);
-        const filtr = costCategories.filter(ctg => ctg?.user == email)
+
+        const prevValue = costCategories[0].value;
+
+        console.log('costCategories', costCategories);
 
 
 
-
-        let updateCategory = filtr.filter(ctg => ctg?.name === category);
-
-        const prevValue = updateCategory[0].value;
-        const prevName = updateCategory[0].name;
+        const prevName = costCategories[0]?.name;
 
         console.log(prevName);
 
@@ -84,7 +81,12 @@ const AddCost = () => {
         console.log(updateValue);
 
 
-        fetch(`http://localhost:5000/categories/${prevName}`, {
+
+
+        const email = localStorage.getItem('userEmail');
+
+
+        fetch(`https://expense-tracker-application-server.vercel.app/categories/${prevName}/${email}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateValue)

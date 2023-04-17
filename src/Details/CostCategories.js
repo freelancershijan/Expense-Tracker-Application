@@ -30,7 +30,7 @@ const CostCategories = () => {
     // delete single fund
 
     const handleDelete = fnd => {
-        fetch(`http://localhost:5000/costs/${fnd._id}`, {
+        fetch(`https://expense-tracker-application-server.vercel.app/costs/${fnd._id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'
@@ -50,9 +50,11 @@ const CostCategories = () => {
                     }
                     console.log(updateValue);
 
+                    const email = localStorage.getItem('userEmail');
 
 
-                    fetch(`http://localhost:5000/categories/${fnd?.category}`, {
+
+                    fetch(`https://expense-tracker-application-server.vercel.app/categories/${fnd?.category}/${email}`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(updateValue)

@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../Context/AuthProvider';
 
 const AddCostCategory = () => {
-    const { user } = useContext(AuthContext);
+    const { user, costCategories } = useContext(AuthContext);
     console.log('user', user?.email)
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -19,34 +19,38 @@ const AddCostCategory = () => {
 
         console.log(categories)
 
+        if (costCategories.find(ctg => ctg.name = categories.name)) {
+            toast.error("Already Have a Category with your account Like this Name. Please Create a Different Name")
+        }
+        else {
 
 
-        fetch(' http://localhost:5000/categories', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(categories)
-        })
-            .then(res => res.json())
-            .then(data => {
-
-                if (data.acknowledged) {
-                    toast.success('COngratulation!! Category Added');
-                    // refetch();
-                    // navigate('/')
-                    window.location.href = '/dashboard';
-                }
-                else {
-                    toast.error(data.message)
-                }
+            fetch(' https://expense-tracker-application-server.vercel.app/categories', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(categories)
             })
-            .catch(err => {
-                console.log(err);
-            })
+                .then(res => res.json())
+                .then(data => {
+
+                    if (data.acknowledged) {
+                        toast.success('COngratulation!! Category Added');
+                        // refetch();
+                        // navigate('/')
+                        window.location.href = '/dashboard';
+                    }
+                    else {
+                        toast.error(data.message)
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
 
 
-
+        }
 
 
 
