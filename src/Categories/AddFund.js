@@ -5,11 +5,8 @@ import { AuthContext } from '../Context/AuthProvider';
 // 
 
 const AddFund = () => {
-    const { fundCategories, user } = useContext(AuthContext);
-
-
-    // console.log(fundCategories);
-
+    const { fundCategories, categories, user } = useContext(AuthContext);
+    // console.log('categories', categories[0].user);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -17,7 +14,7 @@ const AddFund = () => {
 
         const form = e.target;
         const category = form.category.value;
-        const money = parseInt(form.money.value);
+        const money = Math.round(form.money.value);
         const date = form.date.value;
         const time = form.time.value;
         const notes = form.notes.value;
@@ -63,17 +60,15 @@ const AddFund = () => {
 
 
 
-        const email = localStorage.getItem('userEmail');
-        console.log('email from categories', email);
-        const filtr = fundCategories.filter(ctg => ctg?.user == email)
+
+
+        const prevValue = fundCategories[0].value;
+
+        console.log('fundcategories', fundCategories);
 
 
 
-
-        let updateCategory = filtr.filter(ctg => ctg?.name === category);
-
-        const prevValue = updateCategory[0].value;
-        const prevName = updateCategory[0].name;
+        const prevName = fundCategories[0]?.name;
 
         console.log(prevName);
 
@@ -86,7 +81,12 @@ const AddFund = () => {
         console.log(updateValue);
 
 
-        fetch(`http://localhost:5000/categories/${prevName}`, {
+
+
+        const email = localStorage.getItem('userEmail');
+
+
+        fetch(`http://localhost:5000/categories/${prevName}/${email}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateValue)
@@ -99,6 +99,13 @@ const AddFund = () => {
                 // Perform any additional actions, such as updating the state of your component
             })
             .catch(err => console.error(err));
+
+
+
+
+
+
+
 
 
 
@@ -168,7 +175,7 @@ const AddFund = () => {
                                 Date
                             </label>
                             <input
-                                required
+                                // required
                                 id="date"
                                 name="date"
                                 type="date"
@@ -182,7 +189,7 @@ const AddFund = () => {
                                 Time
                             </label>
                             <input
-                                required
+                                // required
                                 id="time"
                                 name="time"
                                 type="time"
@@ -197,7 +204,7 @@ const AddFund = () => {
                                 Notes
                             </label>
                             <input
-                                required
+                                // required
                                 id="notes"
                                 name="notes"
                                 type="text"

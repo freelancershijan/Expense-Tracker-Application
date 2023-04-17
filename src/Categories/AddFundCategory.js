@@ -3,8 +3,9 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../Context/AuthProvider';
 
 const AddFundCategory = () => {
-    const { user } = useContext(AuthContext);
-    console.log('user', user?.email)
+    const { user, fundCategories } = useContext(AuthContext);
+    // console.log('user', user?.email)
+    console.log(fundCategories.find(ctg => ctg.name = "Tution"));
     const handleSubmit = (e) => {
         e.preventDefault();
         const name = e.target.name.value;
@@ -20,32 +21,38 @@ const AddFundCategory = () => {
         console.log(categories)
 
 
+        if (fundCategories.find(ctg => ctg.name = categories.name)) {
+            toast.error("Already Have a Category with your account Like this Name. Please Create a Different Name")
+        }
+        else {
 
-        fetch(' http://localhost:5000/categories', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(categories)
-        })
-            .then(res => res.json())
-            .then(data => {
 
-                if (data.acknowledged) {
-                    toast.success('COngratulation!! Category Added');
-                    // refetch();
-                    // navigate('/')
-                    window.location.href = '/dashboard';
-                }
-                else {
-                    toast.error(data.message)
-                }
+
+            fetch(' http://localhost:5000/categories', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(categories)
             })
-            .catch(err => {
-                console.log(err);
-            })
+                .then(res => res.json())
+                .then(data => {
 
+                    if (data.acknowledged) {
+                        toast.success('COngratulation!! Category Added');
+                        // refetch();
+                        // navigate('/')
+                        window.location.href = '/dashboard';
+                    }
+                    else {
+                        toast.error(data.message)
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
 
+        }
 
 
 

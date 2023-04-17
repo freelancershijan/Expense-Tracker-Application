@@ -259,10 +259,11 @@ const AuthProvider = ({ children }) => {
 
     const email = localStorage.getItem('userEmail');
     console.log('email from categories', email);
-    const filtr = fundCategories.filter(ctg => ctg?.user == email)
+    // const filtr = fundCategories.filter(ctg => ctg?.user == email)
 
-
-    const fundss = filtr.map(fnd => fnd?.value);
+    console.log('fundcategories', fundCategories);
+    const fundss = fundCategories.map(fnd => fnd?.value);
+    console.log('fundss', fundss);
     const sum = fundss.reduce((acc, val) => acc + val, 0);
 
 

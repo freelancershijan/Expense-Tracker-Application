@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
 
 const DeleteCategory = () => {
-    const { categories } = useContext(AuthContext);
-    console.log(categories);
+    const { categories, user } = useContext(AuthContext);
+    console.log('user from deletecategory', user?.email);
 
 
     const handleDelete = (ctg) => {
@@ -31,7 +31,7 @@ const DeleteCategory = () => {
 
 
 
-                    fetch(`http://localhost:5000/fund/${ctg?.name}`, {
+                    fetch(`http://localhost:5000/fund/${ctg?.name}/${user?.email}`, {
                         method: 'DELETE',
                     })
                         .then(res => res.json())
