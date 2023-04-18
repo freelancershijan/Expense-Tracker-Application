@@ -49,7 +49,7 @@ const DeleteCategory = () => {
 
 
 
-                    fetch(`http://localhost:5000/cost/${ctg?.name}`, {
+                    fetch(`http://localhost:5000/cost/${ctg?.name}/${user?.email}`, {
                         method: 'DELETE',
                     })
                         .then(res => res.json())
