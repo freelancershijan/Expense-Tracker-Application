@@ -6,7 +6,7 @@ import { AuthContext } from '../Context/AuthProvider';
 
 const AddCost = () => {
 
-    const { costCategories, user } = useContext(AuthContext);
+    const { costCategories, categories, user } = useContext(AuthContext);
 
 
     const handleSubmit = (e) => {
@@ -33,7 +33,7 @@ const AddCost = () => {
         // console.log(costDetails);
 
 
-        fetch('https://expense-tracker-application-server.vercel.app/costs', {
+        fetch('http://localhost:5000/costs', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -44,7 +44,7 @@ const AddCost = () => {
             .then(data => {
 
                 if (data.acknowledged) {
-                    toast.success('Added Your Costs');
+                    toast.success('Successfully Added Your Costs');
                 }
                 else {
                     toast.error(data.message)
@@ -60,15 +60,14 @@ const AddCost = () => {
         // update price
 
 
+        const prevCategories = categories.find(ctg => ctg.name == costDetails.category)
 
 
-        const prevValue = costCategories[0].value;
-
-        console.log('costCategories', costCategories);
+        const prevValue = prevCategories.value;
 
 
 
-        const prevName = costCategories[0]?.name;
+        const prevName = prevCategories.name;
 
         console.log(prevName);
 
@@ -86,7 +85,7 @@ const AddCost = () => {
         const email = localStorage.getItem('userEmail');
 
 
-        fetch(`https://expense-tracker-application-server.vercel.app/categories/${prevName}/${email}`, {
+        fetch(`http://localhost:5000/categories/${prevName}/${email}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateValue)

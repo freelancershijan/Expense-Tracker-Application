@@ -3,29 +3,30 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../Context/AuthProvider';
 
 const AddCostCategory = () => {
-    const { user, costCategories } = useContext(AuthContext);
-    console.log('user', user?.email)
+    const { costCategories } = useContext(AuthContext);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const name = e.target.name.value;
+        const email = localStorage.getItem('userEmail');
 
 
         const categories = {
             name,
             value: 0,
             type: 'cost',
-            user: user?.email,
+            user: email,
         }
 
         console.log(categories)
 
-        if (costCategories.find(ctg => ctg.name = categories.name)) {
+        if (costCategories.find(ctg => ctg.name == categories.name)) {
             toast.error("Already Have a Category with your account Like this Name. Please Create a Different Name")
         }
         else {
 
 
-            fetch(' https://expense-tracker-application-server.vercel.app/categories', {
+            fetch(' http://localhost:5000/categories', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

@@ -8,11 +8,11 @@ const AllCategories = () => {
 
     console.log('categories from all categories', categories);
 
-
-    const email = localStorage.getItem('userEmail');
-    console.log('email from categories', email);
-    const filtr = categories.filter(ctg => ctg?.user == email)
-
+    /* 
+        const email = localStorage.getItem('userEmail');
+        console.log('email from categories', email);
+        const filtr = categories.filter(ctg => ctg?.user == email)
+     */
 
     return (
         <div>
@@ -21,7 +21,7 @@ const AllCategories = () => {
             <Buttons />
 
             {
-                filtr.length === 0 ?
+                categories.length === 0 ?
 
                     <div className='bg-gray-400 py-10 px-5'>
                         <h3 className='text-xl font-semibold'>You have not created any category. Please make <span className='text-green-800'>fund</span> on <span className='text-red-700'>cost</span> category before then you can add your funds and costs</h3>
@@ -30,7 +30,7 @@ const AllCategories = () => {
                     : <div className='md:grid mb-40 md:grid-cols-2 lg:grid-cols-4 gap-5'>
 
                         {
-                            filtr.map(ctg => <div key={ctg?._id} className={`card my-5 md:my-0 ${ctg?.type === 'fund' ? 'bg-green-700' : 'bg-red-700'} text-neutral-content`}>
+                            categories.map(ctg => <div key={ctg?._id} className={`card my-5 md:my-0 ${ctg?.type === 'fund' ? 'bg-green-700' : 'bg-red-700'} text-neutral-content`}>
                                 <Link to={`/${ctg?.type}/${ctg?.name}`}>
                                     <div className="card-body items-center text-center">
                                         <h3 className="card-title">{ctg?.name}</h3>

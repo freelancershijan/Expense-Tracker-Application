@@ -6,7 +6,7 @@ import { AuthContext } from '../Context/AuthProvider';
 
 const AddFund = () => {
     const { fundCategories, categories, user } = useContext(AuthContext);
-    // console.log('categories', categories[0].user);
+    console.log('categories', categories);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -34,7 +34,7 @@ const AddFund = () => {
         console.log(fundDetails);
 
 
-        fetch('https://expense-tracker-application-server.vercel.app/funds', {
+        fetch('http://localhost:5000/funds', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -61,14 +61,13 @@ const AddFund = () => {
 
 
 
-
-        const prevValue = fundCategories[0].value;
-
-        console.log('fundcategories', fundCategories);
+        const prevCategories = categories.find(ctg => ctg.name == fundDetails.category)
 
 
+        const prevValue = prevCategories.value;
 
-        const prevName = fundCategories[0]?.name;
+
+        const prevName = prevCategories.name;
 
         console.log(prevName);
 
@@ -86,7 +85,7 @@ const AddFund = () => {
         const email = localStorage.getItem('userEmail');
 
 
-        fetch(`https://expense-tracker-application-server.vercel.app/categories/${prevName}/${email}`, {
+        fetch(`http://localhost:5000/categories/${prevName}/${email}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateValue)
