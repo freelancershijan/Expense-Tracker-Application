@@ -8,11 +8,6 @@ const AllCategories = () => {
 
     console.log('categories from all categories', categories);
 
-    /* 
-        const email = localStorage.getItem('userEmail');
-        console.log('email from categories', email);
-        const filtr = categories.filter(ctg => ctg?.user == email)
-     */
 
     return (
         <div>

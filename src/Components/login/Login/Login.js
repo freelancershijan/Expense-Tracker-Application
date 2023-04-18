@@ -1,18 +1,14 @@
 import React, { useContext, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import LoadingSpinner from '../../LoadingSpinner/LoadingSpinner';
 import { AuthContext } from '../../../Context/AuthProvider';
 import { setAuthToken } from '../../../api/authApi';
-// import useTitle from '../../../hoocks/useTitle';
 
 
 const Login = () => {
-    // useTitle('Login')
 
-
-    const navigate = useNavigate();
     const location = useLocation();
     const [error, setError] = useState('');
     const { signInGoogle, loading, setLoading, signIn } = useContext(AuthContext)
@@ -34,7 +30,7 @@ const Login = () => {
                 form.reset();
                 setError('');
                 setAuthToken(result.user)
-                navigate('/dashboard');
+                window.location.href = '/dashboard';
                 console.log('Login User from form', user)
             })
             .catch(error => {
@@ -51,7 +47,7 @@ const Login = () => {
                 localStorage.setItem("userEmail", user?.email);
                 setAuthToken(result.user)
                 console.log('New User From Google', user);
-                navigate('/dashboard')
+                window.location.href = '/dashboard';
             })
             .catch(error => {
                 console.error('Google User SIgn In error', error);
@@ -140,10 +136,10 @@ const Login = () => {
 
                 <div className="flex items-center justify-center px-4 py-10 sm:py-16 lg:py-24 bg-gray-50 sm:px-6 lg:px-8">
                     <div>
-                        <img className="w-full mx-auto" src="https://images.pexels.com/photos/1462630/pexels-photo-1462630.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" />
+                        <img className="w-full mx-auto" src="https://assets.gqindia.com/photos/608c135f6e6a489a62cd254d/16:9/pass/Apps%20for%20finance%20management.jpg" alt="" />
 
                         <div className="w-full max-w-md mx-auto xl:max-w-xl">
-                            <h3 className="text-2xl mt-5 font-bold text-center text-black">Make Your Own Life</h3>
+                            <h3 className="text-2xl mt-5 font-bold text-center text-black">Calculate Your Daily Funds or Costs</h3>
                             <p className="leading-relaxed text-center text-gray-500 mt-2.5">If you want to be a successful man then you need to more hardwork.</p>
 
 

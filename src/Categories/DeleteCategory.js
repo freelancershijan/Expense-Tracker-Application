@@ -11,7 +11,7 @@ const DeleteCategory = () => {
     const handleDelete = (ctg) => {
 
 
-        const url = `http://localhost:5000/categories/${ctg?._id}`;
+        const url = `https://expense-tracker-application-server.vercel.app/categories/${ctg?._id}`;
 
         console.log(url);
 
@@ -31,7 +31,7 @@ const DeleteCategory = () => {
 
 
 
-                    fetch(`http://localhost:5000/fund/${ctg?.name}/${user?.email}`, {
+                    fetch(`https://expense-tracker-application-server.vercel.app/fund/${ctg?.name}/${user?.email}`, {
                         method: 'DELETE',
                     })
                         .then(res => res.json())
@@ -49,7 +49,7 @@ const DeleteCategory = () => {
 
 
 
-                    fetch(`http://localhost:5000/cost/${ctg?.name}/${user?.email}`, {
+                    fetch(`https://expense-tracker-application-server.vercel.app/cost/${ctg?.name}/${user?.email}`, {
                         method: 'DELETE',
                     })
                         .then(res => res.json())
