@@ -20,9 +20,9 @@ const Buttons = () => {
                     <label className="btn my-1 md:my-0  bg-sky-800 w-full" htmlFor="category-modal" >
                         Add Fund Category</label>
 
-                    <label className="btn my-1 md:my-0  bg-pink-700 w-full" htmlFor="cost-category-modal" >
+                    {/*           <label className="btn my-1 md:my-0  bg-pink-700 w-full" htmlFor="cost-category-modal" >
                         Add Cost Category</label>
-
+ */}
 
 
                     <Link to='/delete-category'>
@@ -37,7 +37,7 @@ const Buttons = () => {
             <AddFund></AddFund>
             <AddCost></AddCost>
             <AddFundCategory></AddFundCategory>
-            <AddCostCategory></AddCostCategory>
+            {/* <AddCostCategory></AddCostCategory> */}
 
         </div>
 

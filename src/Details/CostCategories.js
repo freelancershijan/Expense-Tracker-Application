@@ -30,7 +30,7 @@ const CostCategories = () => {
     // delete single fund
 
     const handleDelete = fnd => {
-        fetch(`https://expense-tracker-application-server.vercel.app/costs/${fnd._id}`, {
+        fetch(`http://localhost:5000/costs/${fnd._id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'
@@ -54,7 +54,7 @@ const CostCategories = () => {
 
 
 
-                    fetch(`https://expense-tracker-application-server.vercel.app/categories/${fnd?.category}/${email}`, {
+                    fetch(`http://localhost:5000/categories/${fnd?.category}/${email}`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(updateValue)
@@ -77,13 +77,13 @@ const CostCategories = () => {
 
 
     return (
-        <div>
-            <Link to='/dashboard'>
+        <div className='md:m-20 m-2'>
+            <Link to='/dashboard/cost-category'>
                 <button className='btn bg-black mb-5'>Back</button>
             </Link>
 
             {
-                filtr.length === 0 ? <div className="card my-20 w-1/2 mx-auto bg-gray-700 text-neutral-content">
+                filtr.length === 0 ? <div className="card my-20 w-2/3 mx-auto bg-gray-700 text-neutral-content">
 
                     <div className="card-body items-center text-center">
 
@@ -91,7 +91,7 @@ const CostCategories = () => {
 
                     </div>
 
-                </div> : <div className="overflow-x-auto">
+                </div> : <div className="overflow-x-auto border-2 border-black">
                     <table className="table table-zebra w-full">
                         <thead>
                             <tr>

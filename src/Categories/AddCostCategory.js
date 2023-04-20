@@ -26,7 +26,7 @@ const AddCostCategory = () => {
         else {
 
 
-            fetch(' https://expense-tracker-application-server.vercel.app/categories', {
+            fetch(' http://localhost:5000/categories', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -40,7 +40,7 @@ const AddCostCategory = () => {
                         toast.success('COngratulation!! Category Added');
                         // refetch();
                         // navigate('/')
-                        window.location.href = '/dashboard';
+                        window.location.href = '/cost-category';
                     }
                     else {
                         toast.error(data.message)

@@ -1,14 +1,19 @@
+import React from 'react';
 import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router-dom";
 import { routes } from "./routes";
 import { Helmet } from 'react-helmet';
 
+
 function App() {
+
+
+
   return (
     <div>
 
       <Helmet>
-        <title>My Awesome React Website</title>
+        <title>Expense Tracking Software</title>
         <meta name="description" content="This is an Expense Tracking Software whih Created by Md Shijan Ali using MERN Stack" />
         <meta property="og:title" content="Expense Tracking Software" />
         <meta property="og:description" content="This is an Expense Tracking Software whih Created by Md Shijan Ali using MERN Stack" />
@@ -16,7 +21,9 @@ function App() {
       </Helmet>
 
 
-      <div className="lg:w-3/4 md:mx-10 mx-5 lg:mx-auto my-10">
+
+
+      <div className="">
         <RouterProvider router={routes}></RouterProvider>
         <Toaster></Toaster>
       </div>

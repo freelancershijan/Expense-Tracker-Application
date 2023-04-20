@@ -15,19 +15,21 @@ const AllCost = () => {
 
 
     return (
-        <div>
+        <div className='md:m-20 m-2'>
             <Link to='/dashboard'>
                 <button className='btn bg-black mb-5'>Back</button>
             </Link>
 
             {
-                filtr.length === 0 ? <div className="card my-20 w-1/2 mx-auto bg-gray-700 text-neutral-content"><div className="card-body items-center text-center">
+                filtr.length === 0 ? <div className="card my-20 w-1/2 mx-auto bg-gray-700 text-neutral-content">
+                    <div className="card-body items-center text-center">
 
-                    <h1 className='text-3xl font-semibold'>You have Not any Funds in this Fund</h1>
+                        <h1 className='text-3xl font-semibold'>You have Not any Funds in this Fund</h1>
 
-                </div></div> :
+                    </div>
+                </div> :
 
-                    <div className="overflow-x-auto">
+                    <div className="overflow-x-auto border-2 border-black">
                         <table className="table table-zebra w-full">
                             <thead>
                                 <tr>

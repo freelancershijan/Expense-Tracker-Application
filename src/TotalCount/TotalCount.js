@@ -15,7 +15,7 @@ const TotalCount = () => {
         <div>
             <div className='md:grid md:grid-cols-2 lg:grid-cols-4 gap-5'>
                 <div className="card  bg-green-700 text-neutral-content">
-                    <Link to='/total-earning'>
+                    <Link to='/dashboard/total-earning'>
                         <div className="card-body items-center text-center">
                             <h3 className="card-title">Total Earning</h3>
                             <h1 className='text-3xl font-semibold'>${sum}</h1>
@@ -24,7 +24,7 @@ const TotalCount = () => {
                     </Link>
                 </div>
                 <div className="card my-5 md:my-0 bg-red-700 text-neutral-content">
-                    <Link to="/total-cost">
+                    <Link to="/dashboard/total-cost">
                         <div className="card-body items-center text-center">
                             <h3 className="card-title">Total Cost</h3>
                             <h1 className='text-3xl font-semibold'>${cost}</h1>
@@ -33,7 +33,7 @@ const TotalCount = () => {
                     </Link>
                 </div>
                 <div className="card my-5 md:my-0 bg-green-700 text-neutral-content">
-                    <Link to="/current-month-funds">
+                    <Link to="/dashboard/current-month-funds">
                         <div className="card-body items-center text-center">
                             <h3 className="card-title">This Month Earning</h3>
                             <h1 className='text-3xl font-semibold'>${getCurrentMonthFundsTotal()}</h1>

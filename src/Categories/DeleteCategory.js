@@ -11,7 +11,7 @@ const DeleteCategory = () => {
     const handleDelete = (ctg) => {
 
 
-        const url = `https://expense-tracker-application-server.vercel.app/categories/${ctg?._id}`;
+        const url = `http://localhost:5000/categories/${ctg?._id}`;
 
         console.log(url);
 
@@ -31,7 +31,7 @@ const DeleteCategory = () => {
 
 
 
-                    fetch(`https://expense-tracker-application-server.vercel.app/fund/${ctg?.name}/${user?.email}`, {
+                    fetch(`http://localhost:5000/fund/${ctg?.name}/${user?.email}`, {
                         method: 'DELETE',
                     })
                         .then(res => res.json())
@@ -49,7 +49,7 @@ const DeleteCategory = () => {
 
 
 
-                    fetch(`https://expense-tracker-application-server.vercel.app/cost/${ctg?.name}/${user?.email}`, {
+                    fetch(`http://localhost:5000/cost/${ctg?.name}/${user?.email}`, {
                         method: 'DELETE',
                     })
                         .then(res => res.json())
@@ -84,7 +84,7 @@ const DeleteCategory = () => {
 
 
 
-        <div>
+        <div className='md:m-20 m-3'>
 
             <Link to='/dashboard'>
                 <button className='btn bg-black'>Back</button>
@@ -93,7 +93,7 @@ const DeleteCategory = () => {
             <h3 className='text-center text-3xl font-semibold mb-10'>All Categories</h3>
 
 
-            <div className="md:w-1/2 mx-auto">
+            <div className="md:w-2/3 mx-auto border-2 border-black">
                 <table className="table table-zebra w-full">
                     {/* head */}
                     <thead>

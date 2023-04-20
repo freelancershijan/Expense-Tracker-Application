@@ -9,44 +9,31 @@ import AllFund from "./Details/AllFund";
 import CostCategories from "./Details/CostCategories";
 import FundCategory from "./Details/FundCategory";
 import Home from "./Home";
-import Main from "./Main";
+import DashboardLayout from "./Dashboard/DashboardLayout";
+import Dashboard from "./Dashboard/Dashboard";
+import AddFund from "./Categories/AddFund";
+import AddCost from "./Categories/AddCost";
+import FundsCategory from "./Dashboard/FundsCategory";
+import CostsCategory from "./Dashboard/CostsCategory";
+import PrivateRoute from "./PrivetRoute/PrivateRoute";
+
+import Main from "./Layout/Main";
 
 export const routes = createBrowserRouter([
+
+
+
     {
         path: '/',
-        element: <Main></Main>,
+        element: <Main />,
         children: [
             {
                 path: '/',
+                element: <PrivateRoute><Home /></PrivateRoute>
+            },
+            {
+                path: '/login',
                 element: <Login />
-            },
-            {
-                path: '/dashboard',
-                element: <Home />
-            },
-            {
-                path: '/delete-category',
-                element: <DeleteCategory />
-            },
-            {
-                path: '/total-earning',
-                element: <AllFund></AllFund>
-
-            },
-            {
-                path: '/total-cost',
-                element: <AllCost></AllCost>
-
-            },
-            {
-                path: '/fund/:category',
-                loader: ({ params }) => fetch(`https://expense-tracker-application-server.vercel.app/funds/${params.category}`),
-                element: <FundCategory></FundCategory>
-            },
-            {
-                path: '/cost/:category',
-                loader: ({ params }) => fetch(`https://expense-tracker-application-server.vercel.app/costs/${params.category}`),
-                element: <CostCategories></CostCategories>
             },
 
             {
@@ -62,7 +49,61 @@ export const routes = createBrowserRouter([
                 element: <ErrorPage></ErrorPage>
             },
 
+
+        ]
+    },
+
+    {
+        path: '/dashboard',
+        element: <DashboardLayout />,
+        children: [
+            {
+                path: '/dashboard',
+                element: <PrivateRoute><Dashboard /></PrivateRoute>
+            },
+            {
+                path: '/dashboard/delete-category',
+                element: <DeleteCategory />
+            },
+            {
+                path: '/dashboard/total-earning',
+                element: <AllFund></AllFund>
+
+            },
+            {
+                path: '/dashboard/total-cost',
+                element: <AllCost></AllCost>
+
+            },
+            {
+                path: '/dashboard/fund/:category',
+                loader: ({ params }) => fetch(`http://localhost:5000/funds/${params.category}`),
+                element: <FundCategory></FundCategory>
+            },
+            {
+                path: '/dashboard/cost/:category',
+                loader: ({ params }) => fetch(`http://localhost:5000/costs/${params.category}`),
+                element: <CostCategories></CostCategories>
+            },
+            {
+                path: '/dashboard/add-fund',
+                element: <AddFund />
+            },
+            {
+                path: '/dashboard/add-cost',
+                element: <AddCost />
+            },
+            {
+                path: '/dashboard/fund-category',
+                element: <FundsCategory />
+            }
+            ,
+            {
+                path: '/dashboard/cost-category',
+                element: <CostsCategory />
+            }
+
         ]
     }
 
-])
+]) 

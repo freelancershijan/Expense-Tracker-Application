@@ -1,19 +1,15 @@
 import React, { useContext, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import LoadingSpinner from '../../LoadingSpinner/LoadingSpinner';
 import { AuthContext } from '../../../Context/AuthProvider';
-import { setAuthToken } from '../../../api/authApi';
-
 
 const Login = () => {
 
-    const location = useLocation();
     const [error, setError] = useState('');
     const { signInGoogle, loading, setLoading, signIn } = useContext(AuthContext)
 
-    const from = location.state?.from?.pathname || '/';
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -29,7 +25,7 @@ const Login = () => {
                 localStorage.setItem("userEmail", user?.email);
                 form.reset();
                 setError('');
-                setAuthToken(result.user)
+
                 window.location.href = '/dashboard';
                 console.log('Login User from form', user)
             })
@@ -45,7 +41,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 localStorage.setItem("userEmail", user?.email);
-                setAuthToken(result.user)
+
                 console.log('New User From Google', user);
                 window.location.href = '/dashboard';
             })

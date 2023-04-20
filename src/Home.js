@@ -1,45 +1,15 @@
-import React, { useContext } from 'react';
-import AllCategories from './Categories/AllCategories';
-import PieChart from './Components/PieChart';
-import TotalCount from './TotalCount/TotalCount';
-import { AuthContext } from './Context/AuthProvider';
-import { toast } from 'react-hot-toast';
-
-
+import React from 'react';
+import bgImage from './images/home-page-banner.png';
+import { Link } from 'react-router-dom/dist';
 const Home = () => {
-
-    const { logOut } = useContext(AuthContext);
-
-
-    const handleLogout = () => {
-        logOut()
-            .then(() => {
-                console.log('successfuly logout');
-                localStorage.removeItem('userEmail');
-                toast.success('You have logged Out Successfully!!')
-                window.location.href = '/';
-            })
-            .catch(error => {
-                console.error('error', error.message)
-            })
-    }
-
-
     return (
-        <div>
-
-            <div className='flex items-center justify-between'>
-                <button onClick={() => handleLogout()} className='bg-red-700 btn'>Logout</button>
-                <h2 className='text-center my-10 text-cyan-800 text-3xl font-semibold'>Welcome to Expense Tracking Software</h2>
-            </div>
-
-            <TotalCount />
-            <AllCategories />
-            <PieChart></PieChart>
-
-
-
-        </div >
+        <div className="">
+            <img className='h-screen w-full relative' src={bgImage} alt="" />
+            <h1 className='md:text-4xl text-2xl font-semibold text-center absolute top-[10%] lg:left-[25%] mx-auto'>Welcome to Visit My Expense Tracking Software. <br></br> I hope you will Enjoy this Software Features</h1>
+            <Link to='/dashboard'>
+                <button className='btn btn-primary absolute top-0 left-0'>View Dashboard</button>
+            </Link>
+        </div>
     );
 };
 

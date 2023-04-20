@@ -34,7 +34,7 @@ const AddFund = () => {
         console.log(fundDetails);
 
 
-        fetch('https://expense-tracker-application-server.vercel.app/funds', {
+        fetch('http://localhost:5000/funds', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -85,7 +85,7 @@ const AddFund = () => {
         const email = localStorage.getItem('userEmail');
 
 
-        fetch(`https://expense-tracker-application-server.vercel.app/categories/${prevName}/${email}`, {
+        fetch(`http://localhost:5000/categories/${prevName}/${email}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateValue)
@@ -103,20 +103,7 @@ const AddFund = () => {
 
 
 
-
-
-
-
-
-
     };
-
-    // update price value
-
-
-    // ekhan theje sob data gulake ekta new collection post kore stored korbo..and sudhu price take category collection er ager value er sathe put kore update korbo.
-
-
 
 
     return (
@@ -124,12 +111,10 @@ const AddFund = () => {
 
 
         <div>
+            <div className="">
+                <div className="modal-box mx-auto">
 
-            <input type="checkbox" id="fund-modal" className="modal-toggle" />
-            <div className="modal">
-                <div className="modal-box">
-
-                    <label htmlFor="fund-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    {/* <label htmlFor="fund-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label> */}
 
                     <form onSubmit={handleSubmit}>
                         <h3 className='text-center text-3xl font-semibold mb-10'>Add Funds</h3>
@@ -174,7 +159,7 @@ const AddFund = () => {
                                 Date
                             </label>
                             <input
-                                // required
+                                required
                                 id="date"
                                 name="date"
                                 type="date"
@@ -188,7 +173,7 @@ const AddFund = () => {
                                 Time
                             </label>
                             <input
-                                // required
+                                required
                                 id="time"
                                 name="time"
                                 type="time"
@@ -203,7 +188,7 @@ const AddFund = () => {
                                 Notes
                             </label>
                             <input
-                                // required
+                                required
                                 id="notes"
                                 name="notes"
                                 type="text"
