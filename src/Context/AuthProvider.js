@@ -89,7 +89,7 @@ const AuthProvider = ({ children }) => {
 
     const [categories, setCategories] = useState([]);
     useEffect(() => {
-        fetch(' http://localhost:5000/categories')
+        fetch(' https://expense-tracker-application-server.vercel.app/categories')
             .then(res => res.json())
             .then(data => {
                 const email = localStorage.getItem('userEmail');
@@ -104,7 +104,7 @@ const AuthProvider = ({ children }) => {
     const [recent, setRecent] = useState([]);
     useEffect(() => {
         const email = localStorage.getItem('userEmail');
-        fetch(`http://localhost:5000/fundss/${email}`)
+        fetch(`https://expense-tracker-application-server.vercel.app/fundss/${email}`)
             .then(res => res.json())
             .then(data => {
                 setRecent(data);
@@ -115,7 +115,7 @@ const AuthProvider = ({ children }) => {
     const [recentCost, setRecentCost] = useState([]);
     useEffect(() => {
         const email = localStorage.getItem('userEmail');
-        fetch(`http://localhost:5000/costss/${email}`)
+        fetch(`https://expense-tracker-application-server.vercel.app/costss/${email}`)
             .then(res => res.json())
             .then(data => {
                 setRecentCost(data);
@@ -125,7 +125,7 @@ const AuthProvider = ({ children }) => {
     const [costs, setCosts] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/costs')
+        fetch('https://expense-tracker-application-server.vercel.app/costs')
             .then(res => res.json())
             .then(data => {
                 const email = localStorage.getItem('userEmail');
@@ -140,7 +140,7 @@ const AuthProvider = ({ children }) => {
     const [funds, setFunds] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/funds')
+        fetch('https://expense-tracker-application-server.vercel.app/funds')
             .then(res => res.json())
             .then(data => {
                 const email = localStorage.getItem('userEmail');
@@ -223,7 +223,7 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const getPreviousMonthEarnings = async () => {
-            const response = await axios.get('http://localhost:5000/funds');
+            const response = await axios.get('https://expense-tracker-application-server.vercel.app/funds');
             console.log('response', response.data);
 
             const email = localStorage.getItem('userEmail');
@@ -256,7 +256,7 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const getPreviousMonthEarnings = async () => {
-            const response = await axios.get('http://localhost:5000/costs');
+            const response = await axios.get('https://expense-tracker-application-server.vercel.app/costs');
 
             const email = localStorage.getItem('userEmail');
             console.log('email from categories', email);

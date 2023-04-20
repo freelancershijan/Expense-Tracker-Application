@@ -34,7 +34,7 @@ const AddFund = () => {
         console.log(fundDetails);
 
 
-        fetch('http://localhost:5000/funds', {
+        fetch('https://expense-tracker-application-server.vercel.app/funds', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -85,7 +85,7 @@ const AddFund = () => {
         const email = localStorage.getItem('userEmail');
 
 
-        fetch(`http://localhost:5000/categories/${prevName}/${email}`, {
+        fetch(`https://expense-tracker-application-server.vercel.app/categories/${prevName}/${email}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateValue)

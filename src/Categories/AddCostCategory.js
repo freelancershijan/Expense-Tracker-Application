@@ -26,7 +26,7 @@ const AddCostCategory = () => {
         else {
 
 
-            fetch(' http://localhost:5000/categories', {
+            fetch(' https://expense-tracker-application-server.vercel.app/categories', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
