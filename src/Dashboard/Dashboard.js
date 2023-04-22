@@ -9,11 +9,14 @@ const Dashboard = () => {
 
     const { sum, cost, totalCosts, totalEarnings, getCurrentMonthCostsTotal, getCurrentMonthFundsTotal } = useContext(AuthContext);
 
+    console.log("cost", cost);
+
+
     let rest = sum - cost;
 
 
     return (
-        <div className='mx-10'>
+        <div className='mx-2 md:mx-10'>
             <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5 justify-center mt-10">
                 <Link to='/dashboard/total-earning'>
                     <div class="lg:col-span-1 md:col-span-1 p-5 flex justify-start gap-5 items-center  bg-white rounded-lg shadow-lg">

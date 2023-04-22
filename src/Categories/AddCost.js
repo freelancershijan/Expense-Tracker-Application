@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../Context/AuthProvider';
+import { Link } from 'react-router-dom';
 
 // 
 
@@ -8,6 +9,7 @@ const AddCost = () => {
 
     const { costCategories, categories, user } = useContext(AuthContext);
 
+    console.log("costCategories", costCategories);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -103,7 +105,6 @@ const AddCost = () => {
 
 
 
-
     };
     return (
 
@@ -112,97 +113,109 @@ const AddCost = () => {
         <div>
 
 
-            <div className="">
-                <div className="modal-box mx-auto">
+            {
+                costCategories.length === 0 ? <div>
 
-                    <form onSubmit={handleSubmit}>
-                        <h3 className='text-center text-3xl font-semibold mb-10'>Add Cost</h3>
-                        <div className="mb-4">
-
-
-                            <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="category">
-                                Select Category
-                            </label>
-
-                            <select
-                                required
-                                id="category"
-                                name="category"
-                                className="block dark:text-white appearance-none w-full border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-
-                            >
-                                {
-                                    costCategories.map(ctg => <option key={ctg?._id} value={ctg?.name}>{ctg?.name}</option>)
-                                }
-                            </select>
+                    <h1 className='text-center md:text-3xl text-xl mt-10 md:mt-32'>You Have not any Cost Category Please Create a Cost Category FIrst</h1>
+                    <Link to="/dashboard/cost-category">
+                        <div className='text-center'>
+                            <button className='btn btn-primary mt-5'>Create Cost Category</button>
                         </div>
-                        <div className="mb-4">
-                            <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="money">
-                                Money
-                            </label>
-                            <input
-                                required
-                                id="money"
-                                name="money"
-                                type="number"
-                                step="0.01"
-                                className="shadow dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    </Link>
+                </div> :
 
-                            />
+
+                    <div className="">
+                        <div className="modal-box mx-auto">
+
+                            <form onSubmit={handleSubmit}>
+                                <h3 className='text-center text-3xl font-semibold mb-10'>Add Cost</h3>
+                                <div className="mb-4">
+
+
+                                    <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="category">
+                                        Select Category
+                                    </label>
+
+                                    <select
+                                        required
+                                        id="category"
+                                        name="category"
+                                        className="block dark:text-white appearance-none w-full border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+
+                                    >
+                                        {
+                                            costCategories.map(ctg => <option key={ctg?._id} value={ctg?.name}>{ctg?.name}</option>)
+                                        }
+                                    </select>
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="money">
+                                        Money
+                                    </label>
+                                    <input
+                                        required
+                                        id="money"
+                                        name="money"
+                                        type="number"
+                                        step="0.01"
+                                        className="shadow dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="date">
+                                        Date
+                                    </label>
+                                    <input
+                                        required
+                                        id="date"
+                                        name="date"
+                                        type="date"
+                                        className="shadow dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="time">
+                                        Time
+                                    </label>
+                                    <input
+                                        required
+                                        id="time"
+                                        name="time"
+                                        type="time"
+                                        className="shadow dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+
+                                    />
+                                </div>
+
+                                <div className="mb-4">
+                                    <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="notes">
+                                        Notes
+                                    </label>
+                                    <input
+                                        required
+                                        id="notes"
+                                        name="notes"
+                                        type="text"
+                                        className="shadow dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+
+                                    />
+                                </div>
+
+
+
+                                <div className="modal-action">
+                                    <button type='submit' htmlFor="cost-modal" className="btn">Add Cost</button>
+                                </div>
+                            </form>
+
+
+
                         </div>
-                        <div className="mb-4">
-                            <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="date">
-                                Date
-                            </label>
-                            <input
-                                required
-                                id="date"
-                                name="date"
-                                type="date"
-                                className="shadow dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="time">
-                                Time
-                            </label>
-                            <input
-                                required
-                                id="time"
-                                name="time"
-                                type="time"
-                                className="shadow dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-
-                            />
-                        </div>
-
-                        <div className="mb-4">
-                            <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="notes">
-                                Notes
-                            </label>
-                            <input
-                                required
-                                id="notes"
-                                name="notes"
-                                type="text"
-                                className="shadow dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-
-                            />
-                        </div>
-
-
-
-                        <div className="modal-action">
-                            <button type='submit' htmlFor="cost-modal" className="btn">Add Cost</button>
-                        </div>
-                    </form>
-
-
-
-                </div>
-            </div>
-
+                    </div>
+            }
 
 
 

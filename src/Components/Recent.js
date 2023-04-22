@@ -7,7 +7,7 @@ const Recent = () => {
     return (
         <div className='grid md:grid-cols-2 gap-5 my-10'>
             <div>
-                <h1 className='text-3xl font-semibold text-center mb-5'>Recent Added Funds</h1>
+                <h1 className='text-3xl text-black font-semibold text-center mb-5'>Recent Added Funds</h1>
 
                 {
                     recent.length === 0 ? <div className='bg-white mt-20 md:mx-20'>
@@ -58,7 +58,7 @@ const Recent = () => {
             </div>
 
             <div>
-                <h1 className='text-3xl font-semibold text-center mb-5'>Recent Added Costs</h1>
+                <h1 className='text-3xl text-black font-semibold text-center mb-5'>Recent Added Costs</h1>
 
                 {
                     recentCost.length === 0 ? <div className='bg-white mt-20 md:mx-20'>

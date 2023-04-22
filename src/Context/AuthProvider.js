@@ -290,11 +290,11 @@ const AuthProvider = ({ children }) => {
 
 
 
-    const filtrr = costCategories.filter(ctg => ctg?.user == email)
+    // const filtrr = costCategories.filter(ctg => ctg?.user == email)
 
 
 
-    const costss = filtrr.map(fnd => fnd?.value);
+    const costss = costCategories.map(fnd => fnd?.value);
     const cost = costss.reduce((acc, val) => acc + val, 0);
     // console.log(sum);
 

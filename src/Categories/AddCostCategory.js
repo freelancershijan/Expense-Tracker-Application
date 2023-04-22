@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../Context/AuthProvider';
 
 const AddCostCategory = () => {
-    const { costCategories } = useContext(AuthContext);
+    const { categories } = useContext(AuthContext);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -11,16 +11,16 @@ const AddCostCategory = () => {
         const email = localStorage.getItem('userEmail');
 
 
-        const categories = {
+        const category = {
             name,
             value: 0,
             type: 'cost',
             user: email,
         }
 
-        console.log(categories)
+        console.log(category)
 
-        if (costCategories.find(ctg => ctg.name == categories.name)) {
+        if (categories.find(ctg => ctg.name == category.name)) {
             toast.error("Already Have a Category with your account Like this Name. Please Create a Different Name")
         }
         else {
@@ -31,7 +31,7 @@ const AddCostCategory = () => {
                 headers: {
                     'content-type': 'application/json'
                 },
-                body: JSON.stringify(categories)
+                body: JSON.stringify(category)
             })
                 .then(res => res.json())
                 .then(data => {
@@ -40,7 +40,7 @@ const AddCostCategory = () => {
                         toast.success('COngratulation!! Category Added');
                         // refetch();
                         // navigate('/')
-                        window.location.href = '/cost-category';
+                        window.location.href = '/dashboard/cost-category';
                     }
                     else {
                         toast.error(data.message)

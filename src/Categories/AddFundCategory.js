@@ -3,24 +3,24 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../Context/AuthProvider';
 
 const AddFundCategory = () => {
-    const { fundCategories } = useContext(AuthContext);
-    console.log("fundCategories", fundCategories);
+    const { categories } = useContext(AuthContext);
+    // console.log("fundCategories", fundCategories);
     const handleSubmit = (e) => {
         e.preventDefault();
         const name = e.target.name.value;
         const email = localStorage.getItem('userEmail');
 
-        const categories = {
+        const category = {
             name,
             value: 0,
             type: 'fund',
             user: email
         }
 
-        console.log(categories)
+        console.log(category)
 
 
-        if (fundCategories.find(ctg => ctg.name == categories.name)) {
+        if (categories.find(ctg => ctg.name == category.name)) {
             toast.error("Already Have a Category with your account Like this Name. Please Create a Different Name")
         }
         else {
@@ -30,7 +30,7 @@ const AddFundCategory = () => {
                 headers: {
                     'content-type': 'application/json'
                 },
-                body: JSON.stringify(categories)
+                body: JSON.stringify(category)
             })
                 .then(res => res.json())
                 .then(data => {
@@ -38,7 +38,7 @@ const AddFundCategory = () => {
                     if (data.acknowledged) {
                         toast.success('COngratulation!! Category Added');
 
-                        window.location.href = '/fund-category';
+                        window.location.href = '/dashboard/fund-category';
                     }
                     else {
                         toast.error(data.message)

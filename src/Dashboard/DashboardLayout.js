@@ -3,6 +3,7 @@ import { AuthContext } from '../Context/AuthProvider';
 import { NavLink, Outlet } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { FaUserCircle } from 'react-icons/fa';
+import Header from '../Shared/Header';
 
 const DashboardLayout = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -23,6 +24,7 @@ const DashboardLayout = () => {
 
     return (
         <div>
+            <Header />
             <div className="drawer drawer-mobile">
                 <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content bg-[#F2F2F2]">
