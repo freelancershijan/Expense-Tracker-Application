@@ -4,6 +4,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { FaUserCircle } from 'react-icons/fa';
 import Header from '../Shared/Header';
+import Footer from '../Shared/Footer';
 
 const DashboardLayout = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -81,6 +82,7 @@ const DashboardLayout = () => {
 
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

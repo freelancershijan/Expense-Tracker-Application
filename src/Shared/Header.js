@@ -22,7 +22,7 @@ const Header = () => {
                         </div>
 
                         <div className='md:block hidden'>
-                            <NavLink>
+                            <NavLink to="/dashboard">
                                 <button className='btn btn-primary'>Dashboard</button>
                             </NavLink>
                         </div>

@@ -18,6 +18,7 @@ import CostsCategory from "./Dashboard/CostsCategory";
 import PrivateRoute from "./PrivetRoute/PrivateRoute";
 
 import Main from "./Layout/Main";
+import ProtectedRoute from "./ProtectectRoute/ProtectedRoute";
 
 export const routes = createBrowserRouter([
 
@@ -33,16 +34,16 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/login',
-                element: <Login />
+                element: <ProtectedRoute><Login /></ProtectedRoute>
             },
 
             {
                 path: '/register',
-                element: <Register></Register>
+                element: <ProtectedRoute><Register></Register></ProtectedRoute>
             },
             {
                 path: '/reset-password',
-                element: <ResetPass></ResetPass>
+                element: <ProtectedRoute><ResetPass></ResetPass></ProtectedRoute>
             },
             {
                 path: '*',
