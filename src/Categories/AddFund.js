@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 
 const AddFund = () => {
-    const { fundCategories, categories, user } = useContext(AuthContext);
+    const { fundCategories,email, categories, user } = useContext(AuthContext);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -52,7 +52,6 @@ const AddFund = () => {
         const updateValue = {
             value: (prevValue + money),
         }
-        const email = localStorage.getItem('userEmail');
         fetch(`${process.env.REACT_APP_API_URL}/categories/${prevName}/${email}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -68,28 +67,19 @@ const AddFund = () => {
 
 
     return (
-
-
-
         <div>
-
-
             {
-                fundCategories.length === 0 ? <div>
-
-                    <h1 className='text-center md:text-3xl text-xl mt-10 md:mt-32'>You Have not any Fund Category Please Create a Cost Category FIrst</h1>
-                    <Link to="/dashboard/fund-category">
+                fundCategories.length === 0 ? <div className='h-[100vh] px-6 flex items-center justify-center'>
+                    <div>
+                    <h1 className='md:text-2xl sm:text-xl text-lg text-center font-semibold'>You Have not any Fund Category Please Create a Fund Category FIrst</h1>
+                    <Link to="/fund-category">
                         <div className='text-center'>
-                            <button className='btn btn-primary mt-5'>Create Fund Category</button>
+                            <button className='px-5 py-3 bg-primary text-white rounded-sm mt-5'>Create Fund Category</button>
                         </div>
                     </Link>
+                    </div>
                 </div> :
-
-                    <div className="">
-                        <div className="modal-box mx-auto">
-
-                            {/* <label htmlFor="fund-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label> */}
-
+                        <div className="modal-box rounded-sm mx-auto">
                             <form onSubmit={handleSubmit}>
                                 <h3 className='text-center text-3xl font-semibold mb-10'>Add Funds</h3>
                                 <div className="mb-4">
@@ -104,8 +94,6 @@ const AddFund = () => {
                                         id="category"
                                         name="category"
                                         className="block appearance-none w-full dark:text-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                                    /* value={category}
-                                    onChange={(e) => setCategory(e.target.value)} */
                                     >
                                         {
                                             fundCategories.map(ctg => <option key={ctg?._id} value={ctg?.name}>{ctg?.name}</option>)
@@ -124,8 +112,6 @@ const AddFund = () => {
                                         type="number"
                                         step="0.01"
                                         className="shadow appearance-none border rounded w-full py-2 px-3  text-gray-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
-                                    /*  value={money}
-                                     onChange={(e) => setMoney(e.target.value)} */
                                     />
                                 </div>
                                 <div className="mb-4">
@@ -138,8 +124,6 @@ const AddFund = () => {
                                         name="date"
                                         type="date"
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
-                                    /*  value={date}
-                                     onChange={(e) => setDate(e.target.value)} */
                                     />
                                 </div>
                                 <div className="mb-4">
@@ -152,8 +136,6 @@ const AddFund = () => {
                                         name="time"
                                         type="time"
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
-                                    /*  value={time}
-                                     onChange={(e) => setTime(e.target.value)} */
                                     />
                                 </div>
 
@@ -167,26 +149,16 @@ const AddFund = () => {
                                         name="notes"
                                         type="text"
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
-                                    /* value={notes}
-                                    onChange={(e) => setNotes(e.target.value)} */
                                     />
                                 </div>
 
 
 
                                 <div className="modal-action">
-                                    <button type='submit' htmlFor="fund-modal" className="btn">Add Fund</button>
+                                    <button type='submit' htmlFor="fund-modal" className="px-5 py-3 bg-primary text-white rounded-sm">Add Fund</button>
                                 </div>
                             </form>
-
-
-
-
-                            {/* <div className="modal-action">
-                        <label htmlFor="fund-modal" className="btn">Yay!</label>
-                    </div> */}
                         </div>
-                    </div>
             }
 
 

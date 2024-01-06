@@ -77,7 +77,7 @@ const DeleteCategory = () => {
                                 <th>{i + 1}</th>
                                 <td>{ctg?.name}</td>
                                 <td>
-                                    <button onClick={() => handleDelete(ctg)} className='btn bg-red-700'>
+                                    <button onClick={() => handleDelete(ctg)} className='px-5 py-3 bg-red-700 text-white rounded-sm hover:bg-red-900 transition duration-500 ease-in-out'>
                                         Delete
                                     </button>
                                 </td>

@@ -47,19 +47,13 @@ const FundCategory = () => {
 
 
     return (
-        <div className='md:m-20 m-2'>
+        <div className='m-10'>
             <Link to='/fund-category'>
-                <button className='btn bg-black mb-5'>Back</button>
+                <button className='px-5 py-3 text-white bg-primary rounded-sm mb-5'>Back</button>
             </Link>
             {
-                filtr.length === 0 ? <div className="card my-20 w-2/3 mx-auto bg-gray-700 text-neutral-content">
-
-                    <div className="card-body items-center text-center">
-
-                        <h1 className='text-3xl font-semibold'>You have Not any Funds in this Fund</h1>
-
-                    </div>
-
+                filtr.length === 0 ? <div className=" bg-gray-700 text-neutral-content">
+                        <h1 className='text-3xl font-semibold text-center'>You have Not any Funds in this Fund</h1>
                 </div> : <div className="overflow-x-auto border-2 border-black">
                     <table className="table table-zebra w-full">
                         <thead>
@@ -82,7 +76,7 @@ const FundCategory = () => {
                                     <td>{fnd?.date}</td>
                                     <td>{fnd?.time}</td>
                                     <td>{fnd?.notes}</td>
-                                    <td><button onClick={() => handleDelete(fnd)} className='btn bg-red-700'>Delete</button></td>
+                                    <td><button onClick={() => handleDelete(fnd)} className='px-5 py-3 bg-red-700 text-white rounded-sm hover:bg-red-900 transition duration-500 ease-in-out'>Delete</button></td>
                                 </tr>)
                             }
                         </tbody>

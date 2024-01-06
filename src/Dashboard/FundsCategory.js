@@ -4,13 +4,20 @@ import { AuthContext } from '../Context/AuthProvider';
 import AddFundCategory from '../Categories/AddFundCategory';
 import { Link } from 'react-router-dom/dist';
 
+
 const FundsCategory = () => {
     const { categories } = useContext(AuthContext);
     const fund = categories.filter(ctg => ctg.type === 'fund');
 
+
+
     return (
         <div>
-            <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mx-10 gap-5 justify-center mt-10">
+            {
+                fund.length === 0 ? <div className='h-[100vh] px-6 flex items-center justify-center'>
+                <h1 className='md:text-2xl sm:text-xl text-lg text-center font-semibold'>You Have not any Fund Category. Please Create a Fund Category FIrst</h1>
+            </div> :
+            <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center m-10">
 
 
                 {
@@ -32,16 +39,20 @@ const FundsCategory = () => {
 
 
             </div>
-
-            <div className='md:flex items-center gap-5 w-1/2 mx-auto my-20 '>
-                <div className='my-3'>
-                    <label className='btn btn-primary ' htmlFor="category-modal" >Add Fund Category</label>
-                </div>
-                <Link to='/delete-category'>
-                    <div className='my-3'>
-                        <label className='btn bg-red-700 hover:bg-red-900  ' htmlFor="category-modal" >Delete Category</label>
+ }
+             
+            <div className='fixed bottom-10 right-0 flex items-center gap-2'>
+               <Link to='/delete-category'>
+               <div className='bg-red-700  group w-12 h-12 flex items-center justify-center rounded-full'>
+                   <i className='pi pi-trash text-white'></i>
                     </div>
-                </Link>
+                    </Link>
+                <label htmlFor="category-modal">
+                  <div className='bg-green-700 group cursor-pointer w-12 h-12 flex items-center justify-center rounded-full'>
+                   <i className='pi pi-plus text-white'></i>
+                    </div>
+                    </label>
+               
             </div>
 
             <AddFundCategory />

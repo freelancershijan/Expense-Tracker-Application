@@ -4,15 +4,21 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AuthProvider from './Context/AuthProvider';
+import { PrimeReactProvider } from 'primereact/api';
+import 'primereact/resources/themes/lara-light-indigo/theme.css';   
+import 'primeicons/primeicons.css';
+import 'primereact/resources/primereact.css'; 
+
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-
+    <PrimeReactProvider>
       <App />
-
+      </PrimeReactProvider>
     </AuthProvider>
   </React.StrictMode>
 );

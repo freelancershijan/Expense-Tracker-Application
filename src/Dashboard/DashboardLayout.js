@@ -31,7 +31,7 @@ const DashboardLayout = () => {
                     <Outlet></Outlet>
 
                 </div>
-                <div className="drawer-side bg-white">
+                <div className="drawer-side bg-[#1B2850] text-white">
                     <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
 
 
@@ -48,19 +48,19 @@ const DashboardLayout = () => {
                             <h4 className='font-semibold'>{user?.email}</h4>
                         </div>
 
-                        <div className="divider"></div>
+                        <div className="mt-8 mb-2 border-b border-white"></div>
 
-                        <ul className="menu p-4 lg:w-80 text-base-content">
+                        <ul className="menu p-4 lg:w-80 text-white">
 
 
 
-                            <li><NavLink to='/'>Dashboard</NavLink></li>
+                            <li><NavLink className='focus:bg-primary rounded-sm hover:bg-primary active:bg-primary' to='/'>Dashboard</NavLink></li>
 
-                            <li><NavLink to='/fund-category'>Funds Category</NavLink></li>
-                            <li><NavLink to='/cost-category'>Cost Category</NavLink></li>
-                            <li><NavLink to='/add-fund'>Add Fund</NavLink></li>
-                            <li><NavLink to='/add-cost'>Add Cost</NavLink></li>
-                            <li><NavLink to='/settings'>Settings</NavLink></li>
+                            <li><NavLink className='focus:bg-primary rounded-sm hover:bg-primary active:bg-primary' to='/fund-category'>Funds Category</NavLink></li>
+                            <li><NavLink className='focus:bg-primary rounded-sm hover:bg-primary active:bg-primary' to='/cost-category'>Cost Category</NavLink></li>
+                            <li><NavLink className='focus:bg-primary rounded-sm hover:bg-primary active:bg-primary' to='/add-fund'>Add Fund</NavLink></li>
+                            <li><NavLink className='focus:bg-primary rounded-sm hover:bg-primary active:bg-primary' to='/add-cost'>Add Cost</NavLink></li>
+                            <li><NavLink className='focus:bg-primary rounded-sm hover:bg-primary active:bg-primary' to='/settings'>Settings</NavLink></li>
 
 
                         </ul>
@@ -68,7 +68,7 @@ const DashboardLayout = () => {
 
                         <div className='mx-5'>
                             <NavLink onClick={handleLogout} >
-                                <button className='btn btn-primary w-full text-white'>
+                                <button className='py-3.5 rounded-sm bg-primary flex  items-center justify-center w-full text-white'>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-2">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                                     </svg>

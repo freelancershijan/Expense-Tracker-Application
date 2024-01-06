@@ -45,9 +45,9 @@ const CostCategories = () => {
 
 
     return (
-        <div className='md:m-20 m-2'>
+        <div className='m-10'>
             <Link to='/cost-category'>
-                <button className='btn bg-black mb-5'>Back</button>
+                <button className='px-5 py-3 text-white bg-primary rounded-sm mb-5'>Back</button>
             </Link>
 
             {
@@ -81,7 +81,7 @@ const CostCategories = () => {
                                     <td>{fnd?.date}</td>
                                     <td>{fnd?.time}</td>
                                     <td>{fnd?.notes}</td>
-                                    <td><button onClick={() => handleDelete(fnd)} className='btn bg-red-700'>Delete</button></td>
+                                    <td><button onClick={() => handleDelete(fnd)} className='px-5 py-3 bg-red-700 text-white rounded-sm hover:bg-red-900 transition duration-500 ease-in-out'>Delete</button></td>
                                 </tr>)
                             }
                         </tbody>

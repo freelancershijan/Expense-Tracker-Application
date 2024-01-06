@@ -5,22 +5,16 @@ import { Link } from 'react-router-dom';
 
 const AddCost = () => {
 
-    const { costCategories, categories, user } = useContext(AuthContext);
-
-    console.log("costCategories", costCategories);
-
+    const { costCategories,email, categories, user } = useContext(AuthContext);
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle form submission
-
         const form = e.target;
         const category = form.category.value;
         const money = parseInt(form.money.value);
         const date = form.date.value;
         const time = form.time.value;
         const notes = form.notes.value;
-
-
         const costDetails = {
             category,
             money,
@@ -30,10 +24,7 @@ const AddCost = () => {
             user: user?.email
         }
 
-        // console.log(costDetails);
-
-
-        fetch('https://expense-tracker-application-server.vercel.app/costs', {
+        fetch(`${process.env.REACT_APP_API_URL}/costs`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -42,7 +33,6 @@ const AddCost = () => {
         })
             .then(res => res.json())
             .then(data => {
-
                 if (data.acknowledged) {
                     toast.success('Successfully Added Your Costs');
                 }
@@ -55,36 +45,13 @@ const AddCost = () => {
             })
 
 
-
-
         // update price
-
-
         const prevCategories = categories.find(ctg => ctg.name === costDetails.category)
-
-
         const prevValue = prevCategories.value;
-
-
-
         const prevName = prevCategories.name;
-
-        console.log(prevName);
-
-
-
         const updateValue = {
             value: (prevValue + money),
         }
-
-        console.log(updateValue);
-
-
-
-
-        const email = localStorage.getItem('userEmail');
-
-
         fetch(`${process.env.REACT_APP_API_URL}/categories/${prevName}/${email}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -94,32 +61,22 @@ const AddCost = () => {
             .then(data => {
                 toast.success("Price Updated Successfully");
                 window.location.href = '/';
-                console.log(data.message); // Output success message
-                // Perform any additional actions, such as updating the state of your component
+                console.log(data.message);
             })
             .catch(err => console.error(err));
-
-
-
-
-
     };
     return (
-
-
-
         <div>
-
-
             {
-                costCategories.length === 0 ? <div>
-
-                    <h1 className='text-center md:text-3xl text-xl mt-10 md:mt-32'>You Have not any Cost Category Please Create a Cost Category FIrst</h1>
+                costCategories.length === 0 ? <div className='h-[100vh] px-6 flex items-center justify-center'>
+                    <div>
+                    <h2 className='md:text-2xl sm:text-xl text-lg text-center font-semibold'>You Have not any Cost Category Please Create a Cost Category FIrst</h2>
                     <Link to="/cost-category">
                         <div className='text-center'>
-                            <button className='btn btn-primary mt-5'>Create Cost Category</button>
+                            <button className='px-5 py-3 bg-primary text-white rounded-sm mt-5'>Create Cost Category</button>
                         </div>
                     </Link>
+                 </div>
                 </div> :
 
 
@@ -205,7 +162,7 @@ const AddCost = () => {
 
 
                                 <div className="modal-action">
-                                    <button type='submit' htmlFor="cost-modal" className="btn">Add Cost</button>
+                                    <button type='submit' htmlFor="cost-modal" className="px-5 py-3 bg-primary text-white rounded-sm">Add Cost</button>
                                 </div>
                             </form>
 
