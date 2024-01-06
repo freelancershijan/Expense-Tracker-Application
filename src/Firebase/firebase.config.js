@@ -10,8 +10,8 @@ const firebaseConfig = {
     projectId: "expense-tracking-software",
     storageBucket: "expense-tracking-software.appspot.com",
     messagingSenderId: "192991273654",
-    appId: "1:192991273654:web:67d39b463ccb4e7072bc17"
-};
+    appId: "1:192991273654:web:67d39b463ccb4e7072bc17",
+  };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

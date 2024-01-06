@@ -5,27 +5,11 @@ import { AuthContext } from '../Context/AuthProvider';
 
 const CostCategories = () => {
     const costCategories = useLoaderData([]);
-    const { categories } = useContext(AuthContext);
-
-
-    const email = localStorage.getItem('userEmail');
-    console.log('email from categories', email);
-    const filtr = costCategories.filter(ctg => ctg?.user == email)
-    console.log('filtet from fudscartegories', filtr);
-
-
-
-    // console.log(fundsCategories);
-    console.log(categories);
+    const { categories, email } = useContext(AuthContext);
+    
+    const filtr = costCategories.filter(ctg => ctg?.user === email)
     let cstctgoris = costCategories.map(fctg => fctg?.category);
-    console.log(cstctgoris);
-
-
     let ctgoris = categories.filter(ctg => ctg?.name === cstctgoris[0])
-
-
-
-
 
     // delete single fund
 
@@ -38,23 +22,13 @@ const CostCategories = () => {
         })
             .then(res => res.json())
             .then(data => {
-
                 if (data.acknowledged) {
                     toast.success('Product Deleted Successfully');
-
-
                     const price = fnd?.money
-
                     const updateValue = {
                         value: ctgoris[0].value - price
                     }
-                    console.log(updateValue);
-
-                    const email = localStorage.getItem('userEmail');
-
-
-
-                    fetch(`https://expense-tracker-application-server.vercel.app/categories/${fnd?.category}/${email}`, {
+                    fetch(`${process.env.REACT_APP_API_URL}/categories/${fnd?.category}/${email}`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(updateValue)
@@ -62,23 +36,17 @@ const CostCategories = () => {
                         .then(res => res.json())
                         .then(data => {
                             toast.success("Price Updated Successfully");
-                            window.location.href = '/dashboard';
-                            console.log(data.message); // Output success message
-                            // Perform any additional actions, such as updating the state of your component
+                            window.location.href = '/';
                         })
                         .catch(err => console.error(err));
-
-
                 }
             })
-
     }
-
 
 
     return (
         <div className='md:m-20 m-2'>
-            <Link to='/dashboard/cost-category'>
+            <Link to='/cost-category'>
                 <button className='btn bg-black mb-5'>Back</button>
             </Link>
 

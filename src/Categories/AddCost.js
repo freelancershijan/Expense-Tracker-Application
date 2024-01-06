@@ -3,8 +3,6 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../Context/AuthProvider';
 import { Link } from 'react-router-dom';
 
-// 
-
 const AddCost = () => {
 
     const { costCategories, categories, user } = useContext(AuthContext);
@@ -62,7 +60,7 @@ const AddCost = () => {
         // update price
 
 
-        const prevCategories = categories.find(ctg => ctg.name == costDetails.category)
+        const prevCategories = categories.find(ctg => ctg.name === costDetails.category)
 
 
         const prevValue = prevCategories.value;
@@ -87,7 +85,7 @@ const AddCost = () => {
         const email = localStorage.getItem('userEmail');
 
 
-        fetch(`https://expense-tracker-application-server.vercel.app/categories/${prevName}/${email}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/categories/${prevName}/${email}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateValue)
@@ -95,7 +93,7 @@ const AddCost = () => {
             .then(res => res.json())
             .then(data => {
                 toast.success("Price Updated Successfully");
-                window.location.href = '/dashboard';
+                window.location.href = '/';
                 console.log(data.message); // Output success message
                 // Perform any additional actions, such as updating the state of your component
             })
@@ -117,7 +115,7 @@ const AddCost = () => {
                 costCategories.length === 0 ? <div>
 
                     <h1 className='text-center md:text-3xl text-xl mt-10 md:mt-32'>You Have not any Cost Category Please Create a Cost Category FIrst</h1>
-                    <Link to="/dashboard/cost-category">
+                    <Link to="/cost-category">
                         <div className='text-center'>
                             <button className='btn btn-primary mt-5'>Create Cost Category</button>
                         </div>

@@ -3,7 +3,6 @@ import { AuthContext } from '../Context/AuthProvider';
 
 const Recent = () => {
     const { recent, recentCost } = useContext(AuthContext);
-    console.log("recent", recent);
     return (
         <div className='grid md:grid-cols-2 gap-5 my-10'>
             <div>

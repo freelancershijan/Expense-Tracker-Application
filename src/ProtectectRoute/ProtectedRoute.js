@@ -5,9 +5,6 @@ import { Navigate } from 'react-router-dom';
 const ProtectedRoute = ({children}) => {
   const { user, loading } = useContext(AuthContext);
 
-
-
-
     if (loading) {
         return <div className="my-56 border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
             <div className="animate-pulse flex space-x-4">
@@ -28,7 +25,7 @@ const ProtectedRoute = ({children}) => {
 
 
     if (user) {
-        return <Navigate to='/dashboard'></Navigate>
+        return <Navigate to='/'></Navigate>
     }
     return children;
 

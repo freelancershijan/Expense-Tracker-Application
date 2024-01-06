@@ -3,25 +3,18 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../Context/AuthProvider';
 import { Link } from 'react-router-dom';
 
-// 
 
 const AddFund = () => {
     const { fundCategories, categories, user } = useContext(AuthContext);
-    console.log('categories', categories);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission
-
         const form = e.target;
         const category = form.category.value;
         const money = Math.round(form.money.value);
         const date = form.date.value;
         const time = form.time.value;
         const notes = form.notes.value;
-
-
-
         const fundDetails = {
             category,
             money,
@@ -31,11 +24,7 @@ const AddFund = () => {
             user: user?.email
         }
 
-
-        console.log(fundDetails);
-
-
-        fetch('https://expense-tracker-application-server.vercel.app/funds', {
+        fetch(`${process.env.REACT_APP_API_URL}/funds`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -44,7 +33,6 @@ const AddFund = () => {
         })
             .then(res => res.json())
             .then(data => {
-
                 if (data.acknowledged) {
                     toast.success('Congratulation!! Added Your Funds');
                 }
@@ -58,35 +46,14 @@ const AddFund = () => {
 
 
         // update price
-
-
-
-
-        const prevCategories = categories.find(ctg => ctg.name == fundDetails.category)
-
-
+        const prevCategories = categories.find(ctg => ctg.name === fundDetails.category)
         const prevValue = prevCategories.value;
-
-
         const prevName = prevCategories.name;
-
-        console.log(prevName);
-
-
-
         const updateValue = {
             value: (prevValue + money),
         }
-
-        console.log(updateValue);
-
-
-
-
         const email = localStorage.getItem('userEmail');
-
-
-        fetch(`https://expense-tracker-application-server.vercel.app/categories/${prevName}/${email}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/categories/${prevName}/${email}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateValue)
@@ -94,16 +61,9 @@ const AddFund = () => {
             .then(res => res.json())
             .then(data => {
                 toast.success("Price Updated Successfully");
-                window.location.href = '/dashboard';
-                console.log(data.message); // Output success message
-                // Perform any additional actions, such as updating the state of your component
+                window.location.href = '/';
             })
             .catch(err => console.error(err));
-
-
-
-
-
     };
 
 

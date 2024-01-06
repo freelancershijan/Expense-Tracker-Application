@@ -1,14 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
 import Buttons from './Buttons';
 
 const AllCategories = () => {
     const { categories } = useContext(AuthContext);
-
-    console.log('categories from all categories', categories);
-
-
     return (
         <div>
             <div className="divider my-20 text-3xl font-semibold">Categories</div>

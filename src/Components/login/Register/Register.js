@@ -1,21 +1,17 @@
 import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
-
 import { AuthContext } from '../../../Context/AuthProvider';
-
 import img from '../../../images/shijan.jpg'
-import LoadingSpinner from '../../LoadingSpinner/LoadingSpinner';
 import { GoogleAuthProvider } from 'firebase/auth';
+import registrationImg from '../../../images/registration-img.png'
 
 
 const Register = () => {
-
     const [wrongPass, setWrongPass] = useState('');
-
     const [error, setError] = useState('');
     const [showpass, setShowPass] = useState(false);
-    const { createUser, signInGoogle, loading, updateUserProfile } = useContext(AuthContext);
+    const { createUser, signInGoogle, updateUserProfile } = useContext(AuthContext);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -29,43 +25,25 @@ const Register = () => {
         if (!/(?=.*[!@#$%^&*])/.test(password)) {
             setError('Please add a special carecter')
             return;
-
         }
-
-
-
         if (password !== confirm) {
             setWrongPass('PassWord did not match');
             return;
         }
-
-
         createUser(email, password)
             .then(result => {
                 const user = result.user;
                 setError('');
                 handleUpdateProfile(name, photoURL);
-
-                const currentUser = {
-                    email: user.email
-                }
-                console.log(currentUser);
-
                 form.reset();
                 localStorage.setItem("userEmail", user?.email);
-                window.location.href = '/dashboard';
+                window.location.href = '/';
                 toast.success("Your Account Has Created")
-                console.log('New Created User', user);
             })
             .catch(error => {
                 console.error('create user account error', error)
                 setError(error.message);
-
             })
-
-
-        console.log(name, email, photoURL, password, confirm)
-
     }
 
     const handleUpdateProfile = (name, photoURL) => {
@@ -73,33 +51,22 @@ const Register = () => {
             displayName: name,
             photoURL: photoURL
         }
-
         updateUserProfile(profile)
             .then(() => {
                 toast.success("Your Profile Has Created")
-                console.log('Update USer Phofile')
             })
             .catch(error => {
                 console.error('create user account error', error)
             })
-
     }
-
-
 
     const googleProvider = new GoogleAuthProvider();
     const handleGoogleSignIn = () => {
         signInGoogle(googleProvider)
             .then(result => {
                 const user = result.user;
-                console.log('New User From Google', user);
-
-                const currentUser = {
-                    email: user.email
-                }
-                console.log(currentUser);
                 localStorage.setItem("userEmail", user?.email);
-                window.location.href = '/dashboard';
+                window.location.href = '/';
                 toast.success("Login Successfull")
             })
             .catch(error => {
@@ -109,11 +76,12 @@ const Register = () => {
 
     return (
         <div >
-            <div className="bg-indigo-50">
-                <form onSubmit={handleSubmit} className="px-10  md:py-12 py-9  md:flex items-center justify-center">
+            <div className="bg-background">
+   
+                    <div className='grid sm:grid-cols-2 grid-cols-1 gap-20 sm:gap-10 max-w-7xl mx-auto px-6 items-center py-20'>
+                    <div className="bg-white shadow-lg rounded md:p-10 p-5">
 
-                    <div className="bg-white shadow-lg rounded xl:w-1/2 md:w-1/2 w-full lg:px-10 sm:px-6 sm:py-10 px-10 py-6">
-                        <p tabIndex={0} className="focus:outline-none text-2xl font-extrabold leading-6 text-gray-800">
+                        <p tabIndex={0} className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-black">
                             Create an account
                         </p>
                         <p tabIndex={0} className="focus:outline-none text-sm mt-4 font-medium leading-none text-gray-500">
@@ -139,6 +107,8 @@ const Register = () => {
                             <p className="text-base font-medium leading-4 px-2.5 text-gray-500">OR</p>
                             <hr className="w-full bg-gray-400" />
                         </div>
+                        <form onSubmit={handleSubmit}>
+
                         <div className="mt-6 w-full">
                             <label htmlFor="name" className="text-sm font-medium leading-none text-gray-800">
                                 {" "}
@@ -152,8 +122,9 @@ const Register = () => {
                             <label htmlFor="photoURL" className="text-sm font-medium leading-none text-gray-800">
                                 {" "}
                                 Select Image{" "}
-                            </label>
-                            <input
+                            </label> <br />
+                                <input
+                                className='mt-2 border p-2 w-full bg-gray-200'
                                 type='file'
                                 id='photoURL'
                                 name='photoURL'
@@ -236,16 +207,15 @@ const Register = () => {
 
 
                         <div className="mt-8">
-                            <button className="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 text-sm font-semibold leading-none text-white focus:outline-none bg-indigo-700 border rounded hover:bg-indigo-600 py-4 w-full">
-                                {
-                                    loading ? <LoadingSpinner></LoadingSpinner> : 'Create my account'
-                                }
+                            <button type='submit' className="focus:ring-2 focus:ring-offset-2 focus:ring-primary text-sm font-semibold leading-none text-white bg-primary focus:outline-none border rounded hover:bg-primary/90 py-4 w-full transition duration-500 ease-in-out">
+                            Create my account
                             </button>
-                        </div>
+                            </div>
+                            </form>
                     </div>
-                    <div className="xl:w-1/2 lg:pl-8 md:pl-8 md:w-1/2 w-full mx-auto md:mt-0 mt-6">
-                        <div className="lg:pl-8 md:pl-8 lg:w-2/3 md:w-full w-1/2 mx-auto">
-                            <img src="https://www.wellybox.com/wp-content/uploads/2021/01/6-business-expense-tracker-1024x1024.jpg" alt="" />
+                    <div className="">
+                        <div className="w-[80%] mx-auto">
+                            <img className='w-full h-full' src={registrationImg} alt="" />
                         </div>
                         <div className="flex items-start mt-8">
                             <div>
@@ -260,7 +230,7 @@ const Register = () => {
                                     />
                                 </svg>
                             </div>
-                            <p className="sm:text-2xl text-xl leading-7 text-gray-600 pl-2.5">Generating random paragraphs can be an excellent way for writers to get their creative flow going at the beginning of the day. The writer has no idea what topic the random paragraph will be about when it appears</p>
+                            <p className="text-xl sm:text-md md:text-xl leading-7 text-gray-600 pl-2.5">Generating random paragraphs can be an excellent way for writers to get their creative flow going at the beginning of the day. The writer has no idea what topic the random paragraph will be about when it appears</p>
                         </div>
                         <div className="flex items-center pl-8 mt-10">
                             <div className="w-20 h-20  rounded-xl">
@@ -272,7 +242,8 @@ const Register = () => {
                             </div>
                         </div>
                     </div>
-                </form>
+                   </div>
+             
             </div>
         </div>
     )

@@ -8,14 +8,13 @@ import Footer from '../Shared/Footer';
 
 const DashboardLayout = () => {
     const { user, logOut } = useContext(AuthContext);
-    console.log("user", user);
     const handleLogout = () => {
         logOut()
             .then(() => {
                 console.log('successfuly logout');
                 localStorage.removeItem('userEmail');
                 toast.success('You have logged Out Successfully!!')
-                window.location.href = '/';
+                window.location.href = '/login';
             })
             .catch(error => {
                 console.error('error', error.message)
@@ -55,13 +54,13 @@ const DashboardLayout = () => {
 
 
 
-                            <li><NavLink to='/dashboard/'>Dashboard</NavLink></li>
+                            <li><NavLink to='/'>Dashboard</NavLink></li>
 
-                            <li><NavLink to='/dashboard/fund-category'>Funds Category</NavLink></li>
-                            <li><NavLink to='/dashboard/cost-category'>Cost Category</NavLink></li>
-                            <li><NavLink to='/dashboard/add-fund'>Add Fund</NavLink></li>
-                            <li><NavLink to='/dashboard/add-cost'>Add Cost</NavLink></li>
-                            <li><NavLink to='/dashboard/settings'>Settings</NavLink></li>
+                            <li><NavLink to='/fund-category'>Funds Category</NavLink></li>
+                            <li><NavLink to='/cost-category'>Cost Category</NavLink></li>
+                            <li><NavLink to='/add-fund'>Add Fund</NavLink></li>
+                            <li><NavLink to='/add-cost'>Add Cost</NavLink></li>
+                            <li><NavLink to='/settings'>Settings</NavLink></li>
 
 
                         </ul>

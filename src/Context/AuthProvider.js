@@ -10,19 +10,11 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
-
-
+    const email = localStorage.getItem('userEmail');
 
     // login and registration functionality
-
-
     const googleProvider = new GoogleAuthProvider();
-
-
     const [loading, setLoading] = useState(true);
-
-    console.log('authprovider', user)
-
     const createUser = (email, password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password)
@@ -50,7 +42,6 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         localStorage.removeItem('greenTechToken')
         return signOut(auth);
-
     }
 
     const verifyEmail = () => {
@@ -62,178 +53,120 @@ const AuthProvider = ({ children }) => {
         return sendPasswordResetEmail(auth, email)
     }
 
-
-
-
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            console.log('inside changed', currentUser);
             setUser(currentUser);
-
-
             setLoading(false);
-
         });
         return () => {
             unsubscribe();
         }
-
-
-
     }, [])
-
-
 
     // ************************************************ //
 
 
     const [categories, setCategories] = useState([]);
     useEffect(() => {
-        fetch(' https://expense-tracker-application-server.vercel.app/categories')
+        fetch(`${process.env.REACT_APP_API_URL}/categories`)
             .then(res => res.json())
             .then(data => {
-                const email = localStorage.getItem('userEmail');
-                console.log('email from categories', email);
-                const filtr = data.filter(ctg => ctg?.user == email)
-                // console.log(filtr);
+                const filtr = data.filter(ctg => ctg?.user === email)
                 setCategories(filtr);
             })
-    }, [])
+    }, [email])
 
     // recent fund post
     const [recent, setRecent] = useState([]);
     useEffect(() => {
-        const email = localStorage.getItem('userEmail');
-        fetch(`https://expense-tracker-application-server.vercel.app/fundss/${email}`)
+        fetch(`${process.env.REACT_APP_API_URL}/fundss/${email}`)
             .then(res => res.json())
             .then(data => {
                 setRecent(data);
             })
-    }, [])
+    }, [email])
 
     // recent Cost post
     const [recentCost, setRecentCost] = useState([]);
     useEffect(() => {
-        const email = localStorage.getItem('userEmail');
-        fetch(`https://expense-tracker-application-server.vercel.app/costss/${email}`)
+        fetch(`${process.env.REACT_APP_API_URL}/costss/${email}`)
             .then(res => res.json())
             .then(data => {
                 setRecentCost(data);
             })
-    }, [])
+    }, [email])
+
 
     const [costs, setCosts] = useState([]);
-
     useEffect(() => {
-        fetch('https://expense-tracker-application-server.vercel.app/costs')
+        fetch(`${process.env.REACT_APP_API_URL}/costs`)
             .then(res => res.json())
             .then(data => {
-                const email = localStorage.getItem('userEmail');
-                console.log('email from categories', email);
-                const filtr = data.filter(ctg => ctg?.user == email)
-                // console.log(filtr);
+                const filtr = data.filter(ctg => ctg?.user === email)
                 setCosts(filtr);
             })
-    }, [])
+    }, [email])
 
 
     const [funds, setFunds] = useState([]);
-
     useEffect(() => {
-        fetch('https://expense-tracker-application-server.vercel.app/funds')
+        fetch(`${process.env.REACT_APP_API_URL}/funds`)
             .then(res => res.json())
             .then(data => {
-                const email = localStorage.getItem('userEmail');
-                console.log('email from categories', email);
-                const filtr = data.filter(ctg => ctg?.user == email)
-                // console.log(filtr);
+                const filtr = data.filter(ctg => ctg?.user === email)
                 setFunds(filtr);
             })
-    }, [])
-
+    }, [email])
 
     const fundCategories = categories.filter(ctg => ctg?.type === 'fund');
-
     const costCategories = categories.filter(ctg => ctg?.type === 'cost');
 
 
-
-
     // current month funds value
-
     const getCurrentMonthFundsTotal = () => {
         const currentDate = new Date();
         const currentMonth = currentDate.getMonth() + 1;
         const currentYear = currentDate.getFullYear();
-
-        const email = localStorage.getItem('userEmail');
-        console.log('email from categories', email);
-        const filtr = funds.filter(ctg => ctg?.user == email)
-
+        const filtr = funds.filter(ctg => ctg?.user === email)
         const currentMonthFunds = filtr.filter(fund => {
             const fundDate = new Date(fund.date);
             const fundMonth = fundDate.getMonth() + 1;
             const fundYear = fundDate.getFullYear();
-
             return (fundMonth === currentMonth && fundYear === currentYear);
         });
-
         const total = currentMonthFunds.reduce((accumulator, fund) => {
             return accumulator + fund.money;
         }, 0);
-
         return total;
     }
 
 
     // current month Costs value
-
     const getCurrentMonthCostsTotal = () => {
         const currentDate = new Date();
         const currentMonth = currentDate.getMonth() + 1;
         const currentYear = currentDate.getFullYear();
-
-        const email = localStorage.getItem('userEmail');
-        console.log('email from categories', email);
-        const filtr = costs.filter(ctg => ctg?.user == email)
-
-
-
-
+        const filtr = costs.filter(ctg => ctg?.user === email)
         const currentMonthFunds = filtr.filter(fund => {
             const fundDate = new Date(fund.date);
             const fundMonth = fundDate.getMonth() + 1;
             const fundYear = fundDate.getFullYear();
-
             return (fundMonth === currentMonth && fundYear === currentYear);
         });
-
         const total = currentMonthFunds.reduce((accumulator, fund) => {
             return accumulator + fund.money;
         }, 0);
-
         return total;
     }
 
 
 
     // previous month fund value
-
     const [totalEarnings, setTotalEarnings] = useState(0);
-
     useEffect(() => {
         const getPreviousMonthEarnings = async () => {
-            const response = await axios.get('https://expense-tracker-application-server.vercel.app/funds');
-            console.log('response', response.data);
-
-            const email = localStorage.getItem('userEmail');
-            console.log('email from categories', email);
-            const filtr = response?.data.filter(ctg => ctg?.user == email)
-
-
-
-
-
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/funds`);
+            const filtr = response?.data.filter(ctg => ctg?.user === email)
             const earnings = filtr.filter((earning) => {
                 const earningMonth = new Date(earning.date).getMonth();
                 const currentMonth = new Date().getMonth();
@@ -243,28 +176,16 @@ const AuthProvider = ({ children }) => {
             const total = earnings.reduce((acc, curr) => acc + curr.money, 0);
             setTotalEarnings(total);
         };
-
         getPreviousMonthEarnings();
-    }, []);
-
-
+    }, [email]);
 
 
     // previous month Cost value
-
     const [totalCosts, setTotalCosts] = useState(0);
-
     useEffect(() => {
         const getPreviousMonthEarnings = async () => {
-            const response = await axios.get('https://expense-tracker-application-server.vercel.app/costs');
-
-            const email = localStorage.getItem('userEmail');
-            console.log('email from categories', email);
-            const filtr = response?.data.filter(ctg => ctg?.user == email)
-
-
-
-
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/costs`);
+            const filtr = response?.data.filter(ctg => ctg?.user === email)
             const earnings = filtr.filter((earning) => {
                 const earningMonth = new Date(earning.date).getMonth();
                 const currentMonth = new Date().getMonth();
@@ -274,38 +195,13 @@ const AuthProvider = ({ children }) => {
             const total = earnings.reduce((acc, curr) => acc + curr.money, 0);
             setTotalCosts(total);
         };
-
         getPreviousMonthEarnings();
-    }, []);
+    }, [email]);
 
-
-    const email = localStorage.getItem('userEmail');
-    console.log('email from categories', email);
-    // const filtr = fundCategories.filter(ctg => ctg?.user == email)
-
-    console.log('fundcategories', fundCategories);
     const fundss = fundCategories.map(fnd => fnd?.value);
-    console.log('fundss', fundss);
     const sum = fundss.reduce((acc, val) => acc + val, 0);
-
-
-
-    // const filtrr = costCategories.filter(ctg => ctg?.user == email)
-
-
-
     const costss = costCategories.map(fnd => fnd?.value);
     const cost = costss.reduce((acc, val) => acc + val, 0);
-    // console.log(sum);
-
-
-
-
-
-
-
-
-
 
     const authInfo = {
         categories,
@@ -330,7 +226,8 @@ const AuthProvider = ({ children }) => {
         loading,
         setLoading,
         passResetEmail,
-        verifyEmail
+        verifyEmail,
+        email
 
 
     }

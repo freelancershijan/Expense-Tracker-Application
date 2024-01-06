@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AddCost from './AddCost';
-import AddCostCategory from './AddCostCategory';
 import AddFund from './AddFund';
 import AddFundCategory from './AddFundCategory';
 

@@ -1,22 +1,14 @@
 import React, { useContext } from 'react';
-import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
 
 const AllCost = () => {
-    const { costs } = useContext(AuthContext);
-
-    const email = localStorage.getItem('userEmail');
-    console.log('email from categories', email);
-    const filtr = costs.filter(ctg => ctg?.user == email)
-    console.log('filtet from fudscartegories', filtr);
-
-
-
+    const { costs,email } = useContext(AuthContext);
+    const filtr = costs.filter(ctg => ctg?.user === email)
 
     return (
         <div className='md:m-20 m-2'>
-            <Link to='/dashboard'>
+            <Link to='/'>
                 <button className='btn bg-black mb-5'>Back</button>
             </Link>
 

@@ -5,16 +5,8 @@ import { Link } from 'react-router-dom/dist';
 import Recent from '../Components/Recent';
 
 const Dashboard = () => {
-
-
     const { sum, cost, totalCosts, totalEarnings, getCurrentMonthCostsTotal, getCurrentMonthFundsTotal } = useContext(AuthContext);
-
-    console.log("cost", cost);
-
-
     let rest = sum - cost;
-
-
     return (
         <div className='mx-2 md:mx-10'>
             <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5 justify-center mt-10">

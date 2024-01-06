@@ -4,28 +4,21 @@ import { AuthContext } from '../Context/AuthProvider';
 
 const AddFundCategory = () => {
     const { categories } = useContext(AuthContext);
-    // console.log("fundCategories", fundCategories);
     const handleSubmit = (e) => {
         e.preventDefault();
         const name = e.target.name.value;
         const email = localStorage.getItem('userEmail');
-
         const category = {
             name,
             value: 0,
             type: 'fund',
             user: email
         }
-
-        console.log(category)
-
-
-        if (categories.find(ctg => ctg.name == category.name)) {
+        if (categories.find(ctg => ctg.name === category.name)) {
             toast.error("Already Have a Category with your account Like this Name. Please Create a Different Name")
         }
         else {
-
-            fetch(' https://expense-tracker-application-server.vercel.app/categories', {
+            fetch(`${process.env.REACT_APP_API_URL}/categories`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -34,11 +27,9 @@ const AddFundCategory = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-
                     if (data.acknowledged) {
                         toast.success('COngratulation!! Category Added');
-
-                        window.location.href = '/dashboard/fund-category';
+                        window.location.href = '/fund-category';
                     }
                     else {
                         toast.error(data.message)
@@ -47,12 +38,7 @@ const AddFundCategory = () => {
                 .catch(err => {
                     console.log(err);
                 })
-
         }
-
-
-
-
     };
     return (
 

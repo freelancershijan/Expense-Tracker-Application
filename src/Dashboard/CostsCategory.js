@@ -6,18 +6,14 @@ import { Link } from 'react-router-dom/dist';
 
 const CostsCategory = () => {
     const { categories } = useContext(AuthContext);
-
-    const cost = categories.filter(ctg => ctg.type == 'cost');
-
-
-
+    const cost = categories.filter(ctg => ctg.type === 'cost');
     return (
         <div>
             <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mx-10 gap-5 justify-center mt-10">
 
 
                 {
-                    cost.map(fctg => <Link key={fctg._id} to={`/dashboard/${fctg?.type}/${fctg?.name}`}> <div class="lg:col-span-1 md:col-span-1 p-5 flex justify-start gap-5 items-center  bg-white rounded-lg shadow-lg">
+                    cost.map(fctg => <Link key={fctg._id} to={`/${fctg?.type}/${fctg?.name}`}> <div class="lg:col-span-1 md:col-span-1 p-5 flex justify-start gap-5 items-center  bg-white rounded-lg shadow-lg">
 
                         <div class="bg-[#FEE8E2] rounded-full p-3">
                             <BiMoney className="w-6 h-6 text-red-500"></BiMoney>
@@ -40,7 +36,7 @@ const CostsCategory = () => {
                     <label className='btn btn-primary  ' htmlFor="cost-category-modal">Add Cost Category</label>
                 </div>
 
-                <Link to='/dashboard/delete-category'>
+                <Link to='/delete-category'>
                     <div className='my-3'>
                         <label className='btn bg-red-700 hover:bg-red-900  ' htmlFor="category-modal" >Delete Category</label>
                     </div>

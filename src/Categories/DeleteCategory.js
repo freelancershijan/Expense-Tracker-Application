@@ -5,17 +5,8 @@ import { AuthContext } from '../Context/AuthProvider';
 
 const DeleteCategory = () => {
     const { categories, user } = useContext(AuthContext);
-    console.log('user from deletecategory', user?.email);
-
-
     const handleDelete = (ctg) => {
-
-
-        const url = `https://expense-tracker-application-server.vercel.app/categories/${ctg?._id}`;
-
-        console.log(url);
-
-
+        const url = `${process.env.REACT_APP_API_URL}/categories/${ctg?._id}`;
         fetch(url, {
             method: 'DELETE',
             headers: {
@@ -27,56 +18,31 @@ const DeleteCategory = () => {
 
                 if (data.acknowledged) {
                     toast.success('Category Deleted Successfully')
-
-
-
-
-                    fetch(`https://expense-tracker-application-server.vercel.app/fund/${ctg?.name}/${user?.email}`, {
+                    fetch(`${process.env.REACT_APP_API_URL}/fund/${ctg?.name}/${user?.email}`, {
                         method: 'DELETE',
                     })
                         .then(res => res.json())
                         .then(data => {
-
                             if (data.acknowledged) {
                                 toast.success('Funds Deleted Successfully')
-                                window.location.href = '/dashboard';
-
+                                window.location.href = '/';
                             }
-
-
                         })
                         .catch(error => console.error(error));
 
-
-
-                    fetch(`https://expense-tracker-application-server.vercel.app/cost/${ctg?.name}/${user?.email}`, {
+                    fetch(`${process.env.REACT_APP_API_URL}/cost/${ctg?.name}/${user?.email}`, {
                         method: 'DELETE',
                     })
                         .then(res => res.json())
                         .then(data => {
-
                             if (data.acknowledged) {
                                 toast.success('Costs Deleted Successfully')
-                                window.location.href = '/dashboard';
-
+                                window.location.href = '/';
                             }
-
-
                         })
                         .catch(error => console.error(error));
-
-
-
-
-
                 }
-
-
             })
-
-
-
-
     }
 
 
@@ -86,7 +52,7 @@ const DeleteCategory = () => {
 
         <div className='md:m-20 m-3'>
 
-            <Link to='/dashboard'>
+            <Link to='/'>
                 <button className='btn bg-black'>Back</button>
             </Link>
 

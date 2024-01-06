@@ -6,10 +6,7 @@ import { Link } from 'react-router-dom/dist';
 
 const FundsCategory = () => {
     const { categories } = useContext(AuthContext);
-
-    const fund = categories.filter(ctg => ctg.type == 'fund');
-
-
+    const fund = categories.filter(ctg => ctg.type === 'fund');
 
     return (
         <div>
@@ -17,7 +14,7 @@ const FundsCategory = () => {
 
 
                 {
-                    fund.map(fctg => <Link key={fctg._id} to={`/dashboard/${fctg?.type}/${fctg?.name}`}> <div class="lg:col-span-1 md:col-span-1 p-5 flex justify-start gap-5 items-center  bg-white rounded-lg shadow-lg">
+                    fund.map(fctg => <Link key={fctg._id} to={`/${fctg?.type}/${fctg?.name}`}> <div class="lg:col-span-1 md:col-span-1 p-5 flex justify-start gap-5 items-center  bg-white rounded-lg shadow-lg">
 
 
                         <div class="bg-[#E5F8ED] rounded-full p-3">
@@ -40,7 +37,7 @@ const FundsCategory = () => {
                 <div className='my-3'>
                     <label className='btn btn-primary ' htmlFor="category-modal" >Add Fund Category</label>
                 </div>
-                <Link to='/dashboard/delete-category'>
+                <Link to='/delete-category'>
                     <div className='my-3'>
                         <label className='btn bg-red-700 hover:bg-red-900  ' htmlFor="category-modal" >Delete Category</label>
                     </div>

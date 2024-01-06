@@ -4,20 +4,15 @@ import { AuthContext } from '../../../Context/AuthProvider';
 
 
 const ResetPass = () => {
-
     const { passResetEmail } = useContext(AuthContext)
     const [userEmail, setUserEmail] = useState('');
-
-
     const handleSubmit = event => {
         event.preventDefault();
-
     }
 
     const handleEmailBlur = event => {
         const email = event.target.value;
         setUserEmail(email);
-        console.log(email)
     }
 
     const handlePassReset = () => {

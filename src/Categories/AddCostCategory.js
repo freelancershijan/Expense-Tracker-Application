@@ -20,13 +20,11 @@ const AddCostCategory = () => {
 
         console.log(category)
 
-        if (categories.find(ctg => ctg.name == category.name)) {
+        if (categories.find(ctg => ctg.name === category.name)) {
             toast.error("Already Have a Category with your account Like this Name. Please Create a Different Name")
         }
         else {
-
-
-            fetch(' https://expense-tracker-application-server.vercel.app/categories', {
+            fetch(`${process.env.REACT_APP_API_URL}/categories`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -40,7 +38,7 @@ const AddCostCategory = () => {
                         toast.success('COngratulation!! Category Added');
                         // refetch();
                         // navigate('/')
-                        window.location.href = '/dashboard/cost-category';
+                        window.location.href = '/cost-category';
                     }
                     else {
                         toast.error(data.message)
@@ -49,12 +47,7 @@ const AddCostCategory = () => {
                 .catch(err => {
                     console.log(err);
                 })
-
-
         }
-
-
-
     };
     return (
 

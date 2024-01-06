@@ -1,31 +1,20 @@
 import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
-import { Link, useLoaderData, useNavigate } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
 
 const FundCategory = () => {
     const fundsCategories = useLoaderData([]);
     console.log('fundcategories', fundsCategories);
-    const { categories } = useContext(AuthContext);
+    const { categories,email } = useContext(AuthContext);
 
-    const email = localStorage.getItem('userEmail');
-    console.log('email from categories', email);
-    const filtr = fundsCategories.filter(ctg => ctg?.user == email)
-    console.log('filtet from fudscartegories', filtr);
-
-
+    const filtr = fundsCategories.filter(ctg => ctg?.user === email)
     let fndctgoris = fundsCategories.map(fctg => fctg?.category);
-    console.log(fndctgoris);
-
-
     let ctgoris = categories.filter(ctg => ctg?.name === fndctgoris[0])
 
-
-
     // delete single fund
-
     const handleDelete = fnd => {
-        fetch(`https://expense-tracker-application-server.vercel.app/funds/${fnd._id}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/funds/${fnd._id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'
@@ -33,29 +22,13 @@ const FundCategory = () => {
         })
             .then(res => res.json())
             .then(data => {
-
                 if (data.acknowledged) {
                     toast.success('Product Deleted Successfully');
-
-                    // const ctgoris = categories.filter(ctg => ctg.name === fnd?.category);
-
-                    // console.log(ctgoris?.value);
-
-
-
-
-
                     const price = fnd?.money
-
                     const updateValue = {
                         value: ctgoris[0].value - price
                     }
-                    console.log(updateValue);
-
-                    const email = localStorage.getItem('userEmail');
-
-
-                    fetch(`https://expense-tracker-application-server.vercel.app/categories/${fnd?.category}/${email}`, {
+                    fetch(`${process.env.REACT_APP_API_URL}/categories/${fnd?.category}/${email}`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(updateValue)
@@ -63,23 +36,19 @@ const FundCategory = () => {
                         .then(res => res.json())
                         .then(data => {
                             toast.success("Price Updated Successfully");
-                            window.location.href = '/dashboard';
-                            console.log(data.message); // Output success message
-                            // Perform any additional actions, such as updating the state of your component
+                            window.location.href = '/';
+                            console.log(data.message); 
                         })
                         .catch(err => console.error(err));
-
-
                 }
             })
-
     }
 
 
 
     return (
         <div className='md:m-20 m-2'>
-            <Link to='/dashboard/fund-category'>
+            <Link to='/fund-category'>
                 <button className='btn bg-black mb-5'>Back</button>
             </Link>
             {
