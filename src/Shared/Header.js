@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../images/Wordmark_DarkBlue.png';
 import { AuthContext } from '../Context/AuthProvider';
 
@@ -10,17 +10,17 @@ const Header = () => {
             <nav className="max-w-7xl mx-auto px-6">
                     <div className="py-3 flex items-center justify-between w-full">
                         <div>
-                            <NavLink to='/dashboard'>
+                            <Link to='/dashboard'>
                                 <div className='h-10 w-auto'>
                                     <img className='h-full w-full' src={logo} alt="" />
                                 </div>
-                            </NavLink>
+                            </Link>
                         </div>
 
                         <div className='md:block hidden'>
-                            <NavLink to="/">
+                            <Link to="/">
                                 <button className='bg-primary rounded-sm text-white px-5 py-3'>Dashboard</button>
-                            </NavLink>
+                            </Link>
                     </div>
                     
                     {

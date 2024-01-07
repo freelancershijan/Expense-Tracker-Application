@@ -11,12 +11,12 @@ body{
 
 .active{
   background-color: #0B1B34;
+  color:white;
+  display: block;
+  padding: 12px 20px;
 }
 
-button.p-speeddial-button.p-button-rounded.p-speeddial-rotate.p-button.p-component.p-button-icon-only {
-  border: 1px solid #0B1B34;
+.p-sidebar .p-sidebar-content {
+  padding: 0 !important;
 }
-.p-speeddial-action{
-  background-color: #0B1B34;
-  color:white
-}
+

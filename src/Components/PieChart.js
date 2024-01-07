@@ -7,7 +7,7 @@ const PieChart = () => {
     // console.log(pieData);
     useEffect(() => {
 
-        axios.get('https://expense-tracker-application-server.vercel.app/categories')
+        axios.get(`${process.env.REACT_APP_API_URL}/categories`)
             .then(data => {
                 const categories = data.data;
                 const categoriesData = categories.map(category => {

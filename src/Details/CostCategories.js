@@ -14,7 +14,7 @@ const CostCategories = () => {
     // delete single fund
 
     const handleDelete = fnd => {
-        fetch(`https://expense-tracker-application-server.vercel.app/costs/${fnd._id}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/costs/${fnd._id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'
