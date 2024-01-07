@@ -3,13 +3,17 @@ import {  Outlet } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { Sidebar } from 'primereact/sidebar';
 import SidebarComponent from './SidebarComponent';
+import logo from '../images/Wordmark_DarkBlue.png'
 
 const DashboardLayout = () => {
     const [visible, setVisible] = useState(false);
 
     return (
         <div>
-        <div className='flex justify-end px-6 my-6 lg:hidden' >
+            <div className='flex justify-between px-6 my-6 lg:hidden' >
+             <div className='sm:w-40 w-32'>
+                <img className='w-full' src={logo} alt="" />    
+             </div>
              <Button icon="pi pi-align-justify text-xl" className='flex lg:hidden' onClick={() => setVisible(true)} />
             </div>
             <Sidebar visible={visible} onHide={() => setVisible(false)}  className='p-0 m-0'>      
