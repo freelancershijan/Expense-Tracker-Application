@@ -19,4 +19,16 @@ body{
 .p-sidebar .p-sidebar-content {
   padding: 0 !important;
 }
+.p-paginator-bottom.p-paginator.p-component {
+  border: 1px solid #ddd;
+  margin-top: 20px;
+}
 
+button.p-paginator-page.p-paginator-element.p-link.p-paginator-page-start.p-highlight {
+  background: #ECFEFF;
+}
+
+
+.p-dropdown.p-component.p-inputwrapper.p-inputwrapper-filled {
+  border: 1px solid #ddd;
+}

@@ -2,10 +2,12 @@ import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { Button } from 'primereact/button';
 
 const FundCategory = () => {
     const fundsCategories = useLoaderData([]);
-    console.log('fundcategories', fundsCategories);
     const { categories,email } = useContext(AuthContext);
 
     const filtr = fundsCategories.filter(ctg => ctg?.user === email)
@@ -23,7 +25,7 @@ const FundCategory = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.acknowledged) {
-                    toast.success('Product Deleted Successfully');
+                    toast.success('Fund Deleted Successfully');
                     const price = fnd?.money
                     const updateValue = {
                         value: ctgoris[0].value - price
@@ -45,46 +47,50 @@ const FundCategory = () => {
     }
 
 
+    const formatCurrency = (value) => {
+        return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    };
+
+    const priceBodyTemplate = (product) => {
+        return formatCurrency(product.money);
+    };
+
+    const indexBodyTemplate = (fund, index) => {
+        console.log('fund', index.rowIndex)
+        return index.rowIndex + 1
+    }
+
+    const actionBodyTemplate = (rowData) => {
+        return (
+            <React.Fragment>
+                <Button icon="pi pi-trash" rounded  className="text-red-600 border border-red-600 hover:bg-red-600 hover:text-white transition duration-500 ease-in-out" onClick={() => handleDelete(rowData)} />
+            </React.Fragment>
+        );
+    };
+
+
 
     return (
-        <div className='m-10'>
+        <div className='sm:m-10 m-6'>
             <Link to='/fund-category'>
-                <button className='px-5 py-3 text-white bg-primary rounded-sm mb-5'>Back</button>
+                <button className='px-5 py-2 text-white bg-primary rounded-sm mb-5'>Back</button>
             </Link>
-            {
-                filtr.length === 0 ? <div className=" bg-gray-700 text-neutral-content">
-                        <h1 className='text-3xl font-semibold text-center'>You have Not any Funds in this Fund</h1>
-                </div> : <div className="overflow-x-auto border-2 border-black">
-                    <table className="table table-zebra w-full">
-                        <thead>
-                            <tr>
-                                <th>SL</th>
-                                <th>Name</th>
-                                <th>Money</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Notes</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                filtr.map((fnd, i) => <tr className='hover' key={fnd?._id}>
-                                    <th>{i + 1}</th>
-                                    <td>{fnd?.category}</td>
-                                    <td>{fnd?.money}</td>
-                                    <td>{fnd?.date}</td>
-                                    <td>{fnd?.time}</td>
-                                    <td>{fnd?.notes}</td>
-                                    <td><button onClick={() => handleDelete(fnd)} className='px-5 py-3 bg-red-700 text-white rounded-sm hover:bg-red-900 transition duration-500 ease-in-out'>Delete</button></td>
-                                </tr>)
-                            }
-                        </tbody>
+ 
 
-                    </table>
-                </div>
 
-            }
+
+               <DataTable value={filtr} paginator={filtr.length > 10 ? true : false} rows={10} rowsPerPageOptions={[5, 10, 25]}
+                        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Funds">
+                   <Column header="SL" body={indexBodyTemplate}></Column>
+                   <Column field="category" header="Category"></Column>
+                   <Column field="money" header="Amount" body={priceBodyTemplate} sortable></Column>
+                   <Column field="date" header="Date" sortable></Column>
+                   <Column field="time" header="Time" sortable></Column>
+                   <Column field="notes" header="Notes" sortable></Column>
+                   <Column body={actionBodyTemplate} exportable={false} header="Action" ></Column>
+                
+                </DataTable>
         </div>
     );
 };

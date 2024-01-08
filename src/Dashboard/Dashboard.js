@@ -11,7 +11,7 @@ const Dashboard = () => {
     return (
         <div className='mx-2 md:mx-10'>
             <div class="grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5 justify-center mt-10">
-                <Link to='/dashboard/total-earning'>
+                {/* <Link to='/dashboard/total-earning'> */}
                     <div class="lg:col-span-1 md:col-span-1 p-5 flex justify-start gap-5 items-center  bg-white rounded-lg shadow-lg">
 
                         <div class="bg-[#E5F8ED] rounded-full p-3">
@@ -23,8 +23,8 @@ const Dashboard = () => {
                             <p class="text-gray-700">Total Funds</p>
                         </div>
                     </div>
-                </Link>
-                <Link to="/dashboard/total-cost">
+                {/* </Link> */}
+                {/* <Link to="/dashboard/total-cost"> */}
                     <div class=" lg:col-span-1 md:col-span-1 p-5 flex justify-start gap-5 items-center  bg-white rounded-lg shadow-lg">
 
                         <div class="bg-[#FEE8E2]  rounded-full p-3">
@@ -36,7 +36,7 @@ const Dashboard = () => {
                             <p class="text-gray-700">Total Costs</p>
                         </div>
                     </div>
-                </Link>
+                {/* </Link> */}
 
                 <div class=" lg:col-span-1 md:col-span-1 p-5 flex justify-start gap-5 items-center  bg-white rounded-lg shadow-lg">
 
