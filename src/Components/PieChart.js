@@ -8,8 +8,8 @@ const PieChart = () => {
     const {user} = useContext(AuthContext)
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});
-    const [totalIncome, setTocalIncome] = useState(null);
-    const [totalExpense, setTocalExpense] = useState(null)
+    const [totalIncome, setTocalIncome] = useState(0);
+    const [totalExpense, setTocalExpense] = useState(0)
 
     console.log(totalIncome)
     
