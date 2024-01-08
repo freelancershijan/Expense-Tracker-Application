@@ -3,6 +3,7 @@ import { BiMoney } from 'react-icons/bi';
 import { AuthContext } from '../Context/AuthProvider';
 import { Link } from 'react-router-dom/dist';
 import Recent from '../Components/Recent';
+import PieChart from '../Components/PieChart';
 
 const Dashboard = () => {
     const { sum, cost, totalCosts, totalEarnings, getCurrentMonthCostsTotal, getCurrentMonthFundsTotal } = useContext(AuthContext);
@@ -104,8 +105,12 @@ const Dashboard = () => {
 
 
 
-            <div>
+            <div className='my-10'>
                 <Recent />
+            </div>
+
+            <div className='my-10'>
+                <PieChart />
             </div>
 
 
