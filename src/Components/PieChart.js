@@ -52,16 +52,12 @@ const PieChart = () => {
                       label: 'Income',
                       backgroundColor: documentStyle.getPropertyValue('--green-700'),
                       data: Object.values(incomeResponse.data),
-                      borderColor: 'white',
-                      borderWidth: 2
                     },
                     {
                       type: 'bar',
                       label: 'Expense',
                       backgroundColor: documentStyle.getPropertyValue('--red-700'),
                       data: Object.values(expenseResponse.data),
-                      borderColor: 'white',
-                      borderWidth: 2
                     }
                   ]
                 };

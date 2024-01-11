@@ -19,7 +19,7 @@ const Dashboard = () => {
 
                         </div>
                         <div>
-                            <div class="text-lg font-semibold text-gray-800">${sum}</div>
+                            <div class="text-lg font-semibold text-gray-800">{sum.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                             <p class="text-gray-700">Total Funds</p>
                         </div>
                     </div>
@@ -32,7 +32,7 @@ const Dashboard = () => {
                         </div>
 
                         <div class="">
-                            <div class="text-lg font-semibold text-gray-800">${cost}</div>
+                            <div class="text-lg font-semibold text-gray-800">{cost.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                             <p class="text-gray-700">Total Costs</p>
                         </div>
                     </div>
@@ -45,7 +45,7 @@ const Dashboard = () => {
                     </div>
 
                     <div class="">
-                        <div class="text-lg font-semibold text-gray-800">${getCurrentMonthFundsTotal()}</div>
+                        <div class="text-lg font-semibold text-gray-800">{getCurrentMonthFundsTotal().toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                         <p class="text-gray-700">This Month Funds</p>
                     </div>
                 </div>
@@ -56,7 +56,7 @@ const Dashboard = () => {
                     </div>
 
                     <div class="">
-                        <div class="text-lg font-semibold text-gray-800">${getCurrentMonthCostsTotal()}</div>
+                        <div class="text-lg font-semibold text-gray-800">{getCurrentMonthCostsTotal().toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                         <p class="text-gray-700">This Month Costs</p>
                     </div>
                 </div>
@@ -73,7 +73,7 @@ const Dashboard = () => {
 
                     </div>
                     <div class="">
-                        <div class="text-lg font-semibold text-gray-800">${totalEarnings}</div>
+                        <div class="text-lg font-semibold text-gray-800">{totalEarnings.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                         <p class="text-gray-700">Previous Month Funds</p>
                     </div>
                 </div>
@@ -84,7 +84,7 @@ const Dashboard = () => {
                     </div>
 
                     <div class="">
-                        <div class="text-lg font-semibold text-gray-800">${totalCosts}</div>
+                        <div class="text-lg font-semibold text-gray-800">{totalCosts.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                         <p class="text-gray-700">Previous Month Costs</p>
                     </div>
                 </div>
@@ -95,7 +95,7 @@ const Dashboard = () => {
                     </div>
 
                     <div class="">
-                        <div class="text-lg font-semibold text-white">${rest}</div>
+                        <div class="text-lg font-semibold text-white">{rest.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                         <p class="text-white">Rest Funds</p>
                     </div>
                 </div>

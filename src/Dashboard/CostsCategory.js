@@ -22,7 +22,7 @@ const CostsCategory = () => {
        
                                </div>
                                <div class="">
-                                   <div class="text-lg font-semibold text-gray-800">${fctg.value}</div>
+                                   <div class="text-lg font-semibold text-gray-800">{fctg.value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                                    <p class="text-gray-700">{fctg.name}</p>
                                </div>
                            </div>
