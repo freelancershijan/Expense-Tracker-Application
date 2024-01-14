@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { BiMoney } from 'react-icons/bi';
 import { AuthContext } from '../Context/AuthProvider';
-import { Link } from 'react-router-dom/dist';
 import Recent from '../Components/Recent';
 import PieChart from '../Components/PieChart';
 

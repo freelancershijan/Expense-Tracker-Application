@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { AuthContext } from '../Context/AuthProvider';
-import { NavLink, } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { FaUserCircle } from 'react-icons/fa';
+import { NavLink, } from 'react-router-dom';
+import { AuthContext } from '../Context/AuthProvider';
 
 const SidebarComponent = () => {
 
@@ -29,7 +29,7 @@ const SidebarComponent = () => {
     <div className=' w-full'> 
         <div className='w-full h-40 bg-white'>
             {
-                user?.photoURL ? <img className='w-full h-full' src={user?.photoURL} alt="" /> : <FaUserCircle className='w-full h-full p-6 bg-gray-200'/>
+                user?.photoURL ? <img className='w-full h-full object-contain' src={user?.photoURL} alt="" /> : <FaUserCircle className='w-full h-full p-6 bg-gray-200'/>
             }
             
         </div>
