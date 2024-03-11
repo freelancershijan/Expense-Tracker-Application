@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { AuthContext } from '../Context/AuthProvider';
 import { Link } from 'react-router-dom';
+import LoadingSpinner from '../Components/LoadingSpinner/LoadingSpinner';
+import { AuthContext } from '../Context/AuthProvider';
 
 
 const AddFund = () => {
     const { fundCategories,email, categories, user } = useContext(AuthContext);
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -15,6 +17,7 @@ const AddFund = () => {
         const date = form.date.value;
         const time = form.time.value;
         const notes = form.notes.value;
+
         const fundDetails = {
             category,
             money,
@@ -23,6 +26,8 @@ const AddFund = () => {
             notes,
             user: user?.email
         }
+
+        setIsLoading(true);
 
         fetch(`${process.env.REACT_APP_API_URL}/funds`, {
             method: 'POST',
@@ -33,39 +38,38 @@ const AddFund = () => {
         })
             .then(res => res.json())
             .then(data => {
+                try {
                 if (data.acknowledged) {
                     toast.success('Congratulation!! Added Your Funds');
                 }
                 else {
                     toast.error(data.message)
                 }
-            })
-            .catch(err => {
-                console.log(err);
-            })
 
-
-        // update price
-        const prevCategories = categories.find(ctg => ctg.name === fundDetails.category)
-        const prevValue = prevCategories.value;
-        const prevName = prevCategories.name;
-        const updateValue = {
-            value: (prevValue + money),
-        }
-        fetch(`${process.env.REACT_APP_API_URL}/categories/${prevName}/${email}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updateValue)
+                // update price
+                const prevCategories = categories.find(ctg => ctg.name === fundDetails.category)
+                const prevValue = prevCategories.value;
+                const prevName = prevCategories.name;
+                const updateValue = {
+                    value: (prevValue + money),
+                }
+                return fetch(`${process.env.REACT_APP_API_URL}/categories/${prevName}/${email}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updateValue)
+                })
+            } catch (error) {
+                console.error(error);
+                toast.error("An error occurred while processing the request.");
+            } finally {
+                window.location.href = '/'; // Move this inside the finally block
+                setIsLoading(false);
+            }
         })
-            .then(res => res.json())
-            .then(data => {
-                toast.success("Price Updated Successfully");
-                window.location.href = '/';
-            })
-            .catch(err => console.error(err));
+        .catch(err => {
+            console.log(err);
+        });
     };
-
-
     return (
         <div>
             {
@@ -155,7 +159,9 @@ const AddFund = () => {
 
 
                                 <div className="modal-action">
-                                    <button type='submit' htmlFor="fund-modal" className="px-5 py-3 bg-primary text-white rounded-sm">Add Fund</button>
+                                    <button type='submit' htmlFor="fund-modal" className="px-5 py-3 bg-primary disabled:bg-primary/50 disabled:cursor-not-allowed text-white rounded-sm" disabled={isLoading}>
+                                    {isLoading ? <LoadingSpinner /> : 'Add Fund'}
+                                    </button>
                                 </div>
                             </form>
                         </div>

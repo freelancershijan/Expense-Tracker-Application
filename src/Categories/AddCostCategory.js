@@ -1,15 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import LoadingSpinner from '../Components/LoadingSpinner/LoadingSpinner';
 import { AuthContext } from '../Context/AuthProvider';
 
 const AddCostCategory = () => {
     const { categories } = useContext(AuthContext);
+    const [isLoading, setIsLoading] = useState(false)
+    const [nameValue, setNameValue] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const name = e.target.name.value;
+        const name = nameValue.trim();
         const email = localStorage.getItem('userEmail');
 
+        if (!name) {
+            toast.error("Please enter a valid Category Name.");
+            return;
+        }
 
         const category = {
             name,
@@ -22,8 +29,10 @@ const AddCostCategory = () => {
 
         if (categories.find(ctg => ctg.name === category.name)) {
             toast.error("Already Have a Category with your account Like this Name. Please Create a Different Name")
+            return
         }
         else {
+            setIsLoading(true); 
             fetch(`${process.env.REACT_APP_API_URL}/categories`, {
                 method: 'POST',
                 headers: {
@@ -33,7 +42,6 @@ const AddCostCategory = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-
                     if (data.acknowledged) {
                         toast.success('COngratulation!! Category Added');
                         // refetch();
@@ -42,12 +50,20 @@ const AddCostCategory = () => {
                     }
                     else {
                         toast.error(data.message)
+                        setIsLoading(false)
                     }
                 })
                 .catch(err => {
                     console.log(err);
                 })
+                .finally(() => {
+                    setIsLoading(false);
+                });
         }
+    };
+
+    const handleNameChange = (e) => {
+        setNameValue(e.target.value);
     };
     return (
 
@@ -75,13 +91,18 @@ const AddCostCategory = () => {
                                 type="text"
                                 className="shadow dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 placeholder="Nasta,Medical,Bazar etc"
+                                required
+                                value={nameValue}
+                                onChange={handleNameChange}
                             />
                         </div>
 
 
 
                         <div className="modal-action">
-                            <button htmlFor="cost-category-modal" className="btn">Add Cost Category</button>
+                           <button type='submit' className="px-5 py-3 bg-primary disabled:bg-primary/50 disabled:cursor-not-allowed text-white rounded-sm" disabled={isLoading || !nameValue.trim()}>
+                                {isLoading ? <LoadingSpinner /> : 'Add Cost Category'}
+                            </button>
                         </div>
                     </form>
 

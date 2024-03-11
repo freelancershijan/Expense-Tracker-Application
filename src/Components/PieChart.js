@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Chart } from 'primereact/chart';
-import { AuthContext } from '../Context/AuthProvider';
 import axios from 'axios';
+import { Chart } from 'primereact/chart';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../Context/AuthProvider';
         
 
 const PieChart = () => {
@@ -10,16 +10,12 @@ const PieChart = () => {
     const [chartOptions, setChartOptions] = useState({});
     const [totalIncome, setTocalIncome] = useState(0);
     const [totalExpense, setTocalExpense] = useState(0)
-
-    console.log(totalIncome)
-    
-  
   
     const currentYear = new Date().getFullYear();
     const years = Array.from({ length: 5 }, (_, index) => currentYear - index); 
   
     const [searchYear, setYear] = useState(currentYear);
-    const [selectedYear, setSelectedYear] = useState('');
+    const [selectedYear, setSelectedYear] = useState(currentYear);
     
     const handleSearch = () => {
         setYear(selectedYear);

@@ -1,13 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { AuthContext } from '../Context/AuthProvider';
 import { Link } from 'react-router-dom';
+import LoadingSpinner from '../Components/LoadingSpinner/LoadingSpinner';
+import { AuthContext } from '../Context/AuthProvider';
 
 const AddCost = () => {
+    const [isLoading, setIsLoading] = useState(false)
 
     const { costCategories,email, categories, user } = useContext(AuthContext);
     const handleSubmit = (e) => {
         e.preventDefault();
+
         // Handle form submission
         const form = e.target;
         const category = form.category.value;
@@ -24,6 +27,8 @@ const AddCost = () => {
             user: user?.email
         }
 
+        setIsLoading(true);
+
         fetch(`${process.env.REACT_APP_API_URL}/costs`, {
             method: 'POST',
             headers: {
@@ -31,39 +36,39 @@ const AddCost = () => {
             },
             body: JSON.stringify(costDetails)
         })
-            .then(res => res.json())
-            .then(data => {
+        .then(res => res.json())
+        .then(data => {
+            try {
                 if (data.acknowledged) {
                     toast.success('Successfully Added Your Costs');
+                } else {
+                    toast.error(data.message);
                 }
-                else {
-                    toast.error(data.message)
+
+                // Update price
+                const prevCategories = categories.find(ctg => ctg.name === costDetails.category);
+                const prevValue = prevCategories.value;
+                const prevName = prevCategories.name;
+                const updateValue = {
+                    value: (prevValue + money),
                 }
-            })
-            .catch(err => {
-                console.log(err);
-            })
 
-
-        // update price
-        const prevCategories = categories.find(ctg => ctg.name === costDetails.category)
-        const prevValue = prevCategories.value;
-        const prevName = prevCategories.name;
-        const updateValue = {
-            value: (prevValue + money),
-        }
-        fetch(`${process.env.REACT_APP_API_URL}/categories/${prevName}/${email}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updateValue)
+                return fetch(`${process.env.REACT_APP_API_URL}/categories/${prevName}/${email}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updateValue)
+                });
+            } catch (error) {
+                console.error(error);
+                toast.error("An error occurred while processing the request.");
+            } finally {
+                window.location.href = '/'; // Move this inside the finally block
+                setIsLoading(false);
+            }
         })
-            .then(res => res.json())
-            .then(data => {
-                toast.success("Price Updated Successfully");
-                window.location.href = '/';
-                console.log(data.message);
-            })
-            .catch(err => console.error(err));
+        .catch(err => {
+            console.log(err);
+        });
     };
     return (
         <div>
@@ -162,7 +167,9 @@ const AddCost = () => {
 
 
                                 <div className="modal-action">
-                                    <button type='submit' htmlFor="cost-modal" className="px-5 py-3 bg-primary text-white rounded-sm">Add Cost</button>
+                                    <button type='submit' className="px-5 py-3 bg-primary disabled:bg-primary/50 disabled:cursor-not-allowed text-white rounded-sm" disabled={isLoading}>
+                                           {isLoading ? <LoadingSpinner /> : 'Add Cost'}
+                                     </button>
                                 </div>
                             </form>
 
