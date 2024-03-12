@@ -1,6 +1,6 @@
-import React, { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { createUserWithEmailAndPassword, getAuth, updateProfile, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, sendPasswordResetEmail, GoogleAuthProvider, sendEmailVerification } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import React, { createContext, useEffect, useState } from 'react';
 import app from '../Firebase/firebase.config';
 
 export const AuthContext = createContext();
@@ -199,6 +199,7 @@ const AuthProvider = ({ children }) => {
     }, [email]);
 
     const fundss = fundCategories.map(fnd => fnd?.value);
+    console.log('all dunds,', fundss);
     const sum = fundss.reduce((acc, val) => acc + val, 0);
     const costss = costCategories.map(fnd => fnd?.value);
     const cost = costss.reduce((acc, val) => acc + val, 0);

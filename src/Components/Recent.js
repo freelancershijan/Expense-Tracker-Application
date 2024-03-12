@@ -1,12 +1,10 @@
+import { Column } from 'primereact/column';
+import { DataTable } from 'primereact/datatable';
 import React, { useContext } from 'react';
 import { AuthContext } from '../Context/AuthProvider';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
 
 const Recent = () => {
     const { recent, recentCost } = useContext(AuthContext);
-
-    console.log(recent)
 
     const formatCurrency = (value) => {
         return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });

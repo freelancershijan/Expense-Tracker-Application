@@ -1,6 +1,7 @@
 {
   "hosting": {
     "public": "build",
+    "site": "expense-tracking-software",
     "ignore": [
       "firebase.json",
       "**/.*",

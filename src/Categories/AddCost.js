@@ -53,7 +53,7 @@ const AddCost = () => {
                     value: (prevValue + money),
                 }
 
-                return fetch(`${process.env.REACT_APP_API_URL}/categories/${prevName}/${email}`, {
+                fetch(`${process.env.REACT_APP_API_URL}/categories/${prevName}/${email}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(updateValue)

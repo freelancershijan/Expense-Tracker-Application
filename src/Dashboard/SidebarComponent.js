@@ -26,10 +26,10 @@ const SidebarComponent = () => {
   return (
     <div className='sticky top-0 relative bg-primary h-screen w-full'>
 
-    <div className=' w-full'> 
-        <div className='w-full h-40 bg-white'>
+    <div className='pt-5 w-full'> 
+        <div className='w-40 h-40 mx-auto'>
             {
-                user?.photoURL ? <img className='w-full h-full object-contain' src={user?.photoURL} alt="" /> : <FaUserCircle className='w-full h-full p-6 bg-gray-200'/>
+                user?.photoURL ? <img className='w-full h-full object-contain rounded-full' src={user?.photoURL} alt="" /> : <FaUserCircle className='w-full h-full p-6 bg-gray-200'/>
             }
             
         </div>
@@ -41,12 +41,10 @@ const SidebarComponent = () => {
       
       <div className='border-b border-white'></div>
 
-    <div className='py-5'>
-          
+    <div className='py-5'>    
    
     <ul className="list-none p-0 m-0 overflow-hidden">
-        
-                       <li className='my-1'>
+                   <li className='my-1'>
                            <NavLink to="/" className="flex items-center cursor-pointer px-5 py-3 focus:bg-black rounded-sm hover:bg-black hover:text-white text-white active:bg-black">
                                <i className="pi pi-home mr-2"></i>
                                <span className="font-medium">Dashboard</span>
