@@ -202,6 +202,7 @@ const AuthProvider = ({ children }) => {
     console.log('all dunds,', fundss);
     const sum = fundss.reduce((acc, val) => acc + val, 0);
     const costss = costCategories.map(fnd => fnd?.value);
+    console.log('all dunds,', costss);
     const cost = costss.reduce((acc, val) => acc + val, 0);
 
     const authInfo = {
