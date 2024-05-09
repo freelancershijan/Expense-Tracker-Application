@@ -68,7 +68,7 @@ const AuthProvider = ({ children }) => {
 
     const [categories, setCategories] = useState([]);
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/categories`)
+        fetch(`${ process.env.REACT_APP_API_URL }/categories`)
             .then(res => res.json())
             .then(data => {
                 const filtr = data.filter(ctg => ctg?.user === email)
@@ -79,7 +79,7 @@ const AuthProvider = ({ children }) => {
     // recent fund post
     const [recent, setRecent] = useState([]);
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/fundss/${email}`)
+        fetch(`${ process.env.REACT_APP_API_URL }/fundss/${ email }`)
             .then(res => res.json())
             .then(data => {
                 setRecent(data);
@@ -89,7 +89,7 @@ const AuthProvider = ({ children }) => {
     // recent Cost post
     const [recentCost, setRecentCost] = useState([]);
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/costss/${email}`)
+        fetch(`${ process.env.REACT_APP_API_URL }/costss/${ email }`)
             .then(res => res.json())
             .then(data => {
                 setRecentCost(data);
@@ -99,7 +99,7 @@ const AuthProvider = ({ children }) => {
 
     const [costs, setCosts] = useState([]);
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/costs`)
+        fetch(`${ process.env.REACT_APP_API_URL }/costs`)
             .then(res => res.json())
             .then(data => {
                 const filtr = data.filter(ctg => ctg?.user === email)
@@ -110,7 +110,7 @@ const AuthProvider = ({ children }) => {
 
     const [funds, setFunds] = useState([]);
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/funds`)
+        fetch(`${ process.env.REACT_APP_API_URL }/funds`)
             .then(res => res.json())
             .then(data => {
                 const filtr = data.filter(ctg => ctg?.user === email)
@@ -165,7 +165,7 @@ const AuthProvider = ({ children }) => {
     const [totalEarnings, setTotalEarnings] = useState(0);
     useEffect(() => {
         const getPreviousMonthEarnings = async () => {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/funds`);
+            const response = await axios.get(`${ process.env.REACT_APP_API_URL }/funds`);
             const filtr = response?.data.filter(ctg => ctg?.user === email)
             const earnings = filtr.filter((earning) => {
                 const earningMonth = new Date(earning.date).getMonth();
@@ -184,7 +184,7 @@ const AuthProvider = ({ children }) => {
     const [totalCosts, setTotalCosts] = useState(0);
     useEffect(() => {
         const getPreviousMonthEarnings = async () => {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/costs`);
+            const response = await axios.get(`${ process.env.REACT_APP_API_URL }/costs`);
             const filtr = response?.data.filter(ctg => ctg?.user === email)
             const earnings = filtr.filter((earning) => {
                 const earningMonth = new Date(earning.date).getMonth();
@@ -199,10 +199,10 @@ const AuthProvider = ({ children }) => {
     }, [email]);
 
     const fundss = fundCategories.map(fnd => fnd?.value);
-    console.log('all dunds,', fundss);
+    console.log('all Funds,', fundss);
     const sum = fundss.reduce((acc, val) => acc + val, 0);
     const costss = costCategories.map(fnd => fnd?.value);
-    console.log('all dunds,', costss);
+    console.log('all costs,', costss);
     const cost = costss.reduce((acc, val) => acc + val, 0);
 
     const authInfo = {
