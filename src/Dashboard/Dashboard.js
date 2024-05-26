@@ -1,40 +1,43 @@
 import React, { useContext } from 'react';
 import { BiMoney } from 'react-icons/bi';
-import { AuthContext } from '../Context/AuthProvider';
-import Recent from '../Components/Recent';
 import PieChart from '../Components/PieChart';
+import Recent from '../Components/Recent';
+import { AuthContext } from '../Context/AuthProvider';
 
 const Dashboard = () => {
-    const { sum, cost, totalCosts, totalEarnings, getCurrentMonthCostsTotal, getCurrentMonthFundsTotal } = useContext(AuthContext);
-    let rest = sum - cost;
+    const { userDetails } = useContext(AuthContext);
+
+    const { totalExpense, totalIncome, currentMonthExpense, prevMonthMonthExpense, currentMonthFund, prevMonthFund, restFund } = userDetails;
+
+    console.log('User Details', userDetails);
     return (
         <div className='mx-2 md:mx-10'>
             <div class="grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5 justify-center mt-10">
                 {/* <Link to='/dashboard/total-earning'> */}
-                    <div class="lg:col-span-1 md:col-span-1 p-5 flex justify-start gap-5 items-center  bg-white rounded-lg shadow-lg">
+                <div class="lg:col-span-1 md:col-span-1 p-5 flex justify-start gap-5 items-center  bg-white rounded-lg shadow-lg">
 
-                        <div class="bg-[#E5F8ED] rounded-full p-3">
-                            <BiMoney className="w-6 h-6 text-green-500"></BiMoney>
+                    <div class="bg-[#E5F8ED] rounded-full p-3">
+                        <BiMoney className="w-6 h-6 text-green-500"></BiMoney>
 
-                        </div>
-                        <div>
-                            <div class="text-lg font-semibold text-gray-800">{sum.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
-                            <p class="text-gray-700">Total Funds</p>
-                        </div>
                     </div>
+                    <div>
+                        <div class="text-lg font-semibold text-gray-800">{totalIncome?.money.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+                        <p class="text-gray-700">Total Funds</p>
+                    </div>
+                </div>
                 {/* </Link> */}
                 {/* <Link to="/dashboard/total-cost"> */}
-                    <div class=" lg:col-span-1 md:col-span-1 p-5 flex justify-start gap-5 items-center  bg-white rounded-lg shadow-lg">
+                <div class=" lg:col-span-1 md:col-span-1 p-5 flex justify-start gap-5 items-center  bg-white rounded-lg shadow-lg">
 
-                        <div class="bg-[#FEE8E2]  rounded-full p-3">
-                            <BiMoney className="w-6 h-6 text-red-500"></BiMoney>
-                        </div>
-
-                        <div class="">
-                            <div class="text-lg font-semibold text-gray-800">{cost.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
-                            <p class="text-gray-700">Total Costs</p>
-                        </div>
+                    <div class="bg-[#FEE8E2]  rounded-full p-3">
+                        <BiMoney className="w-6 h-6 text-red-500"></BiMoney>
                     </div>
+
+                    <div class="">
+                        <div class="text-lg font-semibold text-gray-800">{totalExpense?.money.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+                        <p class="text-gray-700">Total Costs</p>
+                    </div>
+                </div>
                 {/* </Link> */}
 
                 <div class=" lg:col-span-1 md:col-span-1 p-5 flex justify-start gap-5 items-center  bg-white rounded-lg shadow-lg">
@@ -44,7 +47,7 @@ const Dashboard = () => {
                     </div>
 
                     <div class="">
-                        <div class="text-lg font-semibold text-gray-800">{getCurrentMonthFundsTotal().toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+                        <div class="text-lg font-semibold text-gray-800">{currentMonthFund?.money.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                         <p class="text-gray-700">This Month Funds</p>
                     </div>
                 </div>
@@ -55,7 +58,7 @@ const Dashboard = () => {
                     </div>
 
                     <div class="">
-                        <div class="text-lg font-semibold text-gray-800">{getCurrentMonthCostsTotal().toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+                        <div class="text-lg font-semibold text-gray-800">{currentMonthExpense?.money.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                         <p class="text-gray-700">This Month Costs</p>
                     </div>
                 </div>
@@ -72,7 +75,7 @@ const Dashboard = () => {
 
                     </div>
                     <div class="">
-                        <div class="text-lg font-semibold text-gray-800">{totalEarnings.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+                        <div class="text-lg font-semibold text-gray-800">{prevMonthFund?.money.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                         <p class="text-gray-700">Previous Month Funds</p>
                     </div>
                 </div>
@@ -83,7 +86,7 @@ const Dashboard = () => {
                     </div>
 
                     <div class="">
-                        <div class="text-lg font-semibold text-gray-800">{totalCosts.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+                        <div class="text-lg font-semibold text-gray-800">{prevMonthMonthExpense?.money.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                         <p class="text-gray-700">Previous Month Costs</p>
                     </div>
                 </div>
@@ -94,7 +97,7 @@ const Dashboard = () => {
                     </div>
 
                     <div class="">
-                        <div class="text-lg font-semibold text-white">{rest.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+                        <div class="text-lg font-semibold text-white">{restFund?.money.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                         <p class="text-white">Rest Funds</p>
                     </div>
                 </div>
