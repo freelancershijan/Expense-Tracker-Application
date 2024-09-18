@@ -9,10 +9,6 @@ const FundsCategory = () => {
     const { categories } = useContext(AuthContext);
     const fund = categories.filter(ctg => ctg.type === 'fund');
 
-    console.log('All Fund: ', fund);
-    console.log('All Fund categories: ', categories);
-
-
     return (
         <div>
             {

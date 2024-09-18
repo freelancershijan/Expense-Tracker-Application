@@ -1,10 +1,10 @@
+import { Button } from 'primereact/button';
+import { Column } from 'primereact/column';
+import { DataTable } from 'primereact/datatable';
 import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Button } from 'primereact/button';
 
 const CostCategories = () => {
     const costCategories = useLoaderData([]);
@@ -57,7 +57,6 @@ const CostCategories = () => {
     };
 
     const indexBodyTemplate = (fund, index) => {
-        console.log('fund', index.rowIndex)
         return index.rowIndex + 1
     }
 

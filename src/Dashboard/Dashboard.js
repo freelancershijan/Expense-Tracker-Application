@@ -1,15 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BiMoney } from 'react-icons/bi';
 import PieChart from '../Components/PieChart';
 import Recent from '../Components/Recent';
 import { AuthContext } from '../Context/AuthProvider';
+import { useGetUserDetailsQuery } from '../features/user/userAPI';
 
 const Dashboard = () => {
-    const { userDetails } = useContext(AuthContext);
+    const { userDetails, user } = useContext(AuthContext);
+
+    const {data: userDetailsss, isError, isLoading, isSuccess} = useGetUserDetailsQuery(user?.email);
+
+    useEffect(()=> {
+        console.log('userDetailsss', userDetailsss);
+    }, [userDetailsss])
+    
 
     const { totalExpense, totalIncome, currentMonthExpense, prevMonthMonthExpense, currentMonthFund, prevMonthFund, restFund } = userDetails;
 
-    console.log('User Details', userDetails);
+    console.log('User', user);
     return (
         <div className='mx-2 md:mx-10'>
             <div class="grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5 justify-center mt-10">

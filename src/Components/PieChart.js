@@ -8,8 +8,8 @@ const PieChart = () => {
     const {user} = useContext(AuthContext)
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});
-    const [totalIncome, setTocalIncome] = useState(0);
-    const [totalExpense, setTocalExpense] = useState(0)
+    const [totalIncome, setTotalIncome] = useState(0);
+    const [totalExpense, setTotalExpense] = useState(0)
   
     const currentYear = new Date().getFullYear();
     const years = Array.from({ length: 5 }, (_, index) => currentYear - index); 
@@ -19,21 +19,18 @@ const PieChart = () => {
     
     const handleSearch = () => {
         setYear(selectedYear);
-        console.log(searchYear)
     };
 
     useEffect(() => {
         // Fetch income data
-        axios.get(`${process.env.REACT_APP_API_URL}/funds/month/${user.email}/${searchYear}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/funds/month/${user?.email}/${searchYear}`)
             .then(incomeResponse => {
-              
-            setTocalIncome(Object.values(incomeResponse.data).reduce((p, n) => p + n, 0))
+            setTotalIncome(Object.values(incomeResponse.data).reduce((p, n) => p + n, 0))
                 
             // Fetch expense data
-            axios.get(`${process.env.REACT_APP_API_URL}/costs/month/${user.email}/${searchYear}`)
+            axios.get(`${process.env.REACT_APP_API_URL}/costs/month/${user?.email}/${searchYear}`)
                 .then(expenseResponse => {
-                  
-                    setTocalExpense(Object.values(expenseResponse.data).reduce((p, n) => p + n, 0))
+                    setTotalExpense(Object.values(expenseResponse.data).reduce((p, n) => p + n, 0))
 
                 const documentStyle = getComputedStyle(document.documentElement);
                 const textColor = documentStyle.getPropertyValue('--text-color');

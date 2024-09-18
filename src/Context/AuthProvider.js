@@ -125,7 +125,6 @@ const AuthProvider = ({ children }) => {
         const fetchUserDetails = async () => {
             try {
                 const result = await axios.get(`http://localhost:5000/api/user-details?user=${ email }`);
-                console.log('Result: ', result.data.result);
                 setUserDetails(result.data.result);
             } catch (error) {
                 console.error('Error fetching user details: ', error);
@@ -216,10 +215,10 @@ const AuthProvider = ({ children }) => {
     }, [email]);
 
     const fundss = fundCategories.map(fnd => fnd?.value);
-    // console.log('all Funds,', fundss);
+
     const sum = fundss.reduce((acc, val) => acc + val, 0);
     const costss = costCategories.map(fnd => fnd?.value);
-    // console.log('all costs,', costss);
+
     const cost = costss.reduce((acc, val) => acc + val, 0);
 
     const authInfo = {
