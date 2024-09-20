@@ -1,25 +1,31 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { BiMoney } from 'react-icons/bi';
-import PieChart from '../Components/PieChart';
-import Recent from '../Components/Recent';
 import { AuthContext } from '../Context/AuthProvider';
 import { useGetUserDetailsQuery } from '../features/user/userAPI';
+import { formatNumbersWithCommas } from '../utils/formatNumbersWithCommas';
 
 const Dashboard = () => {
-    const { userDetails, user } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
-    const {data: userDetailsss, isError, isLoading, isSuccess} = useGetUserDetailsQuery(user?.email);
+    const { data: userDetails, isError, isLoading } = useGetUserDetailsQuery(user?.email);
 
-    useEffect(()=> {
-        console.log('userDetailsss', userDetailsss);
-    }, [userDetailsss])
-    
+    // Add a fallback for when userDetails is undefined
+    const {
+        totalExpense,
+        totalIncome,
+        currentMonthExpense,
+        prevMonthMonthExpense,
+        currentMonthFund,
+        prevMonthFund,
+        restFund
+    } = userDetails?.result || {};
 
-    const { totalExpense, totalIncome, currentMonthExpense, prevMonthMonthExpense, currentMonthFund, prevMonthFund, restFund } = userDetails;
 
-    console.log('User', user);
-    return (
-        <div className='mx-2 md:mx-10'>
+    let content;
+    if (isLoading) content = <div>Loading...</div>
+    if (!isLoading && isError) content = <div>Error</div>
+    if (!isLoading && !isError && userDetails?.result) {
+        content = <div>
             <div class="grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5 justify-center mt-10">
                 {/* <Link to='/dashboard/total-earning'> */}
                 <div class="lg:col-span-1 md:col-span-1 p-5 flex justify-start gap-5 items-center  bg-white rounded-lg shadow-lg">
@@ -29,7 +35,7 @@ const Dashboard = () => {
 
                     </div>
                     <div>
-                        <div class="text-lg font-semibold text-gray-800">{totalIncome?.money.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+                        <div class="text-lg font-semibold text-gray-800">{formatNumbersWithCommas(totalIncome?.money)}</div>
                         <p class="text-gray-700">Total Funds</p>
                     </div>
                 </div>
@@ -42,7 +48,7 @@ const Dashboard = () => {
                     </div>
 
                     <div class="">
-                        <div class="text-lg font-semibold text-gray-800">{totalExpense?.money.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+                        <div class="text-lg font-semibold text-gray-800">{formatNumbersWithCommas(totalExpense?.money)}</div>
                         <p class="text-gray-700">Total Costs</p>
                     </div>
                 </div>
@@ -55,7 +61,7 @@ const Dashboard = () => {
                     </div>
 
                     <div class="">
-                        <div class="text-lg font-semibold text-gray-800">{currentMonthFund?.money.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+                        <div class="text-lg font-semibold text-gray-800">{formatNumbersWithCommas(currentMonthFund?.money)}</div>
                         <p class="text-gray-700">This Month Funds</p>
                     </div>
                 </div>
@@ -66,7 +72,7 @@ const Dashboard = () => {
                     </div>
 
                     <div class="">
-                        <div class="text-lg font-semibold text-gray-800">{currentMonthExpense?.money.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+                        <div class="text-lg font-semibold text-gray-800">{formatNumbersWithCommas(currentMonthExpense?.money)}</div>
                         <p class="text-gray-700">This Month Costs</p>
                     </div>
                 </div>
@@ -83,7 +89,7 @@ const Dashboard = () => {
 
                     </div>
                     <div class="">
-                        <div class="text-lg font-semibold text-gray-800">{prevMonthFund?.money.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+                        <div class="text-lg font-semibold text-gray-800">{formatNumbersWithCommas(prevMonthFund?.money)}</div>
                         <p class="text-gray-700">Previous Month Funds</p>
                     </div>
                 </div>
@@ -94,7 +100,7 @@ const Dashboard = () => {
                     </div>
 
                     <div class="">
-                        <div class="text-lg font-semibold text-gray-800">{prevMonthMonthExpense?.money.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+                        <div class="text-lg font-semibold text-gray-800">{formatNumbersWithCommas(prevMonthMonthExpense?.money)}</div>
                         <p class="text-gray-700">Previous Month Costs</p>
                     </div>
                 </div>
@@ -105,23 +111,29 @@ const Dashboard = () => {
                     </div>
 
                     <div class="">
-                        <div class="text-lg font-semibold text-white">{restFund?.money.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+                        <div class="text-lg font-semibold text-white">{formatNumbersWithCommas(restFund?.money)}</div>
                         <p class="text-white">Rest Funds</p>
                     </div>
                 </div>
 
 
             </div>
+        </div>
+    }
+
+    return (
+        <div className='mx-2 md:mx-10'>
+
+            {content}
 
 
-
-            <div className='my-10'>
+            {/*             <div className='my-10'>
                 <Recent />
             </div>
 
             <div className='my-10'>
                 <PieChart />
-            </div>
+            </div> */}
 
 
 
