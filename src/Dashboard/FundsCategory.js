@@ -1,41 +1,34 @@
-import React, { useContext } from 'react';
-import { BiMoney } from 'react-icons/bi';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom/dist';
 import AddFundCategory from '../Categories/AddFundCategory';
+import BoxItem from '../Components/common/BoxItem';
 import { AuthContext } from '../Context/AuthProvider';
+import { useGetUserFundCategoriesQuery } from '../features/funds/fundsAPI';
 
 
 const FundsCategory = () => {
-    const { categories } = useContext(AuthContext);
-    const fund = categories.filter(ctg => ctg.type === 'fund');
+    const { user } = useContext(AuthContext);
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(20);
+
+    const { data: fundCategories, isError, isLoading } = useGetUserFundCategoriesQuery({
+        email: user?.email,
+        page,
+        limit
+    });
 
     return (
         <div>
             {
-                fund.length === 0 ? <div className='h-[100vh] px-6 flex items-center justify-center'>
+                fundCategories?.results?.data?.length === 0 ? <div className='h-[100vh] px-6 flex items-center justify-center'>
                     <h1 className='md:text-2xl sm:text-xl text-lg text-center font-semibold'>You Have not any Fund Category. Please Create a Fund Category FIrst</h1>
                 </div> :
                     <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center m-10">
-
-
                         {
-                            fund.map(fctg => <Link key={fctg._id} to={`/${ fctg?.type }/${ fctg?.name }`}> <div className="lg:col-span-1 md:col-span-1 p-5 flex justify-start gap-5 items-center  bg-white rounded-lg shadow-lg">
-
-
-                                <div className="bg-[#E5F8ED] rounded-full p-3">
-                                    <BiMoney className="w-6 h-6 text-green-500"></BiMoney>
-
-                                </div>
-                                <div className="">
-                                    <div className="text-lg font-semibold text-gray-800">{fctg.value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
-                                    <p className="text-gray-700">{fctg.name}</p>
-                                </div>
-
-                            </div>
+                            fundCategories?.results?.data?.map(category => <Link key={category._id} to={`/${ category?.type }/${ category?.name }`}>
+                                <BoxItem bg="#E5F8ED" color="green-500" title={category?.name} value={category?.money} isLoading={isLoading} />
                             </Link>)
                         }
-
-
                     </div>
             }
 

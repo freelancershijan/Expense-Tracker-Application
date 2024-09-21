@@ -33,7 +33,7 @@ const Dashboard = () => {
                     <BoxItem bg="#FEE8E2" color="red-500" title="This Month Costs" value={currentMonthExpense?.money} isLoading={isLoading} />
                 </div>
 
-                <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center mt-10">
+                <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center mt-5">
                     <BoxItem bg="#E5F8ED" color="green-500" title="Previous Month Funds" value={prevMonthFund?.money} isLoading={isLoading} />
 
                     <BoxItem bg="#FEE8E2" color="red-500" title="Previous Month Costs" value={prevMonthMonthExpense?.money} isLoading={isLoading} />
