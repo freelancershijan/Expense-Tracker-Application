@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { BiMoney } from 'react-icons/bi';
-import { AuthContext } from '../Context/AuthProvider';
-import AddCostCategory from '../Categories/AddCostCategory';
 import { Link } from 'react-router-dom/dist';
+import AddCostCategory from '../Categories/AddCostCategory';
+import { AuthContext } from '../Context/AuthProvider';
 
 const CostsCategory = () => {
     const { categories } = useContext(AuthContext);
@@ -13,17 +13,17 @@ const CostsCategory = () => {
                 cost.length === 0 ? <div className='h-[100vh] px-6 flex items-center justify-center'>
                     <h1 className='md:text-2xl sm:text-xl text-lg text-center font-semibold'>You Have not any Cost Category. Please Create a Cost Category FIrst</h1>
                 </div> :
-                       <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center m-10">
+                       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center m-10">
                        {
-                           cost.map(fctg => <Link key={fctg._id} to={`/${fctg?.type}/${fctg?.name}`}> <div class="lg:col-span-1 md:col-span-1 p-5 flex justify-start gap-5 items-center  bg-white rounded-lg shadow-lg">
+                           cost.map(fctg => <Link key={fctg._id} to={`/${fctg?.type}/${fctg?.name}`}> <div className="lg:col-span-1 md:col-span-1 p-5 flex justify-start gap-5 items-center  bg-white rounded-lg shadow-lg">
        
-                               <div class="bg-[#FEE8E2] rounded-full p-3">
+                               <div className="bg-[#FEE8E2] rounded-full p-3">
                                    <BiMoney className="w-6 h-6 text-red-500"></BiMoney>
        
                                </div>
-                               <div class="">
-                                   <div class="text-lg font-semibold text-gray-800">{fctg.value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
-                                   <p class="text-gray-700">{fctg.name}</p>
+                               <div className="">
+                                   <div className="text-lg font-semibold text-gray-800">{fctg.value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+                                   <p className="text-gray-700">{fctg.name}</p>
                                </div>
                            </div>
                            </Link>)
