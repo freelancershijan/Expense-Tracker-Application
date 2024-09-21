@@ -12,8 +12,6 @@ const FundCategory = () => {
 
     const filtr = fundsCategories.filter(ctg => ctg?.user === email)
 
-    console.log('This Categri Values', filtr);
-
     let fndctgoris = fundsCategories.map(fctg => fctg?.category);
     let ctgoris = categories.filter(ctg => ctg?.name === fndctgoris[0])
 
@@ -42,7 +40,6 @@ const FundCategory = () => {
                         .then(data => {
                             toast.success("Price Updated Successfully");
                             window.location.href = '/';
-                            console.log(data.message);
                         })
                         .catch(err => console.error(err));
                 }
@@ -59,7 +56,6 @@ const FundCategory = () => {
     };
 
     const indexBodyTemplate = (fund, index) => {
-        console.log('fund', index.rowIndex)
         return index.rowIndex + 1
     }
 

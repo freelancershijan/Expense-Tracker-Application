@@ -25,8 +25,6 @@ const AddCostCategory = () => {
             user: email,
         }
 
-        console.log(category)
-
         if (categories.find(ctg => ctg.name === category.name)) {
             toast.error("Already Have a Category with your account Like this Name. Please Create a Different Name")
             return

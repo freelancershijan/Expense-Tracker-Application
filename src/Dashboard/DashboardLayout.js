@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import {  Outlet } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { Sidebar } from 'primereact/sidebar';
+import React, { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import logo from '../images/Wordmark_DarkBlue.png';
 import SidebarComponent from './SidebarComponent';
-import logo from '../images/Wordmark_DarkBlue.png'
 
 const DashboardLayout = () => {
     const [visible, setVisible] = useState(false);

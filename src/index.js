@@ -1,24 +1,25 @@
+import 'primeicons/primeicons.css';
+import { PrimeReactProvider } from 'primereact/api';
+import 'primereact/resources/primereact.css';
+import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { Provider } from "react-redux";
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { store } from './app/store';
 import AuthProvider from './Context/AuthProvider';
-import { PrimeReactProvider } from 'primereact/api';
-import 'primereact/resources/themes/lara-light-indigo/theme.css';   
-import 'primeicons/primeicons.css';
-import 'primereact/resources/primereact.css'; 
-
-
-
+import './index.css';
+import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
+    <Provider store={store}>
     <PrimeReactProvider>
       <App />
       </PrimeReactProvider>
+      </Provider>
     </AuthProvider>
   </React.StrictMode>
 );

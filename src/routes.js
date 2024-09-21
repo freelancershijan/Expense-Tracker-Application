@@ -1,21 +1,21 @@
 import { createBrowserRouter } from "react-router-dom";
+import AddCost from "./Categories/AddCost";
+import AddFund from "./Categories/AddFund";
 import DeleteCategory from "./Categories/DeleteCategory";
 import ErrorPage from "./Components/ErrorPage/ErrorPage";
 import Login from "./Components/login/Login/Login";
 import Register from "./Components/login/Register/Register";
 import ResetPass from "./Components/login/ResetPass/ResetPass";
+import CostsCategory from "./Dashboard/CostsCategory";
+import Dashboard from "./Dashboard/Dashboard";
+import DashboardLayout from "./Dashboard/DashboardLayout";
+import FundsCategory from "./Dashboard/FundsCategory";
 import AllCost from "./Details/AllCost";
 import AllFund from "./Details/AllFund";
 import CostCategories from "./Details/CostCategories";
 import FundCategory from "./Details/FundCategory";
-import DashboardLayout from "./Dashboard/DashboardLayout";
-import Dashboard from "./Dashboard/Dashboard";
-import AddFund from "./Categories/AddFund";
-import AddCost from "./Categories/AddCost";
-import FundsCategory from "./Dashboard/FundsCategory";
-import CostsCategory from "./Dashboard/CostsCategory";
-import PrivateRoute from "./PrivetRoute/PrivateRoute";
-import ProtectedRoute from "./ProtectectRoute/ProtectedRoute";
+// import PrivateRoute from "./PrivetRoute/PrivateRoute";
+// import ProtectedRoute from "./ProtectectRoute/ProtectedRoute";
 
 export const routes = createBrowserRouter([
 
@@ -26,7 +26,7 @@ export const routes = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <PrivateRoute><Dashboard /></PrivateRoute>
+                element: <Dashboard />
             },
             {
                 path: '/delete-category',
@@ -75,16 +75,16 @@ export const routes = createBrowserRouter([
     },
     {
         path: '/login',
-        element: <ProtectedRoute><Login /></ProtectedRoute>
+        element: <Login />
     },
 
     {
         path: '/register',
-        element: <ProtectedRoute><Register></Register></ProtectedRoute>
+        element: <Register></Register>
     },
     {
         path: '/reset-password',
-        element: <ProtectedRoute><ResetPass></ResetPass></ProtectedRoute>
+        element: <ResetPass></ResetPass>
     },
     {
         path: '*',
