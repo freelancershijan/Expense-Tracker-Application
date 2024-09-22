@@ -10,7 +10,7 @@ import { useGetUserCostCategoriesQuery } from '../features/costs/costsAPI';
 const CostsCategory = () => {
     const { user } = useContext(AuthContext);
     const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(20);
+    const [limit, setLimit] = useState(12);
 
     const { data: costCategories, isError, isLoading } = useGetUserCostCategoriesQuery({
         email: user?.email,
@@ -18,12 +18,14 @@ const CostsCategory = () => {
         limit
     });
 
+    const { totalPages, totalResults } = costCategories?.results || {};
+
     return (
         <div>
             {
                 isLoading ?
-                 <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center m-10">
-                    <BoxLoading value="6" />
+                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center m-10">
+                        <BoxLoading value="6" />
                     </div>
                     :
                     costCategories?.results?.data?.length === 0 ? <div className='h-[100vh] px-6 flex items-center justify-center'>
@@ -38,8 +40,8 @@ const CostsCategory = () => {
                         </div>
             }
 
-            <div className='my-5'>
-                <Pagination />
+            <div className='m-10 bg-white p-3 rounded-lg shadow-lg'>
+                <Pagination pages={totalPages} setPage={setPage} setLimit={setLimit} page={page} total={totalResults} limit={limit} />
             </div>
 
             <div className='fixed bottom-10 right-0 flex items-center gap-2'>

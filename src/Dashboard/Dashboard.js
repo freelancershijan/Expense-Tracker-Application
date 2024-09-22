@@ -38,7 +38,7 @@ const Dashboard = () => {
 
                     <BoxItem bg="#FEE8E2" type="cost" title="Previous Month Costs" value={prevMonthMonthExpense?.money} isLoading={isLoading} />
 
-                    <BoxItem mainBg="#1B2850" type="white" title="Rest Funds" value={restFund?.money} isLoading={isLoading} />
+                    <BoxItem mainBg="#1B2850" type="rest" title="Rest Funds" value={restFund?.money} isLoading={isLoading} />
                 </div>
             </div>
 
