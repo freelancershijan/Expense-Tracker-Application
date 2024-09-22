@@ -2,6 +2,7 @@
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
+    'node_modules/preline/dist/*.js',
   ],
   darkMode: 'media',
   theme: {
@@ -19,5 +20,8 @@ module.exports = {
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require("daisyui"),
+    require('preline/plugin'),
+  ],
 }

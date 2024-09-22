@@ -32,7 +32,7 @@ const FundsCategory = () => {
                         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center m-10">
                             {
                                 fundCategories?.results?.data?.map(category => <Link key={category._id} to={`/${ category?.type }/${ category?.name }`}>
-                                    <BoxItem bg="#E5F8ED" color="green-500" title={category?.name} value={category?.money} isLoading={isLoading} />
+                                    <BoxItem bg="#E5F8ED" type="fund" title={category?.name} value={category?.money} isLoading={isLoading} />
                                 </Link>)
                             }
                         </div>
