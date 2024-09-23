@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function Pagination({ page, pages, total, limit, setPage, setLimit }) {
+export default function Pagination({ page = 0, pages = 0, total = 0, limit = 12, setPage, setLimit }) {
   const [visibleRange, setVisibleRange] = useState([1, Math.min(5, pages)]); // Initial range
 
   // Handle changing the page

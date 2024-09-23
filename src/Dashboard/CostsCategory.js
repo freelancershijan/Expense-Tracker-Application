@@ -35,6 +35,13 @@ const CostsCategory = () => {
 
     const { totalPages, totalResults } = costCategories?.results || {};
 
+    let pagination;
+    if (!isLoading) {
+        pagination = <div className='m-10 bg-white p-3 rounded-lg shadow-lg'>
+            <Pagination pages={totalPages} setPage={setPage} setLimit={setLimit} page={page} total={totalResults} limit={limit} />
+        </div>
+    }
+
     return (
         <div className='p-10'>
 
@@ -60,9 +67,7 @@ const CostsCategory = () => {
                         </div>
             }
 
-            <div className=' bg-white p-3 rounded-lg shadow-lg'>
-                <Pagination pages={totalPages} setPage={setPage} setLimit={setLimit} page={page} total={totalResults} limit={limit} />
-            </div>
+            {pagination}
 
             <div className='fixed bottom-10 right-0 flex items-center gap-2'>
                 <Link to='/delete-category'>

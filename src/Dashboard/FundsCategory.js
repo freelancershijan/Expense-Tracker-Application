@@ -4,6 +4,7 @@ import AddFundCategory from '../Categories/AddFundCategory';
 import BoxItem from '../Components/common/BoxItem';
 import Search from '../Components/common/Search';
 import BoxLoading from '../Components/Loading/BoxLoading';
+import Pagination from '../Components/pagination/Pagination';
 import { AuthContext } from '../Context/AuthProvider';
 import { useGetUserFundCategoriesQuery } from '../features/funds/fundsAPI';
 
@@ -11,7 +12,7 @@ import { useGetUserFundCategoriesQuery } from '../features/funds/fundsAPI';
 const FundsCategory = () => {
     const { user } = useContext(AuthContext);
     const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(20);
+    const [limit, setLimit] = useState(12);
 
     // Local state to hold the immediate input value
     const [inputValue, setInputValue] = useState("");
@@ -32,6 +33,15 @@ const FundsCategory = () => {
         page,
         limit
     });
+
+    const { totalPages, totalResults } = fundCategories?.results || {};
+
+    let pagination;
+    if (!isLoading) {
+        pagination = <div className='m-10 bg-white p-3 rounded-lg shadow-lg'>
+            <Pagination pages={totalPages} setPage={setPage} setLimit={setLimit} page={page} total={totalResults} limit={limit} />
+        </div>
+    }
 
     return (
         <div className='m-10'>
@@ -57,6 +67,8 @@ const FundsCategory = () => {
                             }
                         </div>
             }
+
+            {pagination}
 
             <div className='fixed bottom-10 right-0 flex items-center gap-2'>
                 <Link to='/delete-category'>
