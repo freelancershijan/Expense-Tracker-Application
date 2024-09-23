@@ -141,7 +141,7 @@ export default function Pagination({ page = 0, pages = 0, total = 0, limit = 12,
 
         <p>Showing {first} to {last} of {total} products</p>
 
-        <div class="relative text-center">
+        <div className="relative text-center">
           <select
             onClick={(e) => setLimit(e.target.value)}
             className=' border px-3 py-2'
