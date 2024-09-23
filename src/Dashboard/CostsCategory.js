@@ -37,7 +37,7 @@ const CostsCategory = () => {
 
     let pagination;
     if (!isLoading) {
-        pagination = <div className='m-10 bg-white p-3 rounded-lg shadow-lg'>
+        pagination = <div className='bg-white p-3 rounded-lg shadow-lg'>
             <Pagination pages={totalPages} setPage={setPage} setLimit={setLimit} page={page} total={totalResults} limit={limit} />
         </div>
     }
