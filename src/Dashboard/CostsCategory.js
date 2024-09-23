@@ -44,16 +44,16 @@ const CostsCategory = () => {
 
             {
                 isLoading ?
-                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center">
+                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center  my-10">
                         <BoxLoading value="6" />
                     </div>
                     :
-                    costCategories?.results?.data?.length === 0 ? <div className='h-[100vh] px-6 flex items-center justify-center'>
+                    costCategories?.results?.data?.length === 0 ? <div className='h-[100vh] px-6 flex items-center justify-center  my-10'>
                         <h1 className='md:text-2xl sm:text-xl text-lg text-center font-semibold'>You Have not any Cost Category. Please Create a Cost Category FIrst</h1>
                     </div> :
                         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center my-10">
                             {
-                                costCategories?.results?.data?.map(category => <Link key={category._id} to={`/${ category?.type }/${ category?.name }`}>
+                                costCategories?.results?.data?.map(category => <Link key={category._id} to={`/cost/${ category?.name }`}>
                                     <BoxItem bg="#FEE8E2" type="cost" title={category?.name} value={category?.money} isLoading={isLoading} />
                                 </Link>)
                             }
