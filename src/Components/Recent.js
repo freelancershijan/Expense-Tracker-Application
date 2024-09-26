@@ -1,44 +1,33 @@
-import { Column } from 'primereact/column';
-import { DataTable } from 'primereact/datatable';
-import React, { useContext } from 'react';
-import { AuthContext } from '../Context/AuthProvider';
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../Context/AuthProvider";
+import { useGetUserRecentCostsTransactionsQuery } from "../features/costs/costsAPI";
+import BaseTable from "./table/BaseTable";
 
-const Recent = () => {
-    const { recent, recentCost } = useContext(AuthContext);
+export default function Recent() {
+    const { user } = useContext(AuthContext);
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(10);
+    const [sort_by, setSortBy] = useState('_id');
+    const [sort_order, setSortOrder] = useState('desc');
+    // Check if user email is available before making the query
+    const { data: recentCostsTransactions, error, isLoading } = useGetUserRecentCostsTransactionsQuery({
+        email: user?.email,
+        page,
+        limit,
+        sort_by,
+        sort_order
+    }, {
+        skip: !user?.email,
+    });
 
-    const formatCurrency = (value) => {
-        return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    };
-
-    const priceBodyTemplate = (product) => {
-        return formatCurrency(product.money);
-    };
-
+    useEffect(() => {
+        console.log('recent costs', recentCostsTransactions?.results?.data);
+    }, [recentCostsTransactions])
     return (
-        <div className='grid md:grid-cols-2 grid-cols-1 gap-5'>
-            <div className='col-span-1'>
-                <h1 className='text-xl text-black font-semibold mb-5'>Recent Added Funds</h1>
+        <div>
+            <BaseTable>
 
-                <DataTable value={recent.slice(0,5)}>
-                   <Column field="category" header="Category" sortable></Column>
-                   <Column field="money" header="Amount" body={priceBodyTemplate} sortable></Column>
-                   <Column field="date" header="Date" sortable></Column>
-                   <Column field="time" header="Time" sortable></Column>
-                </DataTable>
-            </div>
-
-            <div className='col-span-1'>
-                <h1 className='text-xl text-black font-semibold mb-5'>Recent Added Costs</h1>
-
-                <DataTable value={recentCost.slice(0,5)}>
-                   <Column field="category" header="Category" sortable></Column>
-                   <Column field="money" header="Amount" body={priceBodyTemplate} sortable></Column>
-                   <Column field="date" header="Date" sortable></Column>
-                   <Column field="time" header="Time" sortable></Column>
-                </DataTable>
-            </div>
+            </BaseTable>
         </div>
     );
-};
-
-export default Recent;
+}

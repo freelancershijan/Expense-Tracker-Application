@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom/dist';
 import AddFundCategory from '../Categories/AddFundCategory';
 import BoxItem from '../Components/common/BoxItem';
@@ -14,19 +14,8 @@ const FundsCategory = () => {
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(12);
 
-    // Local state to hold the immediate input value
-    const [inputValue, setInputValue] = useState("");
-    // Debounced search state
     const [search, setSearch] = useState("");
-
-    // Use debounce effect
-    useEffect(() => {
-        const delayDebounceFn = setTimeout(() => {
-            setSearch(inputValue);
-        }, 1000);
-
-        return () => clearTimeout(delayDebounceFn);
-    }, [inputValue]);
+    console.log('Search', search);
 
     const { data: fundCategories, isError, isLoading } = useGetUserFundCategoriesQuery({
         email: user?.email,
@@ -47,7 +36,7 @@ const FundsCategory = () => {
         <div className='m-10'>
 
             <div className='text-end'>
-                <Search search={inputValue} setSearch={setInputValue} />
+                <Search setSearch={setSearch} />
             </div>
 
             {

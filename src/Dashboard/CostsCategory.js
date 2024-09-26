@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom/dist';
 import AddCostCategory from '../Categories/AddCostCategory';
 import BoxItem from '../Components/common/BoxItem';
@@ -13,19 +13,8 @@ const CostsCategory = () => {
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(12);
 
-    // Local state to hold the immediate input value
-    const [inputValue, setInputValue] = useState("");
-    // Debounced search state
     const [search, setSearch] = useState("");
-
-    // Use debounce effect
-    useEffect(() => {
-        const delayDebounceFn = setTimeout(() => {
-            setSearch(inputValue);
-        }, 1000);
-
-        return () => clearTimeout(delayDebounceFn); // Cleanup function to cancel the timeout if inputValue changes
-    }, [inputValue]);
+    console.log('Search', search);
 
     const { data: costCategories, isError, isLoading } = useGetUserCostCategoriesQuery({
         email: user?.email,
@@ -46,7 +35,7 @@ const CostsCategory = () => {
         <div className='p-10'>
 
             <div className='text-end'>
-                <Search search={inputValue} setSearch={setInputValue} />
+                <Search setSearch={setSearch} />
             </div>
 
             {
