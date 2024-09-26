@@ -69,7 +69,7 @@ export default function PieChart() {
   }
 
   const pieState = {
-          
+
     series: [userYearData?.result?.incomePercentage, userYearData?.result?.expensePercentage],
     options: {
       chart: {
@@ -95,17 +95,27 @@ export default function PieChart() {
   };
 
   return (
-    <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-5">
-      <div id="chart" className="lg:col-span-2 col-span-1 bg-white p-2 rounded-lg shadow-lg">
+    <div className="grid xl:grid-cols-3 sm:grid-cols-2 gap-5">
+      <div id="chart" className="xl:col-span-2 col-span-1 bg-white p-2 rounded-lg shadow-lg">
         {
-          isLoading ? <LoadingSpinner /> :
-           <ReactApexChart options={state.options} series={state.series} type="bar" height={350} />
+          isLoading
+            ?
+            <div className="h-[350px] w-full flex justify-center items-center">
+              <LoadingSpinner />
+            </div>
+            :
+            <ReactApexChart options={state.options} series={state.series} type="bar" height={350} />
         }
       </div>
-      <div id="chart" className="lg:col-span-1 col-span-1 bg-white p-2 rounded-lg shadow-lg">
-      {
-          isLoading ? <LoadingSpinner /> :
-        <ReactApexChart options={pieState.options} series={pieState.series} type="pie" width={380} />  
+      <div id="chart" className="xl:col-span-1 col-span-1 bg-white p-2 rounded-lg shadow-lg">
+        {
+          isLoading
+            ?
+            <div className="h-[350px] w-full flex justify-center items-center">
+              <LoadingSpinner />
+            </div>
+            :
+            <ReactApexChart options={pieState.options} series={pieState.series} type="pie" width={380} />
         }
       </div>
     </div>

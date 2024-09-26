@@ -2,7 +2,8 @@ import React from 'react';
 
 const LoadingSpinner = () => {
     return (
-        <div class="animate-spin inline-block size-8 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500" role="status" aria-label="loading">
+        <div class="animate-spin inline-block w-32 h-32 border-[10px] border-current border-t-transparent text-primary rounded-full" role="status" aria-label="loading">
+            <span class="sr-only">Loading...</span>
         </div>
     );
 };
