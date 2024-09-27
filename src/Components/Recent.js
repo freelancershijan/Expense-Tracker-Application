@@ -10,7 +10,7 @@ export default function Recent() {
     const [sort_by, setSortBy] = useState('_id');
     const [sort_order, setSortOrder] = useState('desc');
     // Check if user email is available before making the query
-    const { data: recentCostsTransactions, error, isLoading } = useGetUserRecentCostsTransactionsQuery({
+    const { data: recentCostsTransactions, isError, isLoading } = useGetUserRecentCostsTransactionsQuery({
         email: user?.email,
         page,
         limit,
@@ -20,12 +20,50 @@ export default function Recent() {
         skip: !user?.email,
     });
 
+    const columns = [
+        {
+            name: 'Date',
+            sort_by: 'date',
+            sort_order: '',
+            isSort: true,
+        },
+        {
+            name: 'Category',
+            sort_by: 'category',
+            sort_order: '',
+            isSort: true,
+        },
+        {
+            name: 'Amount',
+            sort_by: 'money',
+            sort_order: '',
+            isSort: true,
+        },
+        {
+            name: 'Note',
+            sort_by: 'notes',
+            sort_order: '',
+            isSort: true,
+        },
+        {
+            name: 'Time',
+            sort_by: 'time',
+            sort_order: '',
+            isSort: true,
+        }
+    ]
+
     useEffect(() => {
         console.log('recent costs', recentCostsTransactions?.results?.data);
     }, [recentCostsTransactions])
     return (
         <div>
-            <BaseTable>
+            <BaseTable
+             columns={columns}
+             values={recentCostsTransactions?.results?.data}
+             isLoading={isLoading}
+             isError={isError}
+            >
 
             </BaseTable>
         </div>
