@@ -1,7 +1,79 @@
-export default function TableList(){
+import { useContext, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useGetUserRecentCostsTransactionsQuery } from '../../../../features/costs/costsAPI';
+import { setLimit } from '../../../../features/filters/filterSlice';
+import BaseTable from './../../../../Components/table/BaseTable';
+import { AuthContext } from './../../../../Context/AuthProvider';
+import TableRowItem from './TableRowItem';
+
+export default function TableList() {
+    const { user } = useContext(AuthContext);
+    const { page, limit, search, sort_by, sort_order } = useSelector((state) => state.filters);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(setLimit(10));
+    }, [dispatch, setLimit])
+
+    // Check if user email is available before making the query
+    const { data: recentCostsTransactions, isError, isLoading } = useGetUserRecentCostsTransactionsQuery({
+        email: user?.email,
+        page,
+        limit,
+        sort_by,
+        sort_order
+    }, {
+        skip: !user?.email,
+    });
+
+    const columns = [
+        {
+            name: 'Date',
+            sort_by: 'date',
+            sort_order: '',
+            isSort: true,
+        },
+        {
+            name: 'Category',
+            sort_by: 'category',
+            sort_order: '',
+            isSort: true,
+        },
+        {
+            name: 'Amount',
+            sort_by: 'money',
+            sort_order: '',
+            isSort: true,
+        },
+        {
+            name: 'Note',
+            sort_by: 'notes',
+            sort_order: '',
+            isSort: true,
+        },
+        {
+            name: 'Time',
+            sort_by: 'time',
+            sort_order: '',
+            isSort: true,
+        }
+    ]
+
     return (
-        <>
-          
-        </>
+        <div>
+            <BaseTable
+                columns={columns}
+                values={recentCostsTransactions?.results?.data?.map(item => (
+                    <TableRowItem
+                        key={item._id} // Ensure each row has a unique key
+                        rowData={item}
+                    />
+                ))}
+                isLoading={isLoading}
+                isError={isError}
+                isShowDelete={false}
+            >
+
+            </BaseTable>
+        </div>
     );
 }

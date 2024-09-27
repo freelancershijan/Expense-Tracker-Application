@@ -12,9 +12,21 @@ const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-
+    // You can also add actions to update filter values here
+    setPage: (state, action) => {
+      state.page = action.payload;
+    },
+    setLimit: (state, action) => {
+      state.limit = action.payload;
+    },
+    setSortBy: (state, action) => {
+      state.sort_by = action.payload;
+    },
+    setSortOrder: (state, action) => {
+      state.sort_order = action.payload;
+    }
   }
 })
 
 export default filterSlice.reducer;
-export const {} = filterSlice.actions;
+export const { setLimit, setPage, setSortBy, setSortOrder } = filterSlice.actions;

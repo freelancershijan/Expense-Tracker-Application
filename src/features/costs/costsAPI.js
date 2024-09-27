@@ -3,13 +3,12 @@ import { apiSlice } from "../api/apiSlice";
 export const costsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUserCostCategories: builder.query({
-      query: ({email, page=1, limit=20}) => `/costs/user-all-cost-category/lists?user=${email}&page=${page}&limit=${limit}`
+      query: ({ email, page = 1, limit = 20 }) => `/costs/user-all-cost-category/lists?user=${ email }&page=${ page }&limit=${ limit }`
     }),
     getUserRecentCostsTransactions: builder.query({
-      query: ({email, page = 1, limit = 10, sort_by = '_id', sort_order = 'desc'}) => {
-        console.log({ email, page, limit, sort_by, sort_order });
-        return `/costs/user-costs?user=${email}&page=${page}&limit=${limit}&sort_by=${sort_by}&sort_order=${sort_order}`;
-    }    
+      query: ({ email, page = 1, limit = 10, sort_by = '_id', sort_order = 'desc' }) => {
+        return `/costs/user-costs?user=${ email }&page=${ page }&limit=${ limit }&sort_by=${ sort_by }&sort_order=${ sort_order }`;
+      }
     })
   })
 })
