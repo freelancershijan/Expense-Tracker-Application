@@ -73,7 +73,7 @@ export default function PieChart() {
     series: [userYearData?.result?.incomePercentage, userYearData?.result?.expensePercentage],
     options: {
       chart: {
-        width: 380,
+        width: 340,
         type: 'pie',
       },
       labels: ['Income', 'Expense'],
@@ -83,6 +83,7 @@ export default function PieChart() {
           chart: {
             width: 150
           },
+          colors: ['#185519', '#B8001F'],
           fill: {
             colors: ['#185519', '#B8001F']
           },
@@ -115,7 +116,9 @@ export default function PieChart() {
               <LoadingSpinner />
             </div>
             :
-            <ReactApexChart options={pieState.options} series={pieState.series} type="pie" width={380} />
+            <div className="flex justify-center items-center">
+              <ReactApexChart options={pieState.options} series={pieState.series} type="pie" width={380} />
+            </div>
         }
       </div>
     </div>

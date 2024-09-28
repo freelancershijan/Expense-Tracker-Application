@@ -4,8 +4,9 @@ import { setSortBy, setSortOrder } from "../../features/filters/filterSlice";
 import Search from "../common/Search";
 import ArrowSortDownIcon from "../icons/ArrowSortDownIcon";
 import ArrowSortUpIcon from "../icons/ArrowSortUpIcon";
+import { formatNumbersWithCommas } from './../../utils/formatNumbersWithCommas';
 
-export default function BaseTable({ columns, values, isLoading, isError, isShowDelete }) {
+export default function BaseTable({ columns, values, total, isLoading, isError, isShowDelete }) {
   console.log('values', values);
 
   const { sort_by, sort_order } = useSelector((state) => state.filters);
@@ -64,12 +65,12 @@ export default function BaseTable({ columns, values, isLoading, isError, isShowD
                             <span>{column?.name}</span>
                             <div class="flex flex-col gap-0 ml-2" v-if="column?.isSort">
                               <div className="mb-[-4px]" onClick={() => onSortUp(column)}>
-                                <ArrowSortUpIcon 
-                                   color={sort_by === column?.sort_by && sort_order === "desc"}
+                                <ArrowSortUpIcon
+                                  color={sort_by === column?.sort_by && sort_order === "desc"}
                                 />
                               </div>
                               <div onClick={() => onSortDown(column)}>
-                                <ArrowSortDownIcon 
+                                <ArrowSortDownIcon
                                   color={sort_by === column?.sort_by && sort_order === "asc"}
                                 />
                               </div>
@@ -88,6 +89,15 @@ export default function BaseTable({ columns, values, isLoading, isError, isShowD
                 <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                   {valuesData}
                 </tbody>
+                <tfoot class="bg-gray-50 dark:bg-neutral-700">
+                  <tr>
+                    <th></th>
+                    <th class="px-6 py-3 cursor-pointer text-start font-semibold">Total</th>
+                    <th class="px-6 py-3 cursor-pointer text-start font-semibold">{formatNumbersWithCommas(total)}</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </tfoot>
               </table>
             </div>
           </div>

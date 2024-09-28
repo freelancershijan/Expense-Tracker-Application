@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSearchData } from "../../features/filters/filterSlice";
 
 export default function Search({ setSearch }) {
 
+  const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
 
   // Use debounce effect
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       setSearch(inputValue);
+      dispatch(setSearchData(inputValue))
     }, 1000);
 
     return () => clearTimeout(delayDebounceFn);
@@ -28,7 +32,7 @@ export default function Search({ setSearch }) {
             </svg>
           </div>
           <input
-            className="py-3 pl-12 pe-4 block w-full border-primary rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none"
+            className="py-3 pl-12 pe-4 block w-full border-2 border-primary rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none"
             type="text" role="combobox"
             aria-expanded="false"
             placeholder="Type a name"

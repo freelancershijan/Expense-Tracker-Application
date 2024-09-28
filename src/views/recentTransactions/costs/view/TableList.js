@@ -20,7 +20,8 @@ export default function TableList() {
         page,
         limit,
         sort_by,
-        sort_order
+        sort_order,
+        search
     }, {
         skip: !user?.email,
     });
@@ -68,6 +69,7 @@ export default function TableList() {
                         rowData={item}
                     />
                 ))}
+                total={recentCostsTransactions?.results?.totalAmount}
                 isLoading={isLoading}
                 isError={isError}
                 isShowDelete={false}
