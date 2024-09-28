@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useGetUserRecentCostsTransactionsQuery } from '../../../../features/costs/costsAPI';
 import { setLimit } from '../../../../features/filters/filterSlice';
+import { useGetUserRecentFundsTransactionsQuery } from '../../../../features/funds/fundsAPI';
 import BaseTable from './../../../../Components/table/BaseTable';
 import { AuthContext } from './../../../../Context/AuthProvider';
 import TableRowItem from './TableRowItem';
@@ -15,7 +15,7 @@ export default function TableList() {
     }, [dispatch, setLimit])
 
     // Check if user email is available before making the query
-    const { data: recentCostsTransactions, isError, isLoading } = useGetUserRecentCostsTransactionsQuery({
+    const { data: recentCostsTransactions, isError, isLoading } = useGetUserRecentFundsTransactionsQuery({
         email: user?.email,
         page,
         limit,

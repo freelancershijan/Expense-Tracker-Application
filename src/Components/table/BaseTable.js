@@ -6,7 +6,7 @@ import ArrowSortDownIcon from "../icons/ArrowSortDownIcon";
 import ArrowSortUpIcon from "../icons/ArrowSortUpIcon";
 import { formatNumbersWithCommas } from './../../utils/formatNumbersWithCommas';
 
-export default function BaseTable({ columns, values, total, isLoading, isError, isShowDelete }) {
+export default function BaseTable({ columns, values, total, isLoading, isError, isShowDelete, isShowSearch }) {
   console.log('values', values);
 
   const { sort_by, sort_order } = useSelector((state) => state.filters);
@@ -51,9 +51,11 @@ export default function BaseTable({ columns, values, total, isLoading, isError, 
       <div class="-m-1.5 overflow-x-auto">
         <div class="p-1.5 min-w-full inline-block align-middle">
           <div class="border rounded-lg divide-y divide-gray-200 dark:border-neutral-700 dark:divide-neutral-700">
-            <div class="py-3 px-4">
-              <Search setSearch={setSearch} />
-            </div>
+            {
+              isShowSearch && <div class="py-3 px-4">
+                <Search setSearch={setSearch} />
+              </div>
+            }
             <div class="overflow-hidden">
               <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
                 <thead class="bg-gray-50 dark:bg-neutral-700">
@@ -89,7 +91,7 @@ export default function BaseTable({ columns, values, total, isLoading, isError, 
                 <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                   {valuesData}
                 </tbody>
-                <tfoot class="bg-gray-50 dark:bg-neutral-700">
+                <tfoot class="bg-primary text-white">
                   <tr>
                     <th></th>
                     <th class="px-6 py-3 cursor-pointer text-start font-semibold">Total</th>
