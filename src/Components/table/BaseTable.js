@@ -64,10 +64,14 @@ export default function BaseTable({ columns, values, isLoading, isError, isShowD
                             <span>{column?.name}</span>
                             <div class="flex flex-col gap-0 ml-2" v-if="column?.isSort">
                               <div className="mb-[-4px]" onClick={() => onSortUp(column)}>
-                                <ArrowSortUpIcon />
+                                <ArrowSortUpIcon 
+                                   color={sort_by === column?.sort_by && sort_order === "desc"}
+                                />
                               </div>
                               <div onClick={() => onSortDown(column)}>
-                                <ArrowSortDownIcon />
+                                <ArrowSortDownIcon 
+                                  color={sort_by === column?.sort_by && sort_order === "asc"}
+                                />
                               </div>
                             </div>
                           </div>

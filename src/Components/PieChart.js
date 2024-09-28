@@ -81,7 +81,7 @@ export default function PieChart() {
         breakpoint: 480,
         options: {
           chart: {
-            width: 200
+            width: 150
           },
           fill: {
             colors: ['#185519', '#B8001F']
