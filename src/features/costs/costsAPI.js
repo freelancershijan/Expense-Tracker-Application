@@ -7,7 +7,7 @@ export const costsApi = apiSlice.injectEndpoints({
     }),
     getUserRecentCostsTransactions: builder.query({
       query: ({ email, page = 1, limit = 10, sort_by = '_id', sort_order = 'desc', search = "" }) => {
-        return `/costs/user-costs?user=${ email }&page=${ page }&limit=${ limit }&sort_by=${ sort_by }&sort_order=${ sort_order }&search=${search}`;
+        return `/costs/user-costs?user=${ email }&page=${ page }&limit=${ limit }&sort_by=${ sort_by }&sort_order=${ sort_order }&search=${ search }`;
       }
     })
   })

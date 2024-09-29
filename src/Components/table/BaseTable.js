@@ -1,10 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setSortBy, setSortOrder } from "../../features/filters/filterSlice";
+import noDataFoundImage from "../../images/no-data-found.png";
 import ArrowSortDownIcon from "../icons/ArrowSortDownIcon";
 import ArrowSortUpIcon from "../icons/ArrowSortUpIcon";
 import { formatNumbersWithCommas } from './../../utils/formatNumbersWithCommas';
 
 export default function BaseTable({ columns, lists, total, isLoading, isError, isShowDelete }) {
+
+  console.log('lists', lists);
+
 
   const { sort_by, sort_order } = useSelector((state) => state.filters);
 
@@ -31,10 +35,46 @@ export default function BaseTable({ columns, lists, total, isLoading, isError, i
     }
   }
 
+  let tableRowsData;
+  if (isLoading) {
+    const skeletonItems = Array.from({ length: 10 });
+    tableRowsData = (
+      <tr>
+        <td colSpan={columns?.length}>
+          <div class="table-skeleton skeleton-gradient">
+            <div class="skeleton-content">
+              <ul>
+                {skeletonItems.map((_, index) => (
+                  <li key={index} className="my-3">
+                    <div class="h-6 mx-5 bg-slate-200 rounded animate-pulse"></div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+    );
+  }
+
+  if (!isLoading && isError) {
+    tableRowsData = <tr>
+      <td colSpan={columns?.length}>
+        <div className="h-[450px] flex justify-center items-center">
+          <img className="h-80 overflow-hidden" src={noDataFoundImage} alt="No Data Found" />
+        </div>
+      </td>
+    </tr>
+  }
+
+  if (!isLoading && !isError && lists?.length > 0) {
+    tableRowsData = lists
+  }
+
   return (
-    <div class="overflow-hidden">
-      <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
-        <thead class="bg-primary text-white">
+    <div class="overflow-auto min-h-[500px]">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-primary text-white sticky top-0 z-10">
           <tr>
             {
               columns?.map(column => (
@@ -65,17 +105,19 @@ export default function BaseTable({ columns, lists, total, isLoading, isError, i
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-          {lists}
+          {tableRowsData}
         </tbody>
-        <tfoot class="bg-primary text-white">
-          <tr>
-            <th></th>
-            <th class="px-6 py-3 cursor-pointer text-start font-semibold">Total</th>
-            <th class="px-6 py-3 cursor-pointer text-start font-semibold">{formatNumbersWithCommas(total)}</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </tfoot>
+        {
+          lists?.length && <tfoot class="bg-primary text-white">
+            <tr>
+              <th></th>
+              <th class="px-6 py-3 cursor-pointer text-start font-semibold">Total</th>
+              <th class="px-6 py-3 cursor-pointer text-start font-semibold">{formatNumbersWithCommas(total)}</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </tfoot>
+        }
       </table>
     </div>
   );

@@ -113,7 +113,7 @@ export default function PieChart() {
               <LoadingSpinner />
             </div>
             :
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center h-full">
               <ReactApexChart options={pieState.options} series={pieState.series} type="pie" width={380} />
             </div>
         }
