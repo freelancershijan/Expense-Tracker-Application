@@ -77,15 +77,12 @@ export default function PieChart() {
         type: 'pie',
       },
       labels: ['Income', 'Expense'],
+      colors: ['#185519', '#B8001F'],
       responsive: [{
         breakpoint: 480,
         options: {
           chart: {
             width: 150
-          },
-          colors: ['#185519', '#B8001F'],
-          fill: {
-            colors: ['#185519', '#B8001F']
           },
           legend: {
             position: 'bottom'

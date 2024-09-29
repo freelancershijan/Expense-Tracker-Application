@@ -1,4 +1,4 @@
-export default function ArrowSortDownIcon({color}) {
+export default function ArrowSortDownIcon({ color }) {
   return (
     <>
       <svg
@@ -6,7 +6,7 @@ export default function ArrowSortDownIcon({color}) {
         width="1em"
         height="1em"
         viewBox="0 0 24 24"
-        className={`${color && 'text-primary'}`}
+        className={`${ color ? 'text-white' : 'text-gray-400' }`}
       >
         <path
           fill="currentColor"

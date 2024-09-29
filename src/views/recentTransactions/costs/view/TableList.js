@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import BaseTableList from '../../../../Components/table/BaseTableList';
 import { useGetUserRecentCostsTransactionsQuery } from '../../../../features/costs/costsAPI';
 import { setLimit } from '../../../../features/filters/filterSlice';
-import BaseTable from './../../../../Components/table/BaseTable';
 import { AuthContext } from './../../../../Context/AuthProvider';
 import TableRowItem from './TableRowItem';
 
@@ -61,7 +61,7 @@ export default function TableList() {
 
     return (
         <div>
-            <BaseTable
+            <BaseTableList
                 columns={columns}
                 values={recentCostsTransactions?.results?.data?.map(item => (
                     <TableRowItem
@@ -76,7 +76,7 @@ export default function TableList() {
                 isShowSearch={false}
             >
 
-            </BaseTable>
+            </BaseTableList>
         </div>
     );
 }

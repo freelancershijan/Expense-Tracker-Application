@@ -1,29 +1,14 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSortBy, setSortOrder } from "../../features/filters/filterSlice";
-import Search from "../common/Search";
 import ArrowSortDownIcon from "../icons/ArrowSortDownIcon";
 import ArrowSortUpIcon from "../icons/ArrowSortUpIcon";
 import { formatNumbersWithCommas } from './../../utils/formatNumbersWithCommas';
 
-export default function BaseTable({ columns, values, total, isLoading, isError, isShowDelete, isShowSearch }) {
-  console.log('values', values);
+export default function BaseTable({ columns, lists, total, isLoading, isError, isShowDelete }) {
 
   const { sort_by, sort_order } = useSelector((state) => state.filters);
 
   const dispatch = useDispatch();
-
-  const [search, setSearch] = useState("");
-
-  console.log('Search', search);
-
-  let valuesData;
-  if (isLoading) valuesData = <div>Loading...</div>
-  if (!isLoading && isError) valuesData = <div>Error...</div>
-  if (!isLoading && !isError && values?.length === 0) valuesData = <div>No Data Found...</div>
-  if (!isLoading && !isError && values?.length > 0) {
-    valuesData = values
-  }
 
   const onSortUp = (data) => {
     dispatch(setSortBy(data?.sort_by));
@@ -47,64 +32,51 @@ export default function BaseTable({ columns, values, total, isLoading, isError, 
   }
 
   return (
-    <div class="flex flex-col bg-white rounded-lg">
-      <div class="-m-1.5 overflow-x-auto">
-        <div class="p-1.5 min-w-full inline-block align-middle">
-          <div class="border rounded-lg divide-y divide-gray-200 dark:border-neutral-700 dark:divide-neutral-700">
+    <div class="overflow-hidden">
+      <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+        <thead class="bg-primary text-white">
+          <tr>
             {
-              isShowSearch && <div class="py-3 px-4">
-                <Search setSearch={setSearch} />
-              </div>
+              columns?.map(column => (
+                <th key={column.name} onClick={() => onSort(column)} scope="col" class="px-6 py-3 cursor-pointer text-start text-xs font-medium uppercase">
+                  <div className="flex">
+                    <span>{column?.name}</span>
+                    <div class="flex flex-col gap-0 ml-2" v-if="column?.isSort">
+                      <div className="mb-[-6px]" onClick={() => onSortUp(column)}>
+                        <ArrowSortUpIcon
+                          color={sort_by === column?.sort_by && sort_order === "desc"}
+                        />
+                      </div>
+                      <div onClick={() => onSortDown(column)}>
+                        <ArrowSortDownIcon
+                          color={sort_by === column?.sort_by && sort_order === "asc"}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </th>
+              ))
             }
-            <div class="overflow-hidden">
-              <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
-                <thead class="bg-gray-50 dark:bg-neutral-700">
-                  <tr>
-                    {
-                      columns?.map(column => (
-                        <th key={column.name} onClick={() => onSort(column)} scope="col" class="px-6 py-3 cursor-pointer text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                          <div className="flex">
-                            <span>{column?.name}</span>
-                            <div class="flex flex-col gap-0 ml-2" v-if="column?.isSort">
-                              <div className="mb-[-4px]" onClick={() => onSortUp(column)}>
-                                <ArrowSortUpIcon
-                                  color={sort_by === column?.sort_by && sort_order === "desc"}
-                                />
-                              </div>
-                              <div onClick={() => onSortDown(column)}>
-                                <ArrowSortDownIcon
-                                  color={sort_by === column?.sort_by && sort_order === "asc"}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </th>
-                      ))
-                    }
 
-                    {
-                      isShowDelete && <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Action</th>
-                    }
+            {
+              isShowDelete && <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Action</th>
+            }
 
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-                  {valuesData}
-                </tbody>
-                <tfoot class="bg-primary text-white">
-                  <tr>
-                    <th></th>
-                    <th class="px-6 py-3 cursor-pointer text-start font-semibold">Total</th>
-                    <th class="px-6 py-3 cursor-pointer text-start font-semibold">{formatNumbersWithCommas(total)}</th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+          {lists}
+        </tbody>
+        <tfoot class="bg-primary text-white">
+          <tr>
+            <th></th>
+            <th class="px-6 py-3 cursor-pointer text-start font-semibold">Total</th>
+            <th class="px-6 py-3 cursor-pointer text-start font-semibold">{formatNumbersWithCommas(total)}</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   );
 }
