@@ -1,24 +1,31 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLimit, setPage } from "../../features/filters/filterSlice";
 
-export default function Pagination({ page = 0, pages = 0, total = 0, limit = 12, setPage, setLimit }) {
+export default function Pagination({ pages = 0, total = 0 }) {
+
   const [visibleRange, setVisibleRange] = useState([1, Math.min(5, pages)]); // Initial range
+
+  const { page, limit, search } = useSelector((state) => state.filters);
+
+  const dispatch = useDispatch();
 
   // Handle changing the page
   const handlePageChange = (pageNumber) => {
-    setPage(pageNumber);
+    dispatch(setPage(pageNumber));
   };
 
   // Handle previous button
   const handlePrevious = () => {
     if (page > 1) {
-      setPage(page - 1);
+      dispatch(setPage(page - 1))
     }
   };
 
   // Handle next button
   const handleNext = () => {
     if (page < pages) {
-      setPage(page + 1);
+      dispatch(setPage(page + 1))
     }
   };
 
@@ -34,6 +41,10 @@ export default function Pagination({ page = 0, pages = 0, total = 0, limit = 12,
 
   // Generate array of page numbers
   const pageNumbers = [...Array(pages).keys()].map((n) => n + 1);
+
+  const handleSetLimit = (e) => {
+    dispatch(setLimit(e.target.value))
+  }
 
   return (
     <>
@@ -143,7 +154,7 @@ export default function Pagination({ page = 0, pages = 0, total = 0, limit = 12,
 
         <div className="relative text-center">
           <select
-            onClick={(e) => setLimit(e.target.value)}
+            onClick={handleSetLimit}
             className=' border px-3 py-2'
             data-hs-select='{
     "placeholder": "Select option...",

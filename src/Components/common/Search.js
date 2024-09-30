@@ -1,4 +1,26 @@
-export default function Search({ search, setSearch }) {
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSearchData } from "../../features/filters/filterSlice";
+
+export default function Search({ setSearch }) {
+
+  const dispatch = useDispatch();
+  const [inputValue, setInputValue] = useState("");
+
+  // Use debounce effect
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      setSearch(inputValue);
+      dispatch(setSearchData(inputValue))
+    }, 1000);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [inputValue]);
+
+  const handleSearchValue = (e) => {
+    setInputValue(e.target.value)
+  }
+
   return (
     <div className="max-w-md">
       <div className="relative">
@@ -10,12 +32,12 @@ export default function Search({ search, setSearch }) {
             </svg>
           </div>
           <input
-            className="py-3 pl-12 pe-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+            className="py-3 pl-12 pe-4 block w-full border-2 border-primary rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none"
             type="text" role="combobox"
             aria-expanded="false"
             placeholder="Type a name"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={inputValue}
+            onChange={handleSearchValue}
             data-hs-combo-box-input="" />
         </div>
 

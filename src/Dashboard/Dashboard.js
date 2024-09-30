@@ -3,6 +3,7 @@ import BoxItem from '../Components/common/BoxItem';
 import { AuthContext } from '../Context/AuthProvider';
 import { useGetUserDetailsQuery } from '../features/user/userAPI';
 import PieChart from './../Components/PieChart';
+import Recent from './../Components/Recent';
 
 const Dashboard = () => {
     const { user } = useContext(AuthContext);
@@ -43,13 +44,14 @@ const Dashboard = () => {
                 </div>
             </div>
 
-           {/*  <div className='my-10'>
-                <Recent />
-            </div> */}
-
             <div className='my-10'>
                 <PieChart />
             </div>
+
+            <div className='my-10'>
+                <Recent />
+            </div>
+
         </div>
     );
 };

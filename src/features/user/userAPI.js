@@ -7,7 +7,7 @@ export const userApi = apiSlice.injectEndpoints({
     }),
     getUserYearDetails: builder.query({
       query: ({email, year = 2024}) => `/user-details-year?user=${email}&year=${year}`
-    })
+    }),
   })
 })
 

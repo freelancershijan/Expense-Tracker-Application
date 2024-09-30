@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom/dist';
 import AddFundCategory from '../Categories/AddFundCategory';
 import BoxItem from '../Components/common/BoxItem';
@@ -11,27 +12,13 @@ import { useGetUserFundCategoriesQuery } from '../features/funds/fundsAPI';
 
 const FundsCategory = () => {
     const { user } = useContext(AuthContext);
-    const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(12);
-
-    // Local state to hold the immediate input value
-    const [inputValue, setInputValue] = useState("");
-    // Debounced search state
-    const [search, setSearch] = useState("");
-
-    // Use debounce effect
-    useEffect(() => {
-        const delayDebounceFn = setTimeout(() => {
-            setSearch(inputValue);
-        }, 1000);
-
-        return () => clearTimeout(delayDebounceFn);
-    }, [inputValue]);
+    const { page, limit, search } = useSelector((state) => state.filters);
 
     const { data: fundCategories, isError, isLoading } = useGetUserFundCategoriesQuery({
         email: user?.email,
         page,
-        limit
+        limit,
+        search
     });
 
     const { totalPages, totalResults } = fundCategories?.results || {};
@@ -39,7 +26,7 @@ const FundsCategory = () => {
     let pagination;
     if (!isLoading) {
         pagination = <div className='bg-white p-3 rounded-lg shadow-lg'>
-            <Pagination pages={totalPages} setPage={setPage} setLimit={setLimit} page={page} total={totalResults} limit={limit} />
+            <Pagination pages={totalPages} total={totalResults} />
         </div>
     }
 
@@ -47,7 +34,7 @@ const FundsCategory = () => {
         <div className='m-10'>
 
             <div className='text-end'>
-                <Search search={inputValue} setSearch={setInputValue} />
+                <Search />
             </div>
 
             {
