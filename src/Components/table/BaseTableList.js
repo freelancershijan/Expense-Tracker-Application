@@ -2,20 +2,11 @@ import { useState } from "react";
 import Search from "../common/Search";
 import BaseTable from "./BaseTable";
 
-export default function BaseTableList({ columns, values, total, isLoading, isError, isShowDelete, isShowSearch }) {
+export default function BaseTableList({ columns, values, total, isLoading, error, isError, isShowDelete, isShowSearch }) {
 
   const [search, setSearch] = useState("");
 
   console.log('Search', search);
-
-  let valuesData;
-  if (isLoading) valuesData = <div>Loading...</div>
-  if (!isLoading && isError) valuesData = <div>Error...</div>
-  if (!isLoading && !isError && values?.length === 0) valuesData = <div>No Data Found...</div>
-  if (!isLoading && !isError && values?.length > 0) {
-    valuesData = values
-  }
-
 
   return (
     <div class="flex flex-col bg-white rounded-lg">
@@ -34,8 +25,9 @@ export default function BaseTableList({ columns, values, total, isLoading, isErr
               total={total}
               isShowDelete={isShowDelete}
               isLoading={isLoading}
-              lists={valuesData}
+              lists={values}
               isError={isError}
+              error={error}
             />
           </div>
         </div>

@@ -15,7 +15,7 @@ export default function TableList() {
     }, [dispatch, setLimit])
 
     // Check if user email is available before making the query
-    const { data: recentCostsTransactions, isError, isLoading } = useGetUserRecentCostsTransactionsQuery({
+    const { data: recentCostsTransactions, error, isError, isLoading } = useGetUserRecentCostsTransactionsQuery({
         email: user?.email,
         page,
         limit,
@@ -72,6 +72,7 @@ export default function TableList() {
                 total={recentCostsTransactions?.results?.totalAmount}
                 isLoading={isLoading}
                 isError={isError}
+                error={error}
                 isShowDelete={false}
                 isShowSearch={false}
             >

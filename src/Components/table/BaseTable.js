@@ -1,3 +1,4 @@
+import { toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from "react-redux";
 import { setSortBy, setSortOrder } from "../../features/filters/filterSlice";
 import noDataFoundImage from "../../images/no-data-found.png";
@@ -5,7 +6,7 @@ import ArrowSortDownIcon from "../icons/ArrowSortDownIcon";
 import ArrowSortUpIcon from "../icons/ArrowSortUpIcon";
 import { formatNumbersWithCommas } from './../../utils/formatNumbersWithCommas';
 
-export default function BaseTable({ columns, lists, total, isLoading, isError, isShowDelete }) {
+export default function BaseTable({ columns, lists, total, isLoading, error, isError, isShowDelete }) {
 
   console.log('lists', lists);
 
@@ -58,6 +59,17 @@ export default function BaseTable({ columns, lists, total, isLoading, isError, i
   }
 
   if (!isLoading && isError) {
+    tableRowsData = <tr>
+      <td colSpan={columns?.length}>
+        <div className="h-[450px] flex justify-center items-center">
+          <img className="h-80 overflow-hidden" src={noDataFoundImage} alt="No Data Found" />
+        </div>
+      </td>
+    </tr>
+    toast.error(error?.data?.message || 'There was an Error')
+  }
+
+  if (!isLoading && !isError && lists?.length === 0) {
     tableRowsData = <tr>
       <td colSpan={columns?.length}>
         <div className="h-[450px] flex justify-center items-center">

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@heroicons/react": "^2.0.17",
+    "@preline/select": "^2.5.0",
     "@reduxjs/toolkit": "^2.2.7",
     "@sentry/react": "^8.26.0",
     "@testing-library/jest-dom": "^5.16.5",
