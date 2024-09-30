@@ -48,9 +48,9 @@ export default function Pagination({ pages = 0, total = 0 }) {
 
   return (
     <>
-      <div className="grid justify-center sm:flex sm:justify-between sm:items-center gap-1">
+      <div className="grid text-center justify-center sm:flex sm:justify-between sm:items-center gap-1">
         {/* Pagination */}
-        <nav className="flex items-center -space-x-px" aria-label="Pagination">
+        <nav className="flex items-center justify-center -space-x-px" aria-label="Pagination">
           {/* Previous Button */}
           <button
             type="button"

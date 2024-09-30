@@ -1,12 +1,7 @@
-import { useState } from "react";
 import Search from "../common/Search";
 import BaseTable from "./BaseTable";
 
 export default function BaseTableList({ columns, values, total, isLoading, error, isError, isShowDelete, isShowSearch }) {
-
-  const [search, setSearch] = useState("");
-
-  console.log('Search', search);
 
   return (
     <div class="flex flex-col bg-white rounded-lg">
@@ -16,7 +11,7 @@ export default function BaseTableList({ columns, values, total, isLoading, error
             {
               isShowSearch &&
               <div class="py-3 px-4">
-                <Search setSearch={setSearch} />
+                <Search />
               </div>
             }
 

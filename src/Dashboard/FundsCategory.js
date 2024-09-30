@@ -8,6 +8,7 @@ import BoxLoading from '../Components/Loading/BoxLoading';
 import Pagination from '../Components/pagination/Pagination';
 import { AuthContext } from '../Context/AuthProvider';
 import { useGetUserFundCategoriesQuery } from '../features/funds/fundsAPI';
+import noDataFoundImage from "../images/no-data-found.png";
 
 
 const FundsCategory = () => {
@@ -24,7 +25,7 @@ const FundsCategory = () => {
     const { totalPages, totalResults } = fundCategories?.results || {};
 
     let pagination;
-    if (!isLoading) {
+    if (!isLoading && totalPages > 0) {
         pagination = <div className='bg-white p-3 rounded-lg shadow-lg'>
             <Pagination pages={totalPages} total={totalResults} />
         </div>
@@ -43,8 +44,13 @@ const FundsCategory = () => {
                         <BoxLoading value="6" />
                     </div>
                     :
-                    fundCategories?.results?.data?.length === 0 ? <div className='h-[100vh] px-6 flex items-center justify-center  my-10'>
-                        <h1 className='md:text-2xl sm:text-xl text-lg text-center font-semibold'>You Have not any Fund Category. Please Create a Fund Category FIrst</h1>
+                    fundCategories?.results?.data?.length === 0 ? <div className='px-6 flex items-center justify-center'>
+                        <div>
+                            <div className="h-[450px] flex justify-center items-center">
+                                <img className="h-80 overflow-hidden" src={noDataFoundImage} alt="No Data Found" />
+                            </div>
+                            <h1 className='md:text-2xl sm:text-xl text-lg text-center font-semibold'>You Have not any Fund Category. Please Create a Fund Category FIrst</h1>
+                        </div>
                     </div> :
                         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center my-10">
                             {
