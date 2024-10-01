@@ -9,8 +9,13 @@ export const fundsApi = apiSlice.injectEndpoints({
       query: ({ email, page = 1, limit = 10, sort_by = '_id', sort_order = 'desc', search = "" }) => {
         return `/funds/user-funds?user=${ email }&page=${ page }&limit=${ limit }&sort_by=${ sort_by }&sort_order=${ sort_order }&search=${ search }`;
       }
-    })
+    }),
+    getUserCategoryFundLists: builder.query({
+      query: ({ email, category, page = 1, limit = 10, sort_by = '_id', sort_order = 'desc', search = "" }) => {
+        return `/funds/user-fund-category?category_name=${category}&user=${email}&page=${page}&limit=${limit}&sort_by=${sort_by}&sort_order=${sort_order}&search=${search}`;
+      }
+    }),
   })
 })
 
-export const { useGetUserFundCategoriesQuery, useGetUserRecentFundsTransactionsQuery } = fundsApi;
+export const { useGetUserFundCategoriesQuery, useGetUserRecentFundsTransactionsQuery, useGetUserCategoryFundListsQuery } = fundsApi;
