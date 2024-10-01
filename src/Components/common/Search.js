@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSearchData } from "../../features/filters/filterSlice";
 
-export default function Search({ setSearch }) {
+export default function Search() {
 
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
@@ -10,7 +10,6 @@ export default function Search({ setSearch }) {
   // Use debounce effect
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      setSearch(inputValue);
       dispatch(setSearchData(inputValue))
     }, 1000);
 
