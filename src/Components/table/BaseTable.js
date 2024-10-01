@@ -111,7 +111,7 @@ export default function BaseTable({ columns, lists, total, isLoading, error, isE
             }
 
             {
-              isShowDelete && <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Action</th>
+              isShowDelete && <th scope="col" class="px-6 py-3 text-end text-xs font-medium uppercase">Action</th>
             }
 
           </tr>
@@ -127,6 +127,7 @@ export default function BaseTable({ columns, lists, total, isLoading, error, isE
               <th class="px-6 py-3 cursor-pointer text-start font-semibold">{formatNumbersWithCommas(total)}</th>
               <th></th>
               <th></th>
+              {isShowDelete && <th></th>}
             </tr>
           </tfoot>
         }
