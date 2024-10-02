@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSearchData } from "../../features/filters/filterSlice";
 
-export default function Search() {
+export default function Search({width}) {
 
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
@@ -21,7 +21,7 @@ export default function Search() {
   }
 
   return (
-    <div className="max-w-md">
+    <div className={`w-[${width}]`}>
       <div className="relative">
         <div className="relative">
           <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 pl-3.5">

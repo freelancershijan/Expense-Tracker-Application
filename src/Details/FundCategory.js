@@ -9,7 +9,7 @@ import FundCategoryTableRowItem from './FundCategoryTableRowItem';
 export default function FundCategory() {
     const { user } = useContext(AuthContext);
     const { category } = useParams();
-    const { page, limit, sort_by, search, sort_order } = useSelector((state) => state.filters);
+    const { page, limit, sort_by, search, sort_order, start_date, end_date } = useSelector((state) => state.filters);
 
     const { data: lists, isLoading, isError, error } = useGetUserCategoryFundListsQuery({
         email: user?.email,
@@ -18,7 +18,9 @@ export default function FundCategory() {
         limit,
         sort_by,
         sort_order,
-        search
+        search,
+        start_date, 
+        end_date
     })
 
     const columns = [

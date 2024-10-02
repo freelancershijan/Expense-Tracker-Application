@@ -5,7 +5,9 @@ const initialState = {
   limit: 20,
   search: '',
   sort_by: '_id',
-  sort_order: 'desc'
+  sort_order: 'desc',
+  start_date: '',
+  end_date: ''
 }
 
 const filterSlice = createSlice({
@@ -27,9 +29,13 @@ const filterSlice = createSlice({
     },
     setSearchData: (state, action) => {
       state.search = action.payload;
+    },
+    setDate: (state, action) => {
+      state.start_date = action.payload.start_date;
+      state.end_date = action.payload.end_date;
     }
   }
 })
 
 export default filterSlice.reducer;
-export const { setLimit, setPage, setSortBy, setSortOrder, setSearchData } = filterSlice.actions;
+export const { setLimit, setPage, setSortBy, setSortOrder, setSearchData, setDate } = filterSlice.actions;
