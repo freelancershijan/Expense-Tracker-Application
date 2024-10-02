@@ -1,12 +1,12 @@
 import { BiMoney } from 'react-icons/bi';
-import { formatNumbersWithCommas } from '../../utils/formatNumbersWithCommas';
+import { useGetValueOrDefault } from '../../utils/useGetValueOrDefault';
 import Skeleton from "../Loading/Skeleton";
 
 export default function BoxItem({ type, bg, title, value, isLoading, mainBg }) {
 
   let content;
   if (isLoading) content = <Skeleton />
-  if (!isLoading && value) content = formatNumbersWithCommas(value);
+  if (!isLoading && value) content = useGetValueOrDefault(value, '0.00');
 
   return (
     <div
