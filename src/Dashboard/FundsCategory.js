@@ -9,7 +9,6 @@ import Pagination from '../Components/pagination/Pagination';
 import { AuthContext } from '../Context/AuthProvider';
 import { useGetUserFundCategoriesQuery } from '../features/funds/fundsAPI';
 
-
 const FundsCategory = () => {
     const { user } = useContext(AuthContext);
     const { page, limit, search } = useSelector((state) => state.filters);

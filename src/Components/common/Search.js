@@ -14,7 +14,7 @@ export default function Search({width}) {
     }, 1000);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [inputValue]);
+  }, [dispatch, inputValue]);
 
   const handleSearchValue = (e) => {
     setInputValue(e.target.value)

@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom/dist';
 import AddCostCategory from '../Categories/AddCostCategory';
 import BoxItem from '../Components/common/BoxItem';
@@ -10,16 +11,13 @@ import { useGetUserCostCategoriesQuery } from '../features/costs/costsAPI';
 
 const CostsCategory = () => {
     const { user } = useContext(AuthContext);
-    const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(12);
-
-    const [search, setSearch] = useState("");
-    console.log('Search', search);
+    const { page, limit, search } = useSelector((state) => state.filters);
 
     const { data: costCategories, isError, isLoading } = useGetUserCostCategoriesQuery({
         email: user?.email,
         page,
-        limit
+        limit,
+        search
     });
 
     const { totalPages, totalResults } = costCategories?.results || {};
@@ -27,7 +25,7 @@ const CostsCategory = () => {
     let pagination;
     if (!isLoading) {
         pagination = <div className='bg-white p-3 rounded-lg shadow-lg'>
-            <Pagination pages={totalPages} setPage={setPage} setLimit={setLimit} page={page} total={totalResults} limit={limit} />
+            <Pagination pages={totalPages} total={totalResults} />
         </div>
     }
 
@@ -35,7 +33,7 @@ const CostsCategory = () => {
         <div className='p-10'>
 
             <div className='text-end'>
-                <Search setSearch={setSearch} />
+                <Search />
             </div>
 
             {
