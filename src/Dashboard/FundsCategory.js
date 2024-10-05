@@ -25,13 +25,13 @@ const FundsCategory = () => {
 
     let pagination;
     if (!isLoading) {
-        pagination = <div className='bg-white p-3 rounded-lg shadow-lg'>
+        pagination = <div className='bg-white p-3 rounded-lg shadow-lg my-10'>
             <Pagination pages={totalPages} total={totalResults} />
         </div>
     }
 
     return (
-        <div className='m-10'>
+        <div className=''>
 
             <div className='text-end'>
                 <Search />
@@ -39,11 +39,11 @@ const FundsCategory = () => {
 
             {
                 isLoading ?
-                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center  my-10">
+                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center">
                         <BoxLoading value="6" />
                     </div>
                     :
-                    fundCategories?.results?.data?.length === 0 ? <div className='h-[100vh] px-6 flex items-center justify-center  my-10'>
+                    fundCategories?.results?.data?.length === 0 ? <div className='h-[100vh] px-6 flex items-center justify-center'>
                         <h1 className='md:text-2xl sm:text-xl text-lg text-center font-semibold'>You Have not any Fund Category. Please Create a Fund Category FIrst</h1>
                     </div> :
                         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center my-10">

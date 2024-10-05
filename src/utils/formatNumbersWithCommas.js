@@ -1,3 +1,12 @@
 export const formatNumbersWithCommas = (value) => {
-   return value? value.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : '0.00'
-}
+   console.log('value', value);
+   
+   // Check if value is not a valid number
+   if (!value || value === 0) {
+     return '0.00';
+   }
+ 
+   // Otherwise, format the number
+   return value?.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+ };
+ 

@@ -44,7 +44,6 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/fund/:category',
-                loader: ({ params }) => fetch(`${process.env.REACT_APP_API_URL}/funds/${params.category}`),
                 element: <FundCategory></FundCategory>
             },
             {

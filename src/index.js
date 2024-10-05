@@ -15,10 +15,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-    <Provider store={store}>
-    <PrimeReactProvider>
-      <App />
-      </PrimeReactProvider>
+      <Provider store={store}>
+        <PrimeReactProvider>
+          <App />
+        </PrimeReactProvider>
       </Provider>
     </AuthProvider>
   </React.StrictMode>

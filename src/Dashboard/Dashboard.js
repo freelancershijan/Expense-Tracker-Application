@@ -22,10 +22,10 @@ const Dashboard = () => {
     } = userDetails?.result || {};
 
     return (
-        <div className='mx-2 md:mx-10'>
+        <div className=''>
 
             <div>
-                <div className="grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5 justify-center mt-10">
+                <div className="grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5 justify-center">
                     <BoxItem bg="#E5F8ED" type="fund" title="Total Funds" value={totalIncome?.money} isLoading={isLoading} />
 
                     <BoxItem bg="#FEE8E2" type="cost" title="Total Costs" value={totalExpense?.money} isLoading={isLoading} />
@@ -48,7 +48,7 @@ const Dashboard = () => {
                 <PieChart />
             </div>
 
-            <div className='my-10'>
+            <div className=''>
                 <Recent />
             </div>
 

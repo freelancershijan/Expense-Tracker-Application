@@ -23,7 +23,7 @@ const DashboardLayout = () => {
             <div className='col-span-1 hidden lg:block'>
                 <SidebarComponent />
                 </div>
-                <div className="bg-[#F2F2F2] xl:col-span-4 lg:col-span-3 col-span-4">
+                <div className="bg-[#F2F2F2] xl:col-span-4 lg:col-span-3 col-span-4 p-5">
                     <Outlet></Outlet>
                 </div>
             </div>
