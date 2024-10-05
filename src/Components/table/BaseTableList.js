@@ -9,7 +9,7 @@ export default function BaseTableList({ columns, values, total, isLoading, error
       <div className="-m-1.5 overflow-x-auto">
         <div className="p-1.5 min-w-full inline-block align-middle">
           <div className="border rounded-lg divide-y divide-gray-200 dark:border-neutral-700 dark:divide-neutral-700">
-            <div className="flex">
+            <div className="flex z-50">
             {
               isShowSearch &&
               <div className="py-3 px-4">

@@ -31,7 +31,7 @@ const BaseDatePicker = () => {
     });
 
     return (
-        <div className="border-2 border-primary">
+        <div className="border-2 border-primary rounded-lg py-[2px]">
           <DatePicker 
             primaryColor={"blue"}
             value={value} 

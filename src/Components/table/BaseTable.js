@@ -84,7 +84,7 @@ export default function BaseTable({ columns, lists, total, isLoading, error, isE
   }
 
   return (
-    <div class="overflow-auto min-h-[500px]">
+    <div class="overflow-auto min-h-[500px] -z-[999]">
       <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-primary text-white sticky top-0 z-10">
           <tr>
