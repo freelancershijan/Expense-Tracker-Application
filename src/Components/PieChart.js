@@ -111,8 +111,8 @@ export default function PieChart() {
               <div className="md:flex grid md:justify-between text-center gap-3 md:items-center py-3">
                 <SelectBox setYear={setYear} />
                 <div className="md:flex gap-3">
-                  <p>Total Income: {isLoading ? <Skeleton /> : <span className="font-semibold text-[#185519]">{formatNumbersWithCommas(userYearData?.result?.income?.total)}</span>}</p>
-                  <p>Total Expense: {isLoading ? <Skeleton /> : <span className="font-semibold text-[#B8001F]">{formatNumbersWithCommas(userYearData?.result?.expense?.total)}</span>}</p>
+                  <p>Total Income: {isLoading ? <Skeleton /> : <span className="font-bold text-[#185519]">{formatNumbersWithCommas(userYearData?.result?.income?.total)}</span>}</p>
+                  <p>Total Expense: {isLoading ? <Skeleton /> : <span className="font-bold text-[#B8001F]">{formatNumbersWithCommas(userYearData?.result?.expense?.total)}</span>}</p>
                 </div>
               </div>
               <ReactApexChart options={state.options} series={state.series} type="bar" height={350} />
