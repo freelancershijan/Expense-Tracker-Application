@@ -11,7 +11,7 @@ import LoadingSpinner from "./LoadingSpinner/LoadingSpinner";
 export default function PieChart() {
   const { user } = useContext(AuthContext);
   const [year, setYear] = useState(2024)
-  const { data: userYearData, isLoading, isSuccess, isError } = useGetUserYearDetailsQuery({
+  const { data: userYearData, isLoading } = useGetUserYearDetailsQuery({
     email: user?.email,
     year
   })

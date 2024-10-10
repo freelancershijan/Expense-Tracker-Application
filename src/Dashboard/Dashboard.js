@@ -8,7 +8,7 @@ import Recent from './../Components/Recent';
 const Dashboard = () => {
     const { user } = useContext(AuthContext);
 
-    const { data: userDetails, isError, isLoading } = useGetUserDetailsQuery(user?.email);
+    const { data: userDetails, isLoading } = useGetUserDetailsQuery(user?.email);
 
     // Add a fallback for when userDetails is undefined
     const {

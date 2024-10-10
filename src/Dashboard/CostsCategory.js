@@ -13,7 +13,7 @@ const CostsCategory = () => {
     const { user } = useContext(AuthContext);
     const { page, limit, search } = useSelector((state) => state.filters);
 
-    const { data: costCategories, isError, isLoading } = useGetUserCostCategoriesQuery({
+    const { data: costCategories, isLoading } = useGetUserCostCategoriesQuery({
         email: user?.email,
         page,
         limit,
@@ -30,7 +30,7 @@ const CostsCategory = () => {
     }
 
     return (
-        <div className='p-10'>
+        <div>
 
             <div className='text-end'>
                 <Search />
@@ -38,7 +38,7 @@ const CostsCategory = () => {
 
             {
                 isLoading ?
-                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center  my-10">
+                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center my-10">
                         <BoxLoading value="6" />
                     </div>
                     :

@@ -1,7 +1,7 @@
 import { formatNumbersWithCommas } from "../utils/formatNumbersWithCommas";
 
-export default function FundCategoryTableRowItem({ rowData, onDelete }){
-  const { category, _id, notes, money, time, date } = rowData;
+export default function FundCategoryTableRowItem({ rowData }){
+  const { category, notes, money, time, date } = rowData;
   return (
     <>
       <tr>

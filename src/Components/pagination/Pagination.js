@@ -6,7 +6,7 @@ export default function Pagination({ pages = 0, total = 0 }) {
 
   const [visibleRange, setVisibleRange] = useState([1, Math.min(5, pages)]); // Initial range
 
-  const { page, limit, search } = useSelector((state) => state.filters);
+  const { page, limit } = useSelector((state) => state.filters);
 
   const dispatch = useDispatch();
 
