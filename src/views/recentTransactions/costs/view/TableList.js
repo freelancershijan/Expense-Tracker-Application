@@ -75,6 +75,8 @@ export default function TableList() {
                 error={error}
                 isShowDelete={false}
                 isShowSearch={false}
+                isShowDate={false}
+                isRefresh={false}
             >
 
             </BaseTableList>

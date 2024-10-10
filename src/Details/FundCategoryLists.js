@@ -70,8 +70,6 @@ export default function FundCategoryLists() {
                 isLoading={isLoading}
                 isError={isError}
                 error={error}
-                isShowDelete={true}
-                isShowSearch={true}
             />
         </div>
     );

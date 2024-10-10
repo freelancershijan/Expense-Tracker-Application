@@ -33,9 +33,18 @@ const filterSlice = createSlice({
     setDate: (state, action) => {
       state.start_date = action.payload.start_date;
       state.end_date = action.payload.end_date;
+    },
+    setRefresh: (state, action) => {
+      state.page = '1';
+      state.limit = '20';
+      state.search = '';
+      state.sort_by = '_id';
+      state.sort_order = 'desc';
+      state.start_date = '';
+      state.end_date = '';
     }
   }
 })
 
 export default filterSlice.reducer;
-export const { setLimit, setPage, setSortBy, setSortOrder, setSearchData, setDate } = filterSlice.actions;
+export const { setLimit, setPage, setSortBy, setSortOrder, setSearchData, setDate, setRefresh } = filterSlice.actions;
