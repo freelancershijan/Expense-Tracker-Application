@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { setRefresh } from "../../features/filters/filterSlice";
+import BaseButton from "../button/BaseButton";
 import BaseDatePicker from "../common/BaseDatePicker";
 import Search from "../common/Search";
 import RefreshIcon from "../icons/RefreshIcon";
@@ -34,9 +35,9 @@ export default function BaseTableList({ columns, values, total, isLoading, error
             {
               isRefresh &&
               <div className="flex items-center justify-center">
-                <button onClick={handleRefresh} className="bg-primary text-white p-2 rounded-lg">
+                <BaseButton onClick={handleRefresh}>
                   <RefreshIcon />
-                </button>
+                </BaseButton>
               </div>
             }
             </div>
