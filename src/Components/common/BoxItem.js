@@ -4,9 +4,10 @@ import Skeleton from "../Loading/Skeleton";
 
 export default function BoxItem({ type, bg, title, value, isLoading, mainBg }) {
 
+  const displayValue = useGetValueOrDefault(value, '0.00');
   let content;
   if (isLoading) content = <Skeleton />
-  if (!isLoading && value) content = useGetValueOrDefault(value, '0.00');
+  if (!isLoading && value) content = displayValue;
 
   return (
     <div

@@ -12,8 +12,8 @@ import DashboardLayout from "./Dashboard/DashboardLayout";
 import FundsCategory from "./Dashboard/FundsCategory";
 import AllCost from "./Details/AllCost";
 import AllFund from "./Details/AllFund";
-import CostCategories from "./Details/CostCategories";
-import FundCategory from "./Details/FundCategory";
+import CostCategoryLists from "./Details/CostCategoryLists";
+import FundCategoryLists from "./Details/FundCategoryLists";
 // import PrivateRoute from "./PrivetRoute/PrivateRoute";
 // import ProtectedRoute from "./ProtectectRoute/ProtectedRoute";
 
@@ -44,12 +44,11 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/fund/:category',
-                element: <FundCategory></FundCategory>
+                element: <FundCategoryLists />
             },
             {
                 path: '/cost/:category',
-                loader: ({ params }) => fetch(`${process.env.REACT_APP_API_URL}/costs/${params.category}`),
-                element: <CostCategories></CostCategories>
+                element: <CostCategoryLists />
             },
             {
                 path: '/add-fund',

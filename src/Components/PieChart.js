@@ -11,7 +11,7 @@ import LoadingSpinner from "./LoadingSpinner/LoadingSpinner";
 export default function PieChart() {
   const { user } = useContext(AuthContext);
   const [year, setYear] = useState(2024)
-  const { data: userYearData, isLoading, isSuccess, isError } = useGetUserYearDetailsQuery({
+  const { data: userYearData, isLoading } = useGetUserYearDetailsQuery({
     email: user?.email,
     year
   })
@@ -99,7 +99,7 @@ export default function PieChart() {
 
   return (
     <div className="grid xl:grid-cols-3 gap-5">
-      <div id="chart" className="xl:col-span-2 col-span-1 bg-white p-2 rounded-lg shadow-lg">
+      <div id="chart" className="xl:col-span-2 col-span-1 bg-white rounded-lg shadow-lg">
         {
           isLoading
             ?
@@ -108,14 +108,16 @@ export default function PieChart() {
             </div>
             :
             <div>
-              <div className="md:flex grid md:justify-between text-center gap-3 md:items-center py-3">
+              <div className="md:flex grid md:justify-between text-center gap-3 md:items-center p-3 border-b">
                 <SelectBox setYear={setYear} />
                 <div className="md:flex gap-3">
-                  <p>Total Income: {isLoading ? <Skeleton /> : <span className="font-semibold text-[#185519]">{formatNumbersWithCommas(userYearData?.result?.income?.total)}</span>}</p>
-                  <p>Total Expense: {isLoading ? <Skeleton /> : <span className="font-semibold text-[#B8001F]">{formatNumbersWithCommas(userYearData?.result?.expense?.total)}</span>}</p>
+                  <p>Total Income: {isLoading ? <Skeleton /> : <span className="font-bold text-[#185519]">{formatNumbersWithCommas(userYearData?.result?.income?.total)}</span>}</p>
+                  <p>Total Expense: {isLoading ? <Skeleton /> : <span className="font-bold text-[#B8001F]">{formatNumbersWithCommas(userYearData?.result?.expense?.total)}</span>}</p>
                 </div>
               </div>
-              <ReactApexChart options={state.options} series={state.series} type="bar" height={350} />
+              <div className="p-3">
+                <ReactApexChart options={state.options} series={state.series} type="bar" height={350} />
+              </div>
             </div>
         }
       </div>

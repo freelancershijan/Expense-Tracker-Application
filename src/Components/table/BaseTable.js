@@ -6,7 +6,7 @@ import ArrowSortDownIcon from "../icons/ArrowSortDownIcon";
 import ArrowSortUpIcon from "../icons/ArrowSortUpIcon";
 import { formatNumbersWithCommas } from './../../utils/formatNumbersWithCommas';
 
-export default function BaseTable({ columns, lists, total, isLoading, error, isError, isShowDelete }) {
+export default function BaseTable({ columns, lists, total, isLoading, error, isError, isShowDelete, isShowDate = true, isShowSearch = true, isRefresh = true }) {
 
   console.log('lists', lists);
 

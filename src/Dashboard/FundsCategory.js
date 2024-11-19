@@ -9,12 +9,11 @@ import Pagination from '../Components/pagination/Pagination';
 import { AuthContext } from '../Context/AuthProvider';
 import { useGetUserFundCategoriesQuery } from '../features/funds/fundsAPI';
 
-
 const FundsCategory = () => {
     const { user } = useContext(AuthContext);
     const { page, limit, search } = useSelector((state) => state.filters);
 
-    const { data: fundCategories, isError, isLoading } = useGetUserFundCategoriesQuery({
+    const { data: fundCategories, isLoading } = useGetUserFundCategoriesQuery({
         email: user?.email,
         page,
         limit,
@@ -39,7 +38,7 @@ const FundsCategory = () => {
 
             {
                 isLoading ?
-                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center">
+                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center my-10">
                         <BoxLoading value="6" />
                     </div>
                     :
@@ -48,7 +47,7 @@ const FundsCategory = () => {
                     </div> :
                         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center my-10">
                             {
-                                fundCategories?.results?.data?.map(category => <Link key={category._id} to={`/fund/${ category?.name }`}>
+                                fundCategories?.results?.data?.map(category => <Link key={category?._id} to={`/fund/${ category?.name }`}>
                                     <BoxItem bg="#E5F8ED" type="fund" title={category?.name} value={category?.money} isLoading={isLoading} />
                                 </Link>)
                             }

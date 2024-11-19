@@ -1,14 +1,18 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import BaseTableList from "../Components/table/BaseTableList";
 import { AuthContext } from "../Context/AuthProvider";
 import { useGetUserCategoryCostListsQuery } from "../features/costs/costsAPI";
 import CostCategoryTableRowItem from "./CostCategoryTableRowItem";
+import EditCostModal from "./EditCostModal";
 
-export default function FundCategory() {
+export default function CostCategoryLists() {
     const { user } = useContext(AuthContext);
     const { category } = useParams();
+    const [showModal, setShowModal] = useState(false);
+    console.log("showModal", showModal);
+    
     const { page, limit, sort_by, search, sort_order, start_date, end_date } = useSelector((state) => state.filters);
 
     const { data: lists, isLoading, isError, error } = useGetUserCategoryCostListsQuery({
@@ -64,15 +68,16 @@ export default function FundCategory() {
                     <CostCategoryTableRowItem
                         key={item._id}
                         rowData={item}
+                        setShowModal={setShowModal}
                     />
                 ))}
                 total={lists?.results?.totalAmount}
                 isLoading={isLoading}
                 isError={isError}
                 error={error}
-                isShowDelete={true}
-                isShowSearch={true}
             />
+
+            <EditCostModal />
         </div>
     );
 }

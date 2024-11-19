@@ -3,15 +3,15 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import BaseTableList from "../Components/table/BaseTableList";
 import { AuthContext } from "../Context/AuthProvider";
-import { useGetUserCategoryCostListsQuery } from "../features/costs/costsAPI";
-import CostCategoryTableRowItem from "./CostCategoryTableRowItem";
+import { useGetUserCategoryFundListsQuery } from "../features/funds/fundsAPI";
+import FundCategoryTableRowItem from './FundCategoryTableRowItem';
 
-export default function FundCategory() {
+export default function FundCategoryLists() {
     const { user } = useContext(AuthContext);
     const { category } = useParams();
     const { page, limit, sort_by, search, sort_order, start_date, end_date } = useSelector((state) => state.filters);
 
-    const { data: lists, isLoading, isError, error } = useGetUserCategoryCostListsQuery({
+    const { data: lists, isLoading, isError, error } = useGetUserCategoryFundListsQuery({
         email: user?.email,
         category,
         page,
@@ -19,7 +19,7 @@ export default function FundCategory() {
         sort_by,
         sort_order,
         search,
-        start_date,
+        start_date, 
         end_date
     })
 
@@ -61,7 +61,7 @@ export default function FundCategory() {
             <BaseTableList
                 columns={columns}
                 values={lists?.results?.data?.map(item => (
-                    <CostCategoryTableRowItem
+                    <FundCategoryTableRowItem
                         key={item._id}
                         rowData={item}
                     />
@@ -70,8 +70,6 @@ export default function FundCategory() {
                 isLoading={isLoading}
                 isError={isError}
                 error={error}
-                isShowDelete={true}
-                isShowSearch={true}
             />
         </div>
     );

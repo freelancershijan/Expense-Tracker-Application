@@ -1,8 +1,21 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setRefresh } from "../../features/filters/filterSlice";
+import BaseButton from "../button/BaseButton";
 import BaseDatePicker from "../common/BaseDatePicker";
 import Search from "../common/Search";
+import RefreshIcon from "../icons/RefreshIcon";
 import BaseTable from "./BaseTable";
 
-export default function BaseTableList({ columns, values, total, isLoading, error, isError, isShowDelete, isShowSearch }) {
+export default function BaseTableList({ columns, values, total, isLoading, error, isError, isShowDelete = true, isShowDate = true, isShowSearch = true, isRefresh = true }) {
+
+  const dispatch = useDispatch();
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  const handleRefresh = () => {
+    dispatch(setRefresh());
+    setRefreshTrigger((prev) => prev + 1);
+  }
 
   return (
     <div className="flex flex-col bg-white rounded-lg">
@@ -10,18 +23,26 @@ export default function BaseTableList({ columns, values, total, isLoading, error
         <div className="p-1.5 min-w-full inline-block align-middle">
           <div className="border rounded-lg divide-y divide-gray-200 dark:border-neutral-700 dark:divide-neutral-700">
             <div className="flex z-50">
-            {
-              isShowSearch &&
-              <div className="py-3 px-4">
-                <Search width="300px" />
-              </div>
-            }
-            {
-              isShowSearch &&
-              <div className="py-3 px-4 w-[300px]">
-                <BaseDatePicker />
-              </div>
-            }
+              {
+                isShowSearch &&
+                <div className="py-3 px-4">
+                  <Search refreshTrigger={refreshTrigger} width="300px" />
+                </div>
+              }
+              {
+                isShowDate &&
+                <div className="py-3 px-4 w-[300px]">
+                  <BaseDatePicker refreshTrigger={refreshTrigger} />
+                </div>
+              }
+              {
+                isRefresh &&
+                <div className="flex items-center justify-center">
+                  <BaseButton handleRefresh={handleRefresh}>
+                    <RefreshIcon />
+                  </BaseButton>
+                </div>
+              }
             </div>
 
             <BaseTable
