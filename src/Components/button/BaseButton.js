@@ -1,6 +1,6 @@
-export default function BaseButton({children}){
+export default function BaseButton({handleRefresh, children}){
     return (
-      <button className="bg-primary text-white p-2 rounded-lg">
+      <button onClick={handleRefresh} className="bg-primary text-white p-2 rounded-lg">
         {children}
       </button>
     );

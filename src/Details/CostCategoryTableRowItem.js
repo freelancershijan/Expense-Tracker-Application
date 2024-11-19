@@ -2,7 +2,7 @@ import { DeleteIcon } from "../Components/icons/DeleteIcon";
 import { EditIcon } from "../Components/icons/EditIcon";
 import { formatNumbersWithCommas } from "../utils/formatNumbersWithCommas";
 
-export default function CostCategoryTableRowItem({ rowData }) {
+export default function CostCategoryTableRowItem({ rowData, setShowModal }) {
   const { category, notes, money, time, date } = rowData;
   return (
     <>
@@ -15,7 +15,7 @@ export default function CostCategoryTableRowItem({ rowData }) {
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
           <div className="flex justify-end gap-1">
             <div>
-              <EditIcon className="cursor-pointer w-8 h-8 border border-green-600 hover:bg-green-600 text-green-600 hover:text-white p-1.5 rounded-full" />
+              <EditIcon onClick={() => setShowModal(true)} className="cursor-pointer w-8 h-8 border border-green-600 hover:bg-green-600 text-green-600 hover:text-white p-1.5 rounded-full" />
             </div>
             <div>
               <DeleteIcon className="cursor-pointer w-8 h-8 border border-red-600 hover:bg-red-600 text-red-600 hover:text-white p-1.5 rounded-full" />

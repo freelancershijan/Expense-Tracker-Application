@@ -4,10 +4,10 @@ import { useDispatch } from "react-redux";
 import DatePicker from "react-tailwindcss-datepicker";
 import { setDate } from "../../features/filters/filterSlice";
 
-const BaseDatePicker = () => { 
+const BaseDatePicker = ({ refreshTrigger }) => {
     const dispatch = useDispatch();
-    const [value, setValue] = useState({ 
-        startDate: null, 
+    const [value, setValue] = useState({
+        startDate: null,
         endDate: null
     });
 
@@ -24,19 +24,21 @@ const BaseDatePicker = () => {
         }));
     }, [value, dispatch]);
 
-    // Logging the formatted dates
-    console.log('Formatted Value', {
-        startDate: formatDate(value?.startDate),
-        endDate: formatDate(value?.endDate)
-    });
+    // Reset Value when refresh button click
+    useEffect(() => {
+        setValue({
+            startDate: null,
+            endDate: null
+        });
+    }, [refreshTrigger])
 
     return (
         <div className="border-2 border-primary rounded-lg py-[2px]">
-          <DatePicker 
-            primaryColor={"blue"}
-            value={value} 
-            onChange={newValue => setValue(newValue)}
-          /> 
+            <DatePicker
+                primaryColor={"blue"}
+                value={value}
+                onChange={newValue => setValue(newValue)}
+            />
         </div>
     );
 };

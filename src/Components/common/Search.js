@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSearchData } from "../../features/filters/filterSlice";
 
-export default function Search({width}) {
+export default function Search({ width, refreshTrigger }) {
 
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
@@ -16,12 +16,17 @@ export default function Search({width}) {
     return () => clearTimeout(delayDebounceFn);
   }, [dispatch, inputValue]);
 
+  // Reset Value when refresh button click
+  useEffect(() => {
+    setInputValue("");
+  }, [refreshTrigger])
+
   const handleSearchValue = (e) => {
     setInputValue(e.target.value)
   }
 
   return (
-    <div className={`w-[${width}]`}>
+    <div className={`w-[${ width }]`}>
       <div className="relative">
         <div className="relative">
           <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 pl-3.5">
