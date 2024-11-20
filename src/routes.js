@@ -43,11 +43,11 @@ export const routes = createBrowserRouter([
 
             },
             {
-                path: '/fund/:category',
+                path: '/fund-category/:category',
                 element: <FundCategoryLists />
             },
             {
-                path: '/cost/:category',
+                path: '/cost-category/:category',
                 element: <CostCategoryLists />
             },
             {

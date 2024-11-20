@@ -1,6 +1,5 @@
 export const formatNumbersWithCommas = (value) => {
-   console.log('value', value);
-   
+
    // Check if value is not a valid number
    if (!value || value === 0) {
      return '0.00';

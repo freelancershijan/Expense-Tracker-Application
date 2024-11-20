@@ -1,18 +1,21 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import DeleteModal from "../Components/modal/DeleteModal";
 import BaseTableList from "../Components/table/BaseTableList";
 import { AuthContext } from "../Context/AuthProvider";
-import { useGetUserCategoryCostListsQuery } from "../features/costs/costsAPI";
+import { useDeleteCostMutation, useGetUserCategoryCostListsQuery } from "../features/costs/costsAPI";
 import CostCategoryTableRowItem from "./CostCategoryTableRowItem";
-import EditCostModal from "./EditCostModal";
 
 export default function CostCategoryLists() {
     const { user } = useContext(AuthContext);
     const { category } = useParams();
     const [showModal, setShowModal] = useState(false);
-    console.log("showModal", showModal);
-    
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [isDelete, setIsDelete] = useState(false);
+    const [item, setItem] = useState({});
+
     const { page, limit, sort_by, search, sort_order, start_date, end_date } = useSelector((state) => state.filters);
 
     const { data: lists, isLoading, isError, error } = useGetUserCategoryCostListsQuery({
@@ -60,6 +63,46 @@ export default function CostCategoryLists() {
         }
     ]
 
+    const breadcrumbs = [
+        {
+            id: 1,
+            name: "Costs",
+            path: "/cost-category",
+        },
+        {
+            id: 2,
+            name: category,
+            path: "",
+        }
+    ];
+
+    const [deleteCost, { isLoading: isDeleteLoading, isSuccess: isDeleteSuccess, isError: isDeleteError, error: deleteError }] = useDeleteCostMutation();
+
+    const handleDelete = () => {
+        if (item._id) {
+            deleteCost(item._id);
+        } else {
+            toast.error("Invalid item ID");
+        }
+    };
+
+    useEffect(() => {
+        if (isDelete) {
+            handleDelete();
+            setIsDelete(false);
+        }
+    }, [isDelete])
+
+    useEffect(() => {
+        if (isDeleteSuccess) {
+            toast.success("Item Deleted Successfully");
+            setShowDeleteModal(false);
+        }
+        if (isDeleteError) {
+            toast.error(deleteError?.data?.message || "Failed to delete the item");
+        }
+    }, [isDeleteSuccess, isDeleteError, deleteError, setShowDeleteModal]);
+
     return (
         <div>
             <BaseTableList
@@ -69,15 +112,26 @@ export default function CostCategoryLists() {
                         key={item._id}
                         rowData={item}
                         setShowModal={setShowModal}
+                        setShowDeleteModal={setShowDeleteModal}
+                        setItem={setItem}
                     />
                 ))}
                 total={lists?.results?.totalAmount}
                 isLoading={isLoading}
                 isError={isError}
                 error={error}
+                breadcrumbs={breadcrumbs}
             />
 
-            <EditCostModal />
+            {/* <EditCostModal /> */}
+            {showDeleteModal && (
+                <DeleteModal
+                    showDeleteModal={showDeleteModal}
+                    setShowDeleteModal={setShowDeleteModal}
+                    setIsDelete={setIsDelete}
+                    isLoading={isDeleteLoading}
+                />
+            )}
         </div>
     );
 }
