@@ -1,4 +1,5 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import DeleteModal from "../Components/modal/DeleteModal";
@@ -12,12 +13,10 @@ export default function CostCategoryLists() {
     const { category } = useParams();
     const [showModal, setShowModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [isDelete, setIsDelete] = useState(false);
     const [item, setItem] = useState({});
 
-
     const { page, limit, sort_by, search, sort_order, start_date, end_date } = useSelector((state) => state.filters);
-
-    const [deleteCost, { isLoading: isDeleteLoading, isSuccess: isDeleteSuccess, isError: isDeleteError, error: deleteError }] = useDeleteCostMutation();
 
     const { data: lists, isLoading, isError, error } = useGetUserCategoryCostListsQuery({
         email: user?.email,
@@ -77,6 +76,33 @@ export default function CostCategoryLists() {
         }
     ];
 
+    const [deleteCost, { isLoading: isDeleteLoading, isSuccess: isDeleteSuccess, isError: isDeleteError, error: deleteError }] = useDeleteCostMutation();
+
+    const handleDelete = () => {
+        if (item._id) {
+            deleteCost(item._id);
+        } else {
+            toast.error("Invalid item ID");
+        }
+    };
+
+    useEffect(() => {
+        if (isDelete) {
+            handleDelete();
+            setIsDelete(false);
+        }
+    }, [isDelete])
+
+    useEffect(() => {
+        if (isDeleteSuccess) {
+            toast.success("Item Deleted Successfully");
+            setShowDeleteModal(false);
+        }
+        if (isDeleteError) {
+            toast.error(deleteError?.data?.message || "Failed to delete the item");
+        }
+    }, [isDeleteSuccess, isDeleteError, deleteError, setShowDeleteModal]);
+
     return (
         <div>
             <BaseTableList
@@ -98,7 +124,14 @@ export default function CostCategoryLists() {
             />
 
             {/* <EditCostModal /> */}
-            <DeleteModal showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} item={item} />
+            {showDeleteModal && (
+                <DeleteModal
+                    showDeleteModal={showDeleteModal}
+                    setShowDeleteModal={setShowDeleteModal}
+                    setIsDelete={setIsDelete}
+                    isLoading={isDeleteLoading}
+                />
+            )}
         </div>
     );
 }
