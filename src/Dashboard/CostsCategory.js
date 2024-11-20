@@ -1,18 +1,17 @@
-import React, { useContext } from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom/dist';
-import AddCostCategory from '../Categories/AddCostCategory';
-import BoxItem from '../Components/common/BoxItem';
-import Search from '../Components/common/Search';
-import BoxLoading from '../Components/Loading/BoxLoading';
-import Pagination from '../Components/pagination/Pagination';
-import { AuthContext } from '../Context/AuthProvider';
-import { useGetUserCostCategoriesQuery } from '../features/costs/costsAPI';
+import { useContext } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import AddCostCategory from "../Categories/AddCostCategory";
+import BoxItem from "../Components/common/BoxItem";
+import BoxLoading from "../Components/Loading/BoxLoading";
+import Pagination from "../Components/pagination/Pagination";
+import { AuthContext } from "../Context/AuthProvider";
+import { useGetUserCostCategoriesQuery } from "../features/costs/costsAPI";
+import CategoryLayout from "../Layout/CategoryLayout";
 
-const CostsCategory = () => {
+export default function CostsCategory() {
     const { user } = useContext(AuthContext);
     const { page, limit, search } = useSelector((state) => state.filters);
-
     const { data: costCategories, isLoading } = useGetUserCostCategoriesQuery({
         email: user?.email,
         page,
@@ -30,12 +29,7 @@ const CostsCategory = () => {
     }
 
     return (
-        <div>
-
-            <div className='text-end'>
-                <Search />
-            </div>
-
+        <CategoryLayout title="Cost Categories">
             {
                 isLoading ?
                     <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center my-10">
@@ -47,7 +41,7 @@ const CostsCategory = () => {
                     </div> :
                         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center my-10">
                             {
-                                costCategories?.results?.data?.map(category => <Link key={category._id} to={`/cost/${ category?.name }`}>
+                                costCategories?.results?.data?.map(category => <Link key={category._id} to={`/cost-category/${ category?.name }`}>
                                     <BoxItem bg="#FEE8E2" type="cost" title={category?.name} value={category?.money} isLoading={isLoading} />
                                 </Link>)
                             }
@@ -56,25 +50,7 @@ const CostsCategory = () => {
 
             {pagination}
 
-            <div className='fixed bottom-10 right-0 flex items-center gap-2'>
-                <Link to='/delete-category'>
-                    <div className='bg-red-700  group w-12 h-12 flex items-center justify-center rounded-full'>
-                        <i className='pi pi-trash text-white'></i>
-                    </div>
-                </Link>
-                <label htmlFor="cost-category-modal">
-                    <div className='bg-green-700 group cursor-pointer w-12 h-12 flex items-center justify-center rounded-full'>
-                        <i className='pi pi-plus text-white'></i>
-                    </div>
-                </label>
-
-            </div>
-
             <AddCostCategory />
-
-
-        </div>
+        </CategoryLayout>
     );
-};
-
-export default CostsCategory;
+}

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
 import { useDeleteCostMutation } from "../../features/costs/costsAPI";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
@@ -8,16 +7,12 @@ export default function DeleteModal({ showDeleteModal, setShowDeleteModal, item 
 
   const [deleteCost, { isLoading, isSuccess, isError, error }] = useDeleteCostMutation();
 
-  const dispatch = useDispatch;
-
   const handleClose = () => {
     // Allow the animation to run before closing
     setShowDeleteModal(false);
   };
 
   const handleDelete = () => {
-    console.log("item._id", item._id);
-    
     if (item._id) {
       deleteCost(item._id);
     } else {
@@ -63,8 +58,10 @@ export default function DeleteModal({ showDeleteModal, setShowDeleteModal, item 
             onClick={handleDelete}
             disabled={isLoading}
           >
-            {isLoading && <LoadingSpinner />}
+            <span className="flex items-center gap-3">
+            {isLoading && <LoadingSpinner color="white" />}
             Confirm
+            </span>
           </button>
         </div>
       </div>

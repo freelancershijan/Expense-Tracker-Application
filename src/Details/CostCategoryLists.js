@@ -14,9 +14,7 @@ export default function CostCategoryLists() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [item, setItem] = useState({});
 
-    console.log('item', item);
-    
-    
+
     const { page, limit, sort_by, search, sort_order, start_date, end_date } = useSelector((state) => state.filters);
 
     const { data: lists, isLoading, isError, error } = useGetUserCategoryCostListsQuery({
@@ -64,6 +62,19 @@ export default function CostCategoryLists() {
         }
     ]
 
+    const breadcrumbs = [
+        {
+            id: 1,
+            name: "Costs",
+            path: "/cost-category",
+        },
+        {
+            id: 2,
+            name: category,
+            path: "",
+        }
+    ];
+
     return (
         <div>
             <BaseTableList
@@ -81,6 +92,7 @@ export default function CostCategoryLists() {
                 isLoading={isLoading}
                 isError={isError}
                 error={error}
+                breadcrumbs={breadcrumbs}
             />
 
             {/* <EditCostModal /> */}

@@ -1,4 +1,4 @@
-export default function ({ value }) {
+export default function BoxLoading ({ value }) {
   let content = [];
 
   if (value) {

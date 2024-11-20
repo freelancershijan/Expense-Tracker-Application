@@ -19,7 +19,7 @@ export default function FundCategoryLists() {
         sort_by,
         sort_order,
         search,
-        start_date, 
+        start_date,
         end_date
     })
 
@@ -56,6 +56,19 @@ export default function FundCategoryLists() {
         }
     ]
 
+    const breadcrumbs = [
+        {
+            id: 1,
+            name: "Funds",
+            path: "/fund-category",
+        },
+        {
+            id: 2,
+            name: category,
+            path: "",
+        }
+    ];
+
     return (
         <div>
             <BaseTableList
@@ -70,6 +83,7 @@ export default function FundCategoryLists() {
                 isLoading={isLoading}
                 isError={isError}
                 error={error}
+                breadcrumbs={breadcrumbs}
             />
         </div>
     );

@@ -22,7 +22,7 @@ export default function BoxItem({ type, bg, title, value, isLoading, mainBg }) {
       </div>
       <div>
         <div className={`text-lg font-semibold ${ mainBg ? 'text-white' : 'text-gray-800' }`}>{content}</div>
-        <p className={`${ mainBg ? 'text-white' : 'text-gray-700' }`}>{title}</p>
+        <p className={`${ mainBg ? 'text-white' : 'text-gray-700' } capitalize`}>{title}</p>
       </div>
     </div>
   );
