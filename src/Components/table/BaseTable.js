@@ -8,9 +8,6 @@ import { formatNumbersWithCommas } from './../../utils/formatNumbersWithCommas';
 
 export default function BaseTable({ columns, lists, total, isLoading, error, isError, isShowDelete, isShowDate = true, isShowSearch = true, isRefresh = true }) {
 
-  console.log('lists', lists);
-
-
   const { sort_by, sort_order } = useSelector((state) => state.filters);
 
   const dispatch = useDispatch();

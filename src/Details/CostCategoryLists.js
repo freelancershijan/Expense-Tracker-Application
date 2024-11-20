@@ -1,17 +1,21 @@
 import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import DeleteModal from "../Components/modal/DeleteModal";
 import BaseTableList from "../Components/table/BaseTableList";
 import { AuthContext } from "../Context/AuthProvider";
 import { useGetUserCategoryCostListsQuery } from "../features/costs/costsAPI";
 import CostCategoryTableRowItem from "./CostCategoryTableRowItem";
-import EditCostModal from "./EditCostModal";
 
 export default function CostCategoryLists() {
     const { user } = useContext(AuthContext);
     const { category } = useParams();
     const [showModal, setShowModal] = useState(false);
-    console.log("showModal", showModal);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [item, setItem] = useState({});
+
+    console.log('item', item);
+    
     
     const { page, limit, sort_by, search, sort_order, start_date, end_date } = useSelector((state) => state.filters);
 
@@ -69,6 +73,8 @@ export default function CostCategoryLists() {
                         key={item._id}
                         rowData={item}
                         setShowModal={setShowModal}
+                        setShowDeleteModal={setShowDeleteModal}
+                        setItem={setItem}
                     />
                 ))}
                 total={lists?.results?.totalAmount}
@@ -77,7 +83,8 @@ export default function CostCategoryLists() {
                 error={error}
             />
 
-            <EditCostModal />
+            {/* <EditCostModal /> */}
+            <DeleteModal showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} item={item} />
         </div>
     );
 }
