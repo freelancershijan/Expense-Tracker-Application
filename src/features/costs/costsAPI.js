@@ -3,7 +3,10 @@ import { apiSlice } from "../api/apiSlice";
 export const costsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUserCostCategories: builder.query({
-      query: ({ email, page = 1, limit = 20, search = ""  }) => `/costs/user-all-cost-category/lists?user=${ email }&page=${ page }&limit=${ limit }&search=${search}`
+      query: ({ email, page = 1, limit = 20, search = ""  }) => {
+        return `/costs/user-all-cost-category/lists?user=${ email }&page=${ page }&limit=${ limit }&search=${search}`
+      },
+      providesTags: ['Costs'],
     }),
     getUserRecentCostsTransactions: builder.query({
       query: ({ email, page = 1, limit = 10, sort_by = '_id', sort_order = 'desc', search = "" }) => {

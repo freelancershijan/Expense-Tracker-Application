@@ -1,38 +1,13 @@
-import { useEffect } from "react";
-import toast from "react-hot-toast";
-import { useDeleteCostMutation } from "../../features/costs/costsAPI";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
-export default function DeleteModal({ showDeleteModal, setShowDeleteModal, item = {} }) {
-
-  const [deleteCost, { isLoading, isSuccess, isError, error }] = useDeleteCostMutation();
+export default function DeleteModal({ showDeleteModal, setShowDeleteModal, setIsDelete, isLoading = false }) {
 
   const handleClose = () => {
     // Allow the animation to run before closing
     setShowDeleteModal(false);
   };
 
-  const handleDelete = () => {
-    if (item._id) {
-      deleteCost(item._id);
-    } else {
-      toast.error("Invalid item ID");
-    }
-  };
 
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success("Item Deleted Successfully");
-      setShowDeleteModal(false);
-    }
-    if (isError) {
-      toast.error(error?.data?.message || "Failed to delete the item");
-    }
-  }, [isSuccess, isError, error, setShowDeleteModal]);
-
-  if (!showDeleteModal) {
-    return null;
-  }
 
   return (
     <div
@@ -55,12 +30,14 @@ export default function DeleteModal({ showDeleteModal, setShowDeleteModal, item 
           </button>
           <button
             className="px-4 py-2 bg-red-500 text-white rounded"
-            onClick={handleDelete}
+            onClick={() => {
+              if (!isLoading) setIsDelete(true);
+            }}
             disabled={isLoading}
           >
             <span className="flex items-center gap-3">
-            {isLoading && <LoadingSpinner color="white" />}
-            Confirm
+              {isLoading && <LoadingSpinner color="white" />}
+              Confirm
             </span>
           </button>
         </div>

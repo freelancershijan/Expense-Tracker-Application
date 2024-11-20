@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import DeleteModal from "../Components/modal/DeleteModal";
 import BaseTableList from "../Components/table/BaseTableList";
 import { AuthContext } from "../Context/AuthProvider";
-import { useGetUserCategoryCostListsQuery } from "../features/costs/costsAPI";
+import { useDeleteCostMutation, useGetUserCategoryCostListsQuery } from "../features/costs/costsAPI";
 import CostCategoryTableRowItem from "./CostCategoryTableRowItem";
 
 export default function CostCategoryLists() {
@@ -16,6 +16,8 @@ export default function CostCategoryLists() {
 
 
     const { page, limit, sort_by, search, sort_order, start_date, end_date } = useSelector((state) => state.filters);
+
+    const [deleteCost, { isLoading: isDeleteLoading, isSuccess: isDeleteSuccess, isError: isDeleteError, error: deleteError }] = useDeleteCostMutation();
 
     const { data: lists, isLoading, isError, error } = useGetUserCategoryCostListsQuery({
         email: user?.email,
