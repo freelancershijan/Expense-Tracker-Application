@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import BaseSelectBox from '../Components/common/BaseSelectBox';
 import BaseInput from '../Components/inputs/BaseInput';
 import LoadingSpinner from '../Components/LoadingSpinner/LoadingSpinner';
@@ -12,6 +12,7 @@ import { useAddFundMutation, useGetUserFundCategoriesQuery } from '../features/f
 const AddFund = () => {
     const { user } = useContext(AuthContext);
     const { search } = useSelector((state) => state.filters);
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         category: '',
@@ -67,30 +68,31 @@ const AddFund = () => {
 
         const data = {
             ...formData,
-            money: formData.amount,
+            money: Number(formData.amount),
             user: user?.email,
         };
-
-        try {
-            addFund(data);
-            if (isAddSuccess) {
-                toast.success('Fund added successfully!');
-                setFormData({
-                    category: '',
-                    amount: '',
-                    notes: '',
-                    date: '',
-                    time: '',
-                });
-            }
-        } catch (error) {
-            console.error('Error adding fund:', error);
-            toast.error('Failed to add fund. Please try again.');
-        }
-
+        addFund(data);
     };
+
+    useEffect(() => {
+        // Check if the request is successful or there is an error
+        if (isAddSuccess) {
+            toast.success('Fund added successfully!');
+            setFormData({
+                category: '',
+                amount: '',
+                notes: '',
+                date: '',
+                time: '',
+            });
+        }
+        if (isAddError) {
+            toast.error(addError?.data?.message);
+        }
+    }, [isAddError, isAddSuccess]);
+
     return (
-        <div>
+        <div className='h-full flex justify-center items-center'>
             {
                 fundCategories?.length === 0 ? <div className='h-[100vh] px-6 flex items-center justify-center'>
                     <div>
@@ -178,8 +180,6 @@ const AddFund = () => {
                         </form>
                     </div>
             }
-
-
 
         </div>
     );

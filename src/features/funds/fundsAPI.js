@@ -29,7 +29,7 @@ export const fundsApi = apiSlice.injectEndpoints({
     }),
     addFund: builder.mutation({
       query: (data) => ({
-        url: '/fundss',
+        url: '/funds',
         method: 'POST',
         body: data
       }),
