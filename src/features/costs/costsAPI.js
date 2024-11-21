@@ -25,7 +25,7 @@ export const costsApi = apiSlice.injectEndpoints({
         url: `/costs/delete?id=${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ['Costs'],
+      invalidatesTags: ['Costs', 'UserDetails'],
     }),
   })
 })

@@ -25,7 +25,7 @@ export const fundsApi = apiSlice.injectEndpoints({
         url: `/funds/delete?id=${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ['Funds'],
+      invalidatesTags: ['Funds', 'UserDetails'],
     }),
   })
 })
