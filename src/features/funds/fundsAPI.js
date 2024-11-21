@@ -30,4 +30,4 @@ export const fundsApi = apiSlice.injectEndpoints({
   })
 })
 
-export const { useGetUserFundCategoriesQuery, useGetUserRecentFundsTransactionsQuery, useGetUserCategoryFundListsQuery, useDeleteFundMutation } = fundsApi;
+export const { useGetUserFundCategoriesQuery, useLazyGetUserFundCategoriesQuery, useGetUserRecentFundsTransactionsQuery, useGetUserCategoryFundListsQuery, useDeleteFundMutation } = fundsApi;
