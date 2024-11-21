@@ -1,11 +1,15 @@
 export default function BaseInput({ 
-  required = false, 
-  label = '', 
-  value = '', 
-  setValue, 
+  required = false,
+  label = '',
+  value = '',
+  setValue,
   showError = false,
+  errorMessage = '',
   placeholder = '',
+  type = 'text',
 }) {
+  
+
   return (
     <div>
       <label htmlFor="hs-validation-name-error" className="block text-gray-700 font-bold mb-2">
@@ -13,9 +17,10 @@ export default function BaseInput({
       </label>
       <div className="relative">
         <input
-          type="text"
-          id="hs-validation-name-error"
-          name="hs-validation-name-error"
+          type={type}
+          id={label}
+          name={label}
+          {...(type === 'number' && { min: 0 })}
           className={`py-3 px-4 block w-full border-2 ${showError ? 'border-red-500' : 'border-gray-300'} rounded-lg text-sm`}
           placeholder={placeholder}
           value={value}
@@ -43,9 +48,7 @@ export default function BaseInput({
         )}
       </div>
       {showError && (
-        <p className="text-sm text-red-600 mt-2" id="hs-validation-name-error-helper">
-          {label} is required
-        </p>
+          <p className="text-sm text-red-600 mt-2">{errorMessage}</p>
       )}
     </div>
   );

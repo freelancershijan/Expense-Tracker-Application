@@ -1,5 +1,5 @@
 
-export default function BaseSelectBox({ isLoading = false, isError, error, lists = [], category = '', setCategory }) {
+export default function BaseSelectBox({ isLoading = false, isError, error, lists = [], value = '', setValue }) {
 
   let content;
   if (isLoading) {
@@ -15,8 +15,8 @@ export default function BaseSelectBox({ isLoading = false, isError, error, lists
   return (
     <select 
     disabled={isLoading}
-    value={category}
-    onChange={(e) => setCategory(e.target.value)}
+    value={value}
+    onChange={(e) => setValue(e.target.value)}
     data-hs-select='{
   "hasSearch": true,
   "searchLimit": 5,
