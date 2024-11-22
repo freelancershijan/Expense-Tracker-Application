@@ -36,6 +36,7 @@ const AddFund = () => {
     const validateForm = () => {
         const newErrors = {};
 
+        if (!formData.category) newErrors.category = "Category is required";
         if (!formData.notes) newErrors.notes = "Notes are required";
         if (!formData.amount) newErrors.amount = "Amount is required";
         if (!formData.date) newErrors.date = "Date is required";
