@@ -1,119 +1,67 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import LoadingSpinner from '../Components/LoadingSpinner/LoadingSpinner';
-import { AuthContext } from '../Context/AuthProvider';
+import { useCreateUserCostCategoryMutation } from '../features/costs/costsAPI';
+import BaseInput from './../Components/inputs/BaseInput';
+import BaseModal from "./../Components/modal/BaseModal";
+import { AuthContext } from './../Context/AuthProvider';
 
-const AddCostCategory = () => {
-    const { categories } = useContext(AuthContext);
-    const [isLoading, setIsLoading] = useState(false)
-    const [nameValue, setNameValue] = useState('');
+export default function AddCostCategory({ showModal, setShowModal, setIsCreate }) {
+    const {user} = useContext(AuthContext);
+    const [categoryName, setCategoryName] = useState('');
+    const [showError, setShowError] = useState(false);
+
+    const [addCategory, { isLoading , isSuccess, isError, error}] = useCreateUserCostCategoryMutation();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const name = nameValue.trim();
-        const email = localStorage.getItem('userEmail');
-
-        if (!name) {
-            toast.error("Please enter a valid Category Name.");
+        if (!categoryName.trim()) {
+            setShowError(true);
             return;
         }
 
-        const category = {
-            name,
-            value: 0,
-            type: 'cost',
-            user: email,
-        }
+        const data = {
+            name: categoryName,
+            email: user?.email,
+            type: 'cost'
+        };
 
-        if (categories.find(ctg => ctg.name === category.name)) {
-            toast.error("Already Have a Category with your account Like this Name. Please Create a Different Name")
-            return
-        }
-        else {
-            setIsLoading(true); 
-            fetch(`${process.env.REACT_APP_API_URL}/categories`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(category)
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.acknowledged) {
-                        toast.success('COngratulation!! Category Added');
-                        // refetch();
-                        // navigate('/')
-                        window.location.href = '/cost-category';
-                    }
-                    else {
-                        toast.error(data.message)
-                        setIsLoading(false)
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-                .finally(() => {
-                    setIsLoading(false);
-                });
-        }
+        addCategory(data);
+        
+        setIsCreate(true);
+        setShowModal(false);
     };
 
-    const handleNameChange = (e) => {
-        setNameValue(e.target.value);
-    };
+    useEffect(() => {    
+        if (isSuccess) {
+            setIsCreate(true);
+            setShowModal(false);
+            toast.success('Category Created Successfully');
+            setCategoryName('');
+        } if(isError) toast.error(error?.data?.message);
+    }, [isSuccess, isError, error]);
+
+
     return (
-
-
-
-        <div>
-
-            <input type="checkbox" id="cost-category-modal" className="modal-toggle" />
-            <div className="modal">
-                <div className="modal-box">
-
-                    <label htmlFor="cost-category-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-
-                    <form onSubmit={handleSubmit}>
-                        <h3 className='text-center text-3xl font-semibold mb-10'>Add Cost Category</h3>
-
-
-                        <div className="mb-4">
-                            <label className="block dark:text-white text-gray-700 font-bold mb-2" htmlFor="name">
-                                Category Name
-                            </label>
-                            <input
-                                id="name"
-                                name="name"
-                                type="text"
-                                className="shadow dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                placeholder="Nasta,Medical,Bazar etc"
-                                required
-                                value={nameValue}
-                                onChange={handleNameChange}
-                            />
-                        </div>
-
-
-
-                        <div className="modal-action">
-                           <button type='submit' className="px-5 py-3 bg-primary disabled:bg-primary/50 disabled:cursor-not-allowed text-white rounded-sm" disabled={isLoading || !nameValue.trim()}>
-                                {isLoading ? <LoadingSpinner /> : 'Add Cost Category'}
-                            </button>
-                        </div>
-                    </form>
-
-
-
-                </div>
-            </div>
-
-
-
-
-        </div>
+        <BaseModal
+            showModal={showModal}
+            setShowModal={setShowModal}
+            setIsCreate={setIsCreate}
+            title="Add Cost Category"
+            isLoading={isLoading}
+            handleSubmit={handleSubmit}
+        >
+            <BaseInput
+                required
+                label="Category Name"
+                value={categoryName}
+                setValue={(value) => {
+                    setCategoryName(value)
+                    setShowError(false);
+                }}
+                showError={showError}
+                errorMessage="Category Field is Required"
+                placeholder="Enter Category Name"
+            />
+        </BaseModal>
     );
-};
-
-export default AddCostCategory;
+}
