@@ -21,15 +21,16 @@ export default function BaseInput({
       <div className="relative">
         <input
           type={type}
-          id={label}
-          name={label}
+          id={`input-${ label.toLowerCase().replace(/\s+/g, '-') }`}
+          name={`input-${ label.toLowerCase().replace(/\s+/g, '-') }`}
           {...(type === 'number' && { min: 0 })}
-          className={`py-3 px-4 block w-full border-2 ${
-            showError ? 'border-red-500' : 'border-gray-300'
-          } rounded-lg text-sm`}
+          className={`py-3 px-4 block w-full border-2 ${ showError ? 'border-red-500' : 'border-gray-300'
+            } rounded-lg text-sm`}
           placeholder={placeholder}
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          aria-invalid={showError}
+          aria-describedby={showError ? `error-${ label.toLowerCase().replace(/\s+/g, '-') }` : undefined}
         />
         {showError && (
           <div className="absolute inset-y-0 end-0 flex items-center pointer-events-none pe-3">
