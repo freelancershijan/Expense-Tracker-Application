@@ -1,18 +1,21 @@
-export default function BaseInput({ 
-  required = false,
-  label = '',
-  value = '',
-  setValue,
-  showError = false,
-  errorMessage = '',
-  placeholder = '',
-  type = 'text',
-}) {
-  
+import PropTypes from 'prop-types';
 
+export default function BaseInput({
+  required,
+  label,
+  value,
+  setValue,
+  showError,
+  errorMessage,
+  placeholder,
+  type,
+}) {
   return (
     <div>
-      <label htmlFor="hs-validation-name-error" className="block text-gray-700 font-bold mb-2">
+      <label
+        htmlFor="hs-validation-name-error"
+        className="block text-gray-700 font-bold mb-2"
+      >
         {label} {required && <span className="text-red-500">*</span>}
       </label>
       <div className="relative">
@@ -21,7 +24,9 @@ export default function BaseInput({
           id={label}
           name={label}
           {...(type === 'number' && { min: 0 })}
-          className={`py-3 px-4 block w-full border-2 ${showError ? 'border-red-500' : 'border-gray-300'} rounded-lg text-sm`}
+          className={`py-3 px-4 block w-full border-2 ${
+            showError ? 'border-red-500' : 'border-gray-300'
+          } rounded-lg text-sm`}
           placeholder={placeholder}
           value={value}
           onChange={(e) => setValue(e.target.value)}
@@ -48,8 +53,30 @@ export default function BaseInput({
         )}
       </div>
       {showError && (
-          <p className="text-sm text-red-600 mt-2">{errorMessage}</p>
+        <p className="text-sm text-red-600 mt-2">{errorMessage}</p>
       )}
     </div>
   );
 }
+
+// PropTypes Validation
+BaseInput.propTypes = {
+  required: PropTypes.bool,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  setValue: PropTypes.func.isRequired,
+  showError: PropTypes.bool,
+  errorMessage: PropTypes.string,
+  placeholder: PropTypes.string,
+  type: PropTypes.oneOf(['text', 'number', 'email', 'password']),
+};
+
+// Default Props
+BaseInput.defaultProps = {
+  required: false,
+  value: '',
+  showError: false,
+  errorMessage: '',
+  placeholder: '',
+  type: 'text',
+};
