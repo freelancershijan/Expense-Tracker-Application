@@ -1,7 +1,3 @@
-import 'primeicons/primeicons.css';
-import { PrimeReactProvider } from 'primereact/api';
-import 'primereact/resources/primereact.css';
-import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from "react-redux";
@@ -16,9 +12,7 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <Provider store={store}>
-        <PrimeReactProvider>
           <App />
-        </PrimeReactProvider>
       </Provider>
     </AuthProvider>
   </React.StrictMode>

@@ -1,13 +1,11 @@
+import "preline/preline";
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router-dom";
 import { routes } from "./routes";
-import { Helmet } from 'react-helmet';
-
 
 function App() {
-
-
 
   return (
     <div>

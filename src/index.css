@@ -67,3 +67,9 @@ button.p-paginator-page.p-paginator-element.p-link.p-paginator-page-start.p-high
 .modal-content {
   z-index: 50; /* Modal on top of the backdrop */
 }
+
+
+.hs-select.relative.active {
+  background: none;
+  padding: 0;
+}

@@ -25,9 +25,17 @@ export const fundsApi = apiSlice.injectEndpoints({
         url: `/funds/delete?id=${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ['Funds'],
+      invalidatesTags: ['Funds', 'UserDetails'],
+    }),
+    addFund: builder.mutation({
+      query: (data) => ({
+        url: '/funds',
+        method: 'POST',
+        body: data
+      }),
+      invalidatesTags: ['Funds', 'UserDetails'],
     }),
   })
 })
 
-export const { useGetUserFundCategoriesQuery, useGetUserRecentFundsTransactionsQuery, useGetUserCategoryFundListsQuery, useDeleteFundMutation } = fundsApi;
+export const { useGetUserFundCategoriesQuery, useLazyGetUserFundCategoriesQuery, useGetUserRecentFundsTransactionsQuery, useGetUserCategoryFundListsQuery, useDeleteFundMutation, useAddFundMutation } = fundsApi;
