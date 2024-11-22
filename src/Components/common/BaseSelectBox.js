@@ -5,19 +5,29 @@ export default function BaseSelectBox({ isLoading = false, isError, error, lists
   if (isLoading) {
     content = <option>Loading...</option>;
   } else if (isError) {
-    content = <option>{error.message}</option>;
+    content = <option>{error?.data?.message || 'An error occurred'}</option>;
   } else if (!isLoading && !isError && lists?.length === 0) {
     content = <option>No data found</option>;
   } else {
-    content = lists.map((list) => <option key={list._id} value={list._id}>{list.name}</option>);
+    content = lists?.map((list) => (
+      <option
+        key={list?._id || `option-${ Math.random() }`}
+        value={list?._id || ''}
+      >
+        {list?.name || 'Unnamed Option'}
+      </option>
+    )) || <option>Invalid data format</option>;
   }
 
   return (
-    <select 
-    disabled={isLoading}
-    value={value}
-    onChange={(e) => setValue(e.target.value)}
-    data-hs-select='{
+    <select
+      disabled={isLoading}
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      aria-label="Category selection"
+      role="combobox"
+      aria-expanded={!isLoading}
+      data-hs-select='{
   "hasSearch": true,
   "searchLimit": 5,
   "searchPlaceholder": "Search Category...",
