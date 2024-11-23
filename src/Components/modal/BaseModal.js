@@ -4,7 +4,7 @@ export default function BaseModal({
   children,
   showModal = false,
   setShowModal,
-  setIsCreate = false,
+  setIsCreate,
   isLoading = false,
   title = "",
   handleSubmit
@@ -30,6 +30,7 @@ export default function BaseModal({
 
           <div className="flex justify-end p-4 border-t">
             <button
+             type="button"
               className="px-4 py-2 bg-gray-300 rounded mr-2"
               onClick={() => {
                 setTimeout(handleClose, 300); // Add delay if needed
