@@ -10,8 +10,6 @@ import CostsCategory from "./Dashboard/CostsCategory";
 import Dashboard from "./Dashboard/Dashboard";
 import DashboardLayout from "./Dashboard/DashboardLayout";
 import FundsCategory from "./Dashboard/FundsCategory";
-import AllCost from "./Details/AllCost";
-import AllFund from "./Details/AllFund";
 import CostCategoryLists from "./Details/CostCategoryLists";
 import FundCategoryLists from "./Details/FundCategoryLists";
 // import PrivateRoute from "./PrivetRoute/PrivateRoute";
@@ -31,16 +29,6 @@ export const routes = createBrowserRouter([
             {
                 path: '/delete-category',
                 element: <DeleteCategory />
-            },
-            {
-                path: '/total-earning',
-                element: <AllFund></AllFund>
-
-            },
-            {
-                path: '/total-cost',
-                element: <AllCost></AllCost>
-
             },
             {
                 path: '/fund-category/:category',

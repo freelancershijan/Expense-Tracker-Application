@@ -34,8 +34,16 @@ export const costsApi = apiSlice.injectEndpoints({
         body: data,
       }),
       invalidatesTags: ['Costs', 'UserDetails'],
-    })
+    }),
+    createUserCostCategory: builder.mutation({
+      query: (data) => ({
+        url: '/categories',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['Costs', 'UserDetails'],
+    }),
   })
 })
 
-export const { useGetUserCostCategoriesQuery, useAddCostMutation, useGetUserRecentCostsTransactionsQuery, useGetUserCategoryCostListsQuery, useDeleteCostMutation } = costsApi;
+export const { useGetUserCostCategoriesQuery, useAddCostMutation, useGetUserRecentCostsTransactionsQuery, useGetUserCategoryCostListsQuery, useDeleteCostMutation, useCreateUserCostCategoryMutation } = costsApi;

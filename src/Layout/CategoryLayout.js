@@ -3,10 +3,12 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom/dist';
 import BaseButton from '../Components/button/BaseButton';
 import Search from '../Components/common/Search';
+import { PlusIcon } from '../Components/icons/PlusIcon';
 import RefreshIcon from '../Components/icons/RefreshIcon';
 import { setRefresh } from '../features/filters/filterSlice';
+import { DeleteIcon } from './../Components/icons/DeleteIcon';
 
-const CategoryLayout = ({ children, title = "Categories" }) => {
+const CategoryLayout = ({ children, title = "Categories", setShowModal }) => {
   const dispatch = useDispatch();
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
@@ -37,12 +39,12 @@ const CategoryLayout = ({ children, title = "Categories" }) => {
       <div className='fixed bottom-10 right-0 flex items-center gap-2'>
         <Link to='/delete-category'>
           <div className='bg-red-700  group w-12 h-12 flex items-center justify-center rounded-full'>
-            <i className='pi pi-trash text-white'></i>
+            <DeleteIcon className="text-white size-6" />
           </div>
         </Link>
-        <label htmlFor="cost-category-modal">
-          <div className='bg-green-700 group cursor-pointer w-12 h-12 flex items-center justify-center rounded-full'>
-            <i className='pi pi-plus text-white'></i>
+        <label htmlFor="category-modal">
+          <div onClick={() => setShowModal(true)} className='bg-green-700 group cursor-pointer w-12 h-12 flex items-center justify-center rounded-full'>
+            <PlusIcon className="text-white size-7" />
           </div>
         </label>
 

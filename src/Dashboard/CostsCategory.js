@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import AddCostCategory from "../Categories/AddCostCategory";
@@ -12,6 +12,8 @@ import CategoryLayout from "../Layout/CategoryLayout";
 export default function CostsCategory() {
     const { user } = useContext(AuthContext);
     const { page, limit, search } = useSelector((state) => state.filters);
+    const [showModal, setShowModal] = useState(false);
+    const [isCreate, setIsCreate] = useState(false);
     const { data: costCategories, isLoading } = useGetUserCostCategoriesQuery({
         email: user?.email,
         page,
@@ -29,7 +31,7 @@ export default function CostsCategory() {
     }
 
     return (
-        <CategoryLayout title="Cost Categories">
+        <CategoryLayout title="Cost Categories" setShowModal={setShowModal}>
             {
                 isLoading ?
                     <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center my-10">
@@ -50,7 +52,14 @@ export default function CostsCategory() {
 
             {pagination}
 
-            <AddCostCategory />
+            {
+                showModal &&
+                <AddCostCategory
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                    setIsCreate={setIsCreate}
+                />
+            }
         </CategoryLayout>
     );
 }

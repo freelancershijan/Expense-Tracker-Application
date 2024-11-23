@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom/dist';
 import AddFundCategory from '../Categories/AddFundCategory';
@@ -12,6 +12,8 @@ import CategoryLayout from '../Layout/CategoryLayout';
 const FundsCategory = () => {
     const { user } = useContext(AuthContext);
     const { page, limit, search } = useSelector((state) => state.filters);
+    const [showModal, setShowModal] = useState(false);
+    const [isCreate, setIsCreate] = useState(false);
 
     const { data: fundCategories, isLoading } = useGetUserFundCategoriesQuery({
         email: user?.email,
@@ -30,7 +32,7 @@ const FundsCategory = () => {
     }
 
     return (
-        <CategoryLayout title="Fund Categories">
+        <CategoryLayout title="Fund Categories" setShowModal={setShowModal} >
 
             {
                 isLoading ?
@@ -52,7 +54,14 @@ const FundsCategory = () => {
 
             {pagination}
 
-            <AddFundCategory />
+            {
+                showModal &&
+                <AddFundCategory
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                    setIsCreate={setIsCreate}
+                />
+            }
 
         </CategoryLayout>
     );
