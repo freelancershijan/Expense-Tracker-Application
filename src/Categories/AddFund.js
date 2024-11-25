@@ -6,12 +6,13 @@ import BaseSelectBox from '../Components/common/BaseSelectBox';
 import BaseInput from '../Components/inputs/BaseInput';
 import LoadingSpinner from '../Components/LoadingSpinner/LoadingSpinner';
 import { AuthContext } from '../Context/AuthProvider';
-import { useAddFundMutation, useGetUserFundCategoriesQuery } from '../features/funds/fundsAPI';
+import { useGetUserFundCategoriesQuery } from '../features/categories/categoryAPI';
+import { useAddFundMutation } from '../features/funds/fundsAPI';
 
 
 const AddFund = () => {
     const { user } = useContext(AuthContext);
-    const { search } = useSelector((state) => state.filters);
+    const { page, limit, search } = useSelector((state) => state.filters);
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -24,12 +25,14 @@ const AddFund = () => {
 
     const [errors, setErrors] = useState({});
 
-    const { data, isLoading, isError, error } = useGetUserFundCategoriesQuery({
-        email: user?.email,
+    const {data: fundCategories, isLoading, isSuccess, isError, error} = useGetUserFundCategoriesQuery({
+        user: user?.email,
+        page,
+        limit,
         search
     });
 
-    const { data: fundCategories } = data?.results || {};
+    // const { data: fundCategories } = data?.results || {};
 
     const [addFund, { isLoading: isAddLoading, isSuccess: isAddSuccess, isError: isAddError, error: addError }] = useAddFundMutation();
 

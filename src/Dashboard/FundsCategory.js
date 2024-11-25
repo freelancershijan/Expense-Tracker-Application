@@ -6,7 +6,7 @@ import BoxItem from '../Components/common/BoxItem';
 import BoxLoading from '../Components/Loading/BoxLoading';
 import Pagination from '../Components/pagination/Pagination';
 import { AuthContext } from '../Context/AuthProvider';
-import { useGetUserCategoriesQuery } from '../features/categories/categoeyAPI';
+import { useGetUserFundCategoriesQuery } from '../features/categories/categoryAPI';
 import CategoryLayout from '../Layout/CategoryLayout';
 
 const FundsCategory = () => {
@@ -15,7 +15,7 @@ const FundsCategory = () => {
     const [showModal, setShowModal] = useState(false);
     const [isCreate, setIsCreate] = useState(false);
 
-    const {data: fundCategories, isLoading, isSuccess, isError, error} = useGetUserCategoriesQuery({
+    const {data: fundCategories, isLoading, isSuccess, isError, error} = useGetUserFundCategoriesQuery({
         user: user?.email,
         page,
         limit,
