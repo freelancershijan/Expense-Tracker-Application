@@ -22,7 +22,8 @@ export default function AddFundCategory({ showModal, setShowModal, setIsCreate }
         const data = {
             name: categoryName,
             email: user?.email,
-            type: 'fund'
+            type: 'fund',
+            money: 0
         };
 
         addCategory(data);
