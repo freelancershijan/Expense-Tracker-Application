@@ -14,15 +14,15 @@ export const categoryAPI = apiSlice.injectEndpoints({
       },
       providesTags: ['Categories'],
     }),
-    createUserFundCategory: builder.mutation({
+    createUserCategory: builder.mutation({
       query: (data) => ({
         url: '/categories',
         method: 'POST',
         body: data
       }),
-      invalidatesTags: ['Funds', 'Categories'],
+      invalidatesTags: ['Categories'],
     }),
   })
 });
 
-export const { useGetUserFundCategoriesQuery, useGetUserCostCategoriesQuery, useCreateUserFundCategoryMutation } = categoryAPI;
+export const { useGetUserFundCategoriesQuery, useGetUserCostCategoriesQuery, useCreateUserCategoryMutation } = categoryAPI;
