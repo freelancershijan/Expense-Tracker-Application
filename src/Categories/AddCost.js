@@ -6,12 +6,13 @@ import BaseSelectBox from '../Components/common/BaseSelectBox';
 import BaseInput from '../Components/inputs/BaseInput';
 import LoadingSpinner from '../Components/LoadingSpinner/LoadingSpinner';
 import { AuthContext } from '../Context/AuthProvider';
-import { useAddCostMutation, useGetUserCostCategoriesQuery } from '../features/costs/costsAPI';
+import { useGetUserCostCategoriesQuery } from '../features/categories/categoryAPI';
+import { useAddCostMutation } from '../features/costs/costsAPI';
 
 
 const AddCost = () => {
     const { user } = useContext(AuthContext);
-    const { search } = useSelector((state) => state.filters);
+    const { page, limit, search } = useSelector((state) => state.filters);
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -24,8 +25,10 @@ const AddCost = () => {
 
     const [errors, setErrors] = useState({});
 
-    const { data, isLoading, isError, error } = useGetUserCostCategoriesQuery({
-        email: user?.email,
+    const { data, isLoading, isSuccess, isError, error } = useGetUserCostCategoriesQuery({
+        user: user?.email,
+        page,
+        limit: 20,
         search
     });
 

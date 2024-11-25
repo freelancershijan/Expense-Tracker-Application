@@ -11,14 +11,14 @@ import CategoryLayout from '../Layout/CategoryLayout';
 
 const FundsCategory = () => {
     const { user } = useContext(AuthContext);
-    const { page, limit, search } = useSelector((state) => state.filters);
+    const { page, limit = 12, search } = useSelector((state) => state.filters);
     const [showModal, setShowModal] = useState(false);
     const [isCreate, setIsCreate] = useState(false);
 
     const {data: fundCategories, isLoading, isSuccess, isError, error} = useGetUserFundCategoriesQuery({
         user: user?.email,
         page,
-        limit,
+        limit: 12,
         search
     });
 
