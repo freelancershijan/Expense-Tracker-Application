@@ -6,18 +6,21 @@ import BoxItem from "../Components/common/BoxItem";
 import BoxLoading from "../Components/Loading/BoxLoading";
 import Pagination from "../Components/pagination/Pagination";
 import { AuthContext } from "../Context/AuthProvider";
-import { useGetUserCostCategoriesQuery } from "../features/costs/costsAPI";
-import CategoryLayout from "../Layout/CategoryLayout";
 
-export default function CostsCategory() {
+import { useGetUserCostCategoriesQuery } from "../features/categories/categoryAPI";
+import CategoryLayout from "../Layout/CategoryLayout";
+import { GridLayout, MessageLayout } from "./FundsCategory";
+
+const CostsCategory = () => {
     const { user } = useContext(AuthContext);
-    const { page, limit, search } = useSelector((state) => state.filters);
+    const { page, limit = 12, search } = useSelector((state) => state.filters);
     const [showModal, setShowModal] = useState(false);
     const [isCreate, setIsCreate] = useState(false);
-    const { data: costCategories, isLoading } = useGetUserCostCategoriesQuery({
-        email: user?.email,
+
+    const { data: costCategories, isLoading, isSuccess, isError, error } = useGetUserCostCategoriesQuery({
+        user: user?.email,
         page,
-        limit,
+        limit: 12,
         search
     });
 
@@ -30,25 +33,32 @@ export default function CostsCategory() {
         </div>
     }
 
+    let content;
+    if (isLoading) {
+        content = <GridLayout>
+            <BoxLoading value="6" />
+        </GridLayout>
+    } else if (!isLoading && isError) {
+        content = <MessageLayout>
+            <h1 className='md:text-2xl sm:text-xl text-lg text-center font-semibold'>{error?.data}</h1>
+        </MessageLayout>
+    } else if (!isLoading && isSuccess && costCategories?.results?.data?.length === 0) {
+        content = <MessageLayout>
+            <h1 className='md:text-2xl sm:text-xl text-lg text-center font-semibold'>You Have not any Cost Category. Please Create a Cost Category FIrst</h1>
+        </MessageLayout>
+    } else if (!isLoading && isSuccess && costCategories?.results?.data?.length > 0) {
+        content = <GridLayout>
+            {
+                costCategories?.results?.data?.map(category => <Link key={category._id} to={`/cost-category/${ category?.name }`}>
+                    <BoxItem key={category._id}
+                        bg="#FEE8E2" type="cost" title={category?.name} value={category?.money} isLoading={isLoading} />
+                </Link>)
+            } </GridLayout>
+    }
+
     return (
         <CategoryLayout title="Cost Categories" setShowModal={setShowModal}>
-            {
-                isLoading ?
-                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center my-10">
-                        <BoxLoading value="6" />
-                    </div>
-                    :
-                    costCategories?.results?.data?.length === 0 ? <div className='h-[100vh] px-6 flex items-center justify-center  my-10'>
-                        <h1 className='md:text-2xl sm:text-xl text-lg text-center font-semibold'>You Have not any Cost Category. Please Create a Cost Category FIrst</h1>
-                    </div> :
-                        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center my-10">
-                            {
-                                costCategories?.results?.data?.map(category => <Link key={category._id} to={`/cost-category/${ category?.name }`}>
-                                    <BoxItem bg="#FEE8E2" type="cost" title={category?.name} value={category?.money} isLoading={isLoading} />
-                                </Link>)
-                            }
-                        </div>
-            }
+            {content}
 
             {pagination}
 
@@ -62,4 +72,6 @@ export default function CostsCategory() {
             }
         </CategoryLayout>
     );
-}
+};
+
+export default CostsCategory;

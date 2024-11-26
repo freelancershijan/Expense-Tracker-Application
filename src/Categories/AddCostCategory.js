@@ -1,16 +1,25 @@
 import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useCreateUserCostCategoryMutation } from '../features/costs/costsAPI';
+import { useCreateUserCategoryMutation } from '../features/categories/categoryAPI';
 import BaseInput from './../Components/inputs/BaseInput';
 import BaseModal from "./../Components/modal/BaseModal";
 import { AuthContext } from './../Context/AuthProvider';
 
 export default function AddCostCategory({ showModal, setShowModal, setIsCreate }) {
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [categoryName, setCategoryName] = useState('');
     const [showError, setShowError] = useState(false);
 
-    const [addCategory, { isLoading , isSuccess, isError, error}] = useCreateUserCostCategoryMutation();
+    const [createCategory, { isLoading, isSuccess, isError, error }] = useCreateUserCategoryMutation();
+
+    useEffect(() => {
+        return () => {
+            // Cleanup on unmount
+            setCategoryName('');
+            setShowError(false);
+            setIsCreate(false);
+        };
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,23 +30,25 @@ export default function AddCostCategory({ showModal, setShowModal, setIsCreate }
 
         const data = {
             name: categoryName,
-            email: user?.email,
-            type: 'cost'
+            user: user?.email,
+            type: 'cost',
+            value: 0
         };
 
-        addCategory(data);
-        
+        createCategory(data);
+        setCategoryName('');
+        setShowError(false);
         setIsCreate(true);
         setShowModal(false);
     };
 
-    useEffect(() => {    
+    useEffect(() => {
         if (isSuccess) {
             setIsCreate(true);
             setShowModal(false);
             toast.success('Category Created Successfully');
             setCategoryName('');
-        } if(isError) toast.error(error?.data?.message);
+        } if (isError) toast.error(error?.data?.message);
     }, [isSuccess, isError, error]);
 
 

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useCreateUserFundCategoryMutation } from '../features/funds/fundsAPI';
+import { useCreateUserCategoryMutation } from '../features/categories/categoryAPI';
 import BaseInput from './../Components/inputs/BaseInput';
 import BaseModal from "./../Components/modal/BaseModal";
 import { AuthContext } from './../Context/AuthProvider';
@@ -10,7 +10,7 @@ export default function AddFundCategory({ showModal, setShowModal, setIsCreate }
     const [categoryName, setCategoryName] = useState('');
     const [showError, setShowError] = useState(false);
 
-    const [addCategory, { isLoading , isSuccess, isError, error}] = useCreateUserFundCategoryMutation();
+    const [createCategory, { isLoading , isSuccess, isError, error}] = useCreateUserCategoryMutation();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,11 +21,12 @@ export default function AddFundCategory({ showModal, setShowModal, setIsCreate }
 
         const data = {
             name: categoryName,
-            email: user?.email,
-            type: 'fund'
+            user: user?.email,
+            type: 'fund',
+            value: 0
         };
 
-        addCategory(data);
+        createCategory(data);
         
         setIsCreate(true);
         setShowModal(false);
