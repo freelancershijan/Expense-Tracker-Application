@@ -9,6 +9,7 @@ import { AuthContext } from "../Context/AuthProvider";
 
 import { useGetUserCostCategoriesQuery } from "../features/categories/categoryAPI";
 import CategoryLayout from "../Layout/CategoryLayout";
+import { GridLayout, MessageLayout } from "./FundsCategory";
 
 const CostsCategory = () => {
     const { user } = useContext(AuthContext);
@@ -34,40 +35,42 @@ const CostsCategory = () => {
 
     let content;
     if (isLoading) {
-        content = <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center my-10">
+        content = <GridLayout>
             <BoxLoading value="6" />
-        </div>
+        </GridLayout>
     } else if (!isLoading && isError) {
-        content = <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center my-10"><h1 className='md:text-2xl sm:text-xl text-lg text-center font-semibold'>{error?.data}</h1>
-        </div>
+        content = <MessageLayout>
+            <h1 className='md:text-2xl sm:text-xl text-lg text-center font-semibold'>{error?.data}</h1>
+        </MessageLayout>
     } else if (!isLoading && isSuccess && costCategories?.results?.data?.length === 0) {
-        content = <div className='h-[100vh] px-6 flex items-center justify-center  my-10'>
+        content = <MessageLayout>
             <h1 className='md:text-2xl sm:text-xl text-lg text-center font-semibold'>You Have not any Cost Category. Please Create a Cost Category FIrst</h1>
-        </div>
+        </MessageLayout>
     } else if (!isLoading && isSuccess && costCategories?.results?.data?.length > 0) {
-        content = <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 justify-center my-10">
+        content = <GridLayout>
             {
                 costCategories?.results?.data?.map(category => <Link key={category._id} to={`/cost-category/${ category?.name }`}>
-                    <BoxItem bg="#FEE8E2" type="cost" title={category?.name} value={category?.money} isLoading={isLoading} />
+                    <BoxItem key={category._id}
+                        bg="#FEE8E2" type="cost" title={category?.name} value={category?.money} isLoading={isLoading} />
                 </Link>)
-            } </div>
+            } </GridLayout>
     }
 
-return (
-    <CategoryLayout title="Cost Categories" setShowModal={setShowModal}>
-        {content}
+    return (
+        <CategoryLayout title="Cost Categories" setShowModal={setShowModal}>
+            {content}
 
-        {pagination}
+            {pagination}
 
-        {
-            showModal &&
-            <AddCostCategory
-                showModal={showModal}
-                setShowModal={setShowModal}
-                setIsCreate={setIsCreate}
-            />
-        }
-    </CategoryLayout>
+            {
+                showModal &&
+                <AddCostCategory
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                    setIsCreate={setIsCreate}
+                />
+            }
+        </CategoryLayout>
     );
 };
 

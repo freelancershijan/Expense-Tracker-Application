@@ -6,11 +6,20 @@ import BaseModal from "./../Components/modal/BaseModal";
 import { AuthContext } from './../Context/AuthProvider';
 
 export default function AddCostCategory({ showModal, setShowModal, setIsCreate }) {
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [categoryName, setCategoryName] = useState('');
     const [showError, setShowError] = useState(false);
 
-    const [createCategory, { isLoading , isSuccess, isError, error}] = useCreateUserCategoryMutation();
+    const [createCategory, { isLoading, isSuccess, isError, error }] = useCreateUserCategoryMutation();
+
+    useEffect(() => {
+        return () => {
+            // Cleanup on unmount
+            setCategoryName('');
+            setShowError(false);
+            setIsCreate(false);
+        };
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -27,18 +36,19 @@ export default function AddCostCategory({ showModal, setShowModal, setIsCreate }
         };
 
         createCategory(data);
-        
+        setCategoryName('');
+        setShowError(false);
         setIsCreate(true);
         setShowModal(false);
     };
 
-    useEffect(() => {    
+    useEffect(() => {
         if (isSuccess) {
             setIsCreate(true);
             setShowModal(false);
             toast.success('Category Created Successfully');
             setCategoryName('');
-        } if(isError) toast.error(error?.data?.message);
+        } if (isError) toast.error(error?.data?.message);
     }, [isSuccess, isError, error]);
 
 
