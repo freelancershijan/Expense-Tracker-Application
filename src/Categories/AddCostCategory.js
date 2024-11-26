@@ -35,17 +35,14 @@ export default function AddCostCategory({ showModal, setShowModal, setIsCreate }
             value: 0
         };
 
-        createCategory(data);
-        setCategoryName('');
-        setShowError(false);
-        setIsCreate(true);
-        setShowModal(false);
+        createCategory(data);   
     };
 
     useEffect(() => {
         if (isSuccess) {
             setIsCreate(true);
             setShowModal(false);
+            setShowError(false);
             toast.success('Category Created Successfully');
             setCategoryName('');
         } if (isError) toast.error(error?.data?.message);

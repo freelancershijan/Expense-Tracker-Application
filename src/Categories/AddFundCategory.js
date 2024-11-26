@@ -27,9 +27,6 @@ export default function AddFundCategory({ showModal, setShowModal, setIsCreate }
         };
 
         createCategory(data);
-        
-        setIsCreate(true);
-        setShowModal(false);
     };
 
     useEffect(() => {    

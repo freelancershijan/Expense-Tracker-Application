@@ -23,11 +23,6 @@ const createCategoryQuery = (endpoint) => ({
 
 export const categoryAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-
-
-
-
-
     getUserFundCategories: builder.query(
       createCategoryQuery('/categories/user-fund-categories')
     ),
