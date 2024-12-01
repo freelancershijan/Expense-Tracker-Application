@@ -6,11 +6,11 @@ import BaseModal from "./../Components/modal/BaseModal";
 import { AuthContext } from './../Context/AuthProvider';
 
 export default function AddFundCategory({ showModal, setShowModal, setIsCreate }) {
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [categoryName, setCategoryName] = useState('');
     const [showError, setShowError] = useState(false);
 
-    const [createCategory, { isLoading , isSuccess, isError, error}] = useCreateUserCategoryMutation();
+    const [createCategory, { isLoading, isSuccess, isError, error, reset }] = useCreateUserCategoryMutation();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,22 +23,23 @@ export default function AddFundCategory({ showModal, setShowModal, setIsCreate }
             name: categoryName,
             user: user?.email,
             type: 'fund',
-            value: 0
+            money: 0
         };
 
         createCategory(data);
-        
-        setIsCreate(true);
-        setShowModal(false);
     };
 
-    useEffect(() => {    
+    useEffect(() => {
         if (isSuccess) {
+            toast.success('Category Created Successfully');
             setIsCreate(true);
             setShowModal(false);
-            toast.success('Category Created Successfully');
             setCategoryName('');
-        } if(isError) toast.error(error?.data?.message);
+            reset();
+        } if (isError) {
+            toast.error(error?.data?.message);
+            reset();
+        }
     }, [isSuccess, isError, error]);
 
 

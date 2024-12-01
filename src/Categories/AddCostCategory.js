@@ -10,7 +10,7 @@ export default function AddCostCategory({ showModal, setShowModal, setIsCreate }
     const [categoryName, setCategoryName] = useState('');
     const [showError, setShowError] = useState(false);
 
-    const [createCategory, { isLoading, isSuccess, isError, error }] = useCreateUserCategoryMutation();
+    const [createCategory, { isLoading, isSuccess, isError, error, reset }] = useCreateUserCategoryMutation();
 
     useEffect(() => {
         return () => {
@@ -32,23 +32,23 @@ export default function AddCostCategory({ showModal, setShowModal, setIsCreate }
             name: categoryName,
             user: user?.email,
             type: 'cost',
-            value: 0
+            money: 0
         };
 
         createCategory(data);
-        setCategoryName('');
-        setShowError(false);
-        setIsCreate(true);
-        setShowModal(false);
     };
 
     useEffect(() => {
         if (isSuccess) {
+            toast.success('Category Created Successfully');
             setIsCreate(true);
             setShowModal(false);
-            toast.success('Category Created Successfully');
             setCategoryName('');
-        } if (isError) toast.error(error?.data?.message);
+            reset();
+        } if (isError) {
+            toast.error(error?.data?.message);
+            reset();
+        }
     }, [isSuccess, isError, error]);
 
 
