@@ -39,15 +39,6 @@ export const categoryAPI = apiSlice.injectEndpoints({
         url: '/categories',
         method: 'POST',
         body: data,
-        validateStatus: (response, result) => {
-          return response.status === 201 && !result.isError;
-        },
-        transformErrorResponse: (response) => {
-          return {
-            status: response.status,
-            message: response.data?.message || 'Failed to create category'
-          };
-        }
       }),
       invalidatesTags: ['Categories'],
     }),
